@@ -15,9 +15,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F0873A0729E1921C00EC7465 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = Ficek_QuantiApp/Features/Features; sourceTree = "<group>"; };
-		F0873A0829E1924300EC7465 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Domain; path = Ficek_QuantiApp/Domain/Domain; sourceTree = "<group>"; };
-		F0873A0A29E1927D00EC7465 /* Infrastructure */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Infrastructure; path = Ficek_QuantiApp/Infrastructure/Infrastructure; sourceTree = "<group>"; };
+		F0873A0729E1921C00EC7465 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = Ficek_QuantiApp/Features; sourceTree = "<group>"; };
+		F0873A0829E1924300EC7465 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Domain; path = Ficek_QuantiApp/Domain; sourceTree = "<group>"; };
+		F0873A0A29E1927D00EC7465 /* Infrastructure */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Infrastructure; path = Ficek_QuantiApp/Infrastructure; sourceTree = "<group>"; };
 		F0E0A96329A83B22004760E7 /* Ficek_QuantiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ficek_QuantiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0E0A96629A83B22004760E7 /* Ficek_QuantiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ficek_QuantiApp.swift; sourceTree = "<group>"; };
 		F0E0A97429A83B33004760E7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };

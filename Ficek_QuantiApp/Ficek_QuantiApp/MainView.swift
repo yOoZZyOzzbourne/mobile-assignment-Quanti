@@ -14,8 +14,8 @@ struct MainView: View {
     var body: some View {
         RocketListView(
             store: Store(
-                initialState: RocketListDomain.State(),
-                reducer: RocketListDomain()._printChanges()
+                initialState: RocketListCore.State(),
+                reducer: RocketListCore()._printChanges()
             )
         )
     }
