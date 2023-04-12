@@ -19,7 +19,7 @@ public struct RocketLaunchView: View {
         WithViewStore(self.store) { viewStore in
             GeometryReader { geo in
                 VStack(spacing: -380){
-                    Image(viewStore.image)
+                    viewStore.image
                         .padding()
                         .frame(
                             width: geo.size.width,

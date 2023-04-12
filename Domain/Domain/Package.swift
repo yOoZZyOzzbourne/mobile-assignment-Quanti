@@ -11,9 +11,9 @@ let package = Package(
             name: "CoreMotionClient",
             targets: ["CoreMotionClient"]),
         
-            .library(
-                name: "RocketClient",
-                targets: ["RocketClient"]),
+        .library(
+            name: "RocketClient",
+            targets: ["RocketClient"]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
@@ -26,30 +26,32 @@ let package = Package(
             name: "CoreMotionClient",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
-            ]),
+            ]
+        ),
         
-            .target(
-                name: "RocketClient",
-                dependencies: [
-                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                    .product(name: "Rocket", package: "Infrastructure"),
-                    .product(name: "APIClient", package: "Infrastructure"),
-                    .product(name: "RequestBuilderClient", package: "Infrastructure"),
-                    .product(name: "Networking", package: "swift-core"),
-                ]),
+        .target(
+            name: "RocketClient",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "Rocket", package: "Infrastructure"),
+                .product(name: "APIClient", package: "Infrastructure"),
+                .product(name: "RequestBuilderClient", package: "Infrastructure"),
+                .product(name: "Networking", package: "swift-core"),
+            ]
+        ),
         
-            .testTarget(
-                name: "RocketClientTests",
-                dependencies: [
-                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                    .product(name: "Rocket", package: "Infrastructure"),
-                    .product(name: "Networking", package: "swift-core"),
-                    .product(name: "RequestBuilder", package: "swift-core"),
-                    .product(name: "NetworkMonitoring", package: "swift-core"),
-                    .product(name: "APIClient", package: "Infrastructure"),
-                    .product(name: "XCTestHelper", package: "Infrastructure"),
-                    "RocketClient"
-                ]
-            ),
+        .testTarget(
+            name: "RocketClientTests",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "Rocket", package: "Infrastructure"),
+                .product(name: "Networking", package: "swift-core"),
+                .product(name: "RequestBuilder", package: "swift-core"),
+                .product(name: "NetworkMonitoring", package: "swift-core"),
+                .product(name: "APIClient", package: "Infrastructure"),
+                .product(name: "XCTestHelper", package: "Infrastructure"),
+                "RocketClient"
+            ]
+        ),
     ]
 )

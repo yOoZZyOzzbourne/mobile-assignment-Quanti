@@ -10,6 +10,7 @@ import ComposableArchitecture
 import Dependencies
 import SwiftUI
 import CoreMotionClient
+import Resources
 
 public struct RocketLaunchDomain: ReducerProtocol{
     
@@ -17,7 +18,9 @@ public struct RocketLaunchDomain: ReducerProtocol{
     
    public struct State: Equatable {
        public var isFlying: Bool = false
-       public var image: String { isFlying ? "Rocket Flying" : "Rocket Idle"}
+       public var image: Image {
+           isFlying ? SharedImages.rocketFlyingImage : SharedImages.rocketIdleImage
+       }
        public var launchText: String { isFlying ? "Launch successfull!" : "Lift the phone to launch the rocket"}
        public var animation: Animation = Animation.spring()
        

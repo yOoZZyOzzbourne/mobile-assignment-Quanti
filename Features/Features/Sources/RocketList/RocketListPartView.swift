@@ -8,6 +8,7 @@
 import SwiftUI
 import ComposableArchitecture
 import RocketDetail
+import Resources
 
 public struct RocketListPartView: View {
    public let store: StoreOf<RocketDetailDomain>
@@ -19,7 +20,7 @@ public struct RocketListPartView: View {
     public var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
-                Image("Rocket")
+                SharedImages.rocketImage
                     .padding(7)
                 
                 VStack(alignment: .leading) {
@@ -44,3 +45,5 @@ struct RocketListPartView_Previews: PreviewProvider {
         )
     }
 }
+
+

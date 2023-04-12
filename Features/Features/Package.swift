@@ -16,18 +16,25 @@ let package = Package(
         .library(
             name: "RocketList",
             targets: ["RocketList"]),
+        .library(
+            name: "Resources",
+            targets: ["Resources"]),
     ],
+    
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
         .package(path: "../Domain/"),
         .package(path: "../Infrastructure/"),
     ],
+    
     targets: [
         .target(
             name: "RocketLaunch",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "CoreMotionClient", package: "Domain"),
+                "Resources",
+               
             ]
         ),
         .target(
@@ -36,6 +43,8 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "Rocket", package: "Infrastructure"),
                 "RocketLaunch",
+                "Resources",
+               
             ]
         ),
         .target(
@@ -45,8 +54,15 @@ let package = Package(
                 .product(name: "Rocket", package: "Infrastructure"),
                 .product(name: "RocketClient", package: "Domain"),
                 "RocketDetail",
+                "Resources",
+                
             ]
         ),
+        
+        .target(
+            name: "Resources"
+        ),
+
         .testTarget(
             name: "RocketDomainTests",
             dependencies: [

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ComposableArchitecture
+import Resources
 
 struct RocketFirstStageView: View {
     let store: StoreOf<RocketDetailDomain>
@@ -18,19 +19,19 @@ struct RocketFirstStageView: View {
                     .font(.headline)
                 Group {
                     HStack(spacing: 16) {
-                        Image("Reusable")
+                        SharedImages.reusableImage
                         Text(viewStore.reusableFirstSt)
                     }
                     HStack(spacing: 16) {
-                        Image("Engine")
+                        SharedImages.engineImage
                         Text(viewStore.enginesFirstSt)
                     }
                     HStack(spacing: 16) {
-                        Image("Fuel")
+                        SharedImages.fuelImage
                         Text(viewStore.fuelAmmountFirstSt)
                     }
                     HStack(spacing: 16) {
-                        Image("Burn")
+                        SharedImages.burnImage
                         Text(viewStore.burnTimeFirstSt)
                     }
                 }

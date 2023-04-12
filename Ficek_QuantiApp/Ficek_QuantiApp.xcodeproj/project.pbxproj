@@ -14,8 +14,6 @@
 		F0E0A96E29A83B24004760E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0E0A96D29A83B24004760E7 /* Preview Assets.xcassets */; };
 		F0E0A97529A83B33004760E7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0A97429A83B33004760E7 /* MainView.swift */; };
 		F0E0A99629A96465004760E7 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = F0E0A99529A96465004760E7 /* ComposableArchitecture */; };
-		F0EB21B929DECBFA00AD42F9 /* CombineExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = F0EB21B829DECBFA00AD42F9 /* CombineExtensions */; };
-		F0EB21C729DECBFA00AD42F9 /* RequestBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = F0EB21C629DECBFA00AD42F9 /* RequestBuilder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,9 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0EB21B929DECBFA00AD42F9 /* CombineExtensions in Frameworks */,
 				F0A41DEE29E2384400EEF7DC /* RocketDetail in Frameworks */,
-				F0EB21C729DECBFA00AD42F9 /* RequestBuilder in Frameworks */,
 				F04E96F429E23BD1008BDB1A /* RocketList in Frameworks */,
 				F0E0A99629A96465004760E7 /* ComposableArchitecture in Frameworks */,
 			);
@@ -70,7 +66,6 @@
 				F0873A0829E1924300EC7465 /* Domain */,
 				F0873A0A29E1927D00EC7465 /* Infrastructure */,
 				F0E0A96529A83B22004760E7 /* Ficek_QuantiApp */,
-				F0FBCB1D29AE96590046D27E /* Ficek_QuantiAppTests */,
 				F0E0A96429A83B22004760E7 /* Products */,
 				F0E6071329E1A58700AA7E43 /* Frameworks */,
 			);
@@ -111,13 +106,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		F0FBCB1D29AE96590046D27E /* Ficek_QuantiAppTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Ficek_QuantiAppTests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -136,8 +124,6 @@
 			name = Ficek_QuantiApp;
 			packageProductDependencies = (
 				F0E0A99529A96465004760E7 /* ComposableArchitecture */,
-				F0EB21B829DECBFA00AD42F9 /* CombineExtensions */,
-				F0EB21C629DECBFA00AD42F9 /* RequestBuilder */,
 				F0A41DED29E2384400EEF7DC /* RocketDetail */,
 				F04E96F329E23BD1008BDB1A /* RocketList */,
 			);
@@ -540,16 +526,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F0E0A99429A96465004760E7 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
 			productName = ComposableArchitecture;
-		};
-		F0EB21B829DECBFA00AD42F9 /* CombineExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F0EB21B729DECBFA00AD42F9 /* XCRemoteSwiftPackageReference "swift-core" */;
-			productName = CombineExtensions;
-		};
-		F0EB21C629DECBFA00AD42F9 /* RequestBuilder */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = F0EB21B729DECBFA00AD42F9 /* XCRemoteSwiftPackageReference "swift-core" */;
-			productName = RequestBuilder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
