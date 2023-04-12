@@ -9,33 +9,18 @@
 /* Begin PBXBuildFile section */
 		F04E96F429E23BD1008BDB1A /* RocketList in Frameworks */ = {isa = PBXBuildFile; productRef = F04E96F329E23BD1008BDB1A /* RocketList */; };
 		F0A41DEE29E2384400EEF7DC /* RocketDetail in Frameworks */ = {isa = PBXBuildFile; productRef = F0A41DED29E2384400EEF7DC /* RocketDetail */; };
-		F0E0A96729A83B22004760E7 /* Ficek_QuantiAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0A96629A83B22004760E7 /* Ficek_QuantiAppApp.swift */; };
-		F0E0A96B29A83B24004760E7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0E0A96A29A83B24004760E7 /* Assets.xcassets */; };
-		F0E0A96E29A83B24004760E7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0E0A96D29A83B24004760E7 /* Preview Assets.xcassets */; };
+		F0E0A96729A83B22004760E7 /* Ficek_QuantiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0A96629A83B22004760E7 /* Ficek_QuantiApp.swift */; };
 		F0E0A97529A83B33004760E7 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0A97429A83B33004760E7 /* MainView.swift */; };
 		F0E0A99629A96465004760E7 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = F0E0A99529A96465004760E7 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		F0FBCB2029AE96590046D27E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F0E0A95B29A83B22004760E7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F0E0A96229A83B22004760E7;
-			remoteInfo = Ficek_QuantiApp;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		F0873A0729E1921C00EC7465 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = ../Features/Features; sourceTree = "<group>"; };
-		F0873A0829E1924300EC7465 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Domain; path = ../Domain/Domain; sourceTree = "<group>"; };
-		F0873A0A29E1927D00EC7465 /* Infrastructure */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Infrastructure; path = ../Infrastructure/Infrastructure; sourceTree = "<group>"; };
+		F0873A0729E1921C00EC7465 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Features; path = Ficek_QuantiApp/Features/Features; sourceTree = "<group>"; };
+		F0873A0829E1924300EC7465 /* Domain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Domain; path = Ficek_QuantiApp/Domain/Domain; sourceTree = "<group>"; };
+		F0873A0A29E1927D00EC7465 /* Infrastructure */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Infrastructure; path = Ficek_QuantiApp/Infrastructure/Infrastructure; sourceTree = "<group>"; };
 		F0E0A96329A83B22004760E7 /* Ficek_QuantiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ficek_QuantiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0E0A96629A83B22004760E7 /* Ficek_QuantiAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ficek_QuantiAppApp.swift; sourceTree = "<group>"; };
-		F0E0A96A29A83B24004760E7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F0E0A96D29A83B24004760E7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F0E0A96629A83B22004760E7 /* Ficek_QuantiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ficek_QuantiApp.swift; sourceTree = "<group>"; };
 		F0E0A97429A83B33004760E7 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		F0FBCB1C29AE96590046D27E /* Ficek_QuantiAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Ficek_QuantiAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,13 +31,6 @@
 				F0A41DEE29E2384400EEF7DC /* RocketDetail in Frameworks */,
 				F04E96F429E23BD1008BDB1A /* RocketList in Frameworks */,
 				F0E0A99629A96465004760E7 /* ComposableArchitecture in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F0FBCB1929AE96590046D27E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				F0E0A96329A83B22004760E7 /* Ficek_QuantiApp.app */,
-				F0FBCB1C29AE96590046D27E /* Ficek_QuantiAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,20 +60,10 @@
 		F0E0A96529A83B22004760E7 /* Ficek_QuantiApp */ = {
 			isa = PBXGroup;
 			children = (
-				F0E0A96629A83B22004760E7 /* Ficek_QuantiAppApp.swift */,
+				F0E0A96629A83B22004760E7 /* Ficek_QuantiApp.swift */,
 				F0E0A97429A83B33004760E7 /* MainView.swift */,
-				F0E0A96A29A83B24004760E7 /* Assets.xcassets */,
-				F0E0A96C29A83B24004760E7 /* Preview Content */,
 			);
 			path = Ficek_QuantiApp;
-			sourceTree = "<group>";
-		};
-		F0E0A96C29A83B24004760E7 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				F0E0A96D29A83B24004760E7 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		F0E6071329E1A58700AA7E43 /* Frameworks */ = {
@@ -131,24 +98,6 @@
 			productReference = F0E0A96329A83B22004760E7 /* Ficek_QuantiApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F0FBCB1B29AE96590046D27E /* Ficek_QuantiAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = F0FBCB2229AE96590046D27E /* Build configuration list for PBXNativeTarget "Ficek_QuantiAppTests" */;
-			buildPhases = (
-				F0FBCB1829AE96590046D27E /* Sources */,
-				F0FBCB1929AE96590046D27E /* Frameworks */,
-				F0FBCB1A29AE96590046D27E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				F0FBCB2129AE96590046D27E /* PBXTargetDependency */,
-			);
-			name = Ficek_QuantiAppTests;
-			productName = Ficek_QuantiAppTests;
-			productReference = F0FBCB1C29AE96590046D27E /* Ficek_QuantiAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -161,10 +110,6 @@
 				TargetAttributes = {
 					F0E0A96229A83B22004760E7 = {
 						CreatedOnToolsVersion = 14.2;
-					};
-					F0FBCB1B29AE96590046D27E = {
-						CreatedOnToolsVersion = 14.2;
-						TestTargetID = F0E0A96229A83B22004760E7;
 					};
 				};
 			};
@@ -186,22 +131,12 @@
 			projectRoot = "";
 			targets = (
 				F0E0A96229A83B22004760E7 /* Ficek_QuantiApp */,
-				F0FBCB1B29AE96590046D27E /* Ficek_QuantiAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		F0E0A96129A83B22004760E7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F0E0A96E29A83B24004760E7 /* Preview Assets.xcassets in Resources */,
-				F0E0A96B29A83B24004760E7 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F0FBCB1A29AE96590046D27E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,26 +151,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0E0A97529A83B33004760E7 /* MainView.swift in Sources */,
-				F0E0A96729A83B22004760E7 /* Ficek_QuantiAppApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F0FBCB1829AE96590046D27E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				F0E0A96729A83B22004760E7 /* Ficek_QuantiApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F0FBCB2129AE96590046D27E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = F0E0A96229A83B22004760E7 /* Ficek_QuantiApp */;
-			targetProxy = F0FBCB2029AE96590046D27E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		F0E0A96F29A83B24004760E7 /* Debug */ = {
@@ -367,7 +287,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Ficek_QuantiApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 45KK6Y7684;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -396,7 +315,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Ficek_QuantiApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 45KK6Y7684;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -418,50 +336,6 @@
 			};
 			name = Release;
 		};
-		F0FBCB2329AE96590046D27E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					srmv7k,
-				);
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 45KK6Y7684;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cz.Ficek.Ficek-QuantiAppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ficek_QuantiApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ficek_QuantiApp";
-			};
-			name = Debug;
-		};
-		F0FBCB2429AE96590046D27E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					"$(ARCHS_STANDARD)",
-					srmv7k,
-				);
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 45KK6Y7684;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cz.Ficek.Ficek-QuantiAppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ficek_QuantiApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Ficek_QuantiApp";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -479,15 +353,6 @@
 			buildConfigurations = (
 				F0E0A97229A83B24004760E7 /* Debug */,
 				F0E0A97329A83B24004760E7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F0FBCB2229AE96590046D27E /* Build configuration list for PBXNativeTarget "Ficek_QuantiAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F0FBCB2329AE96590046D27E /* Debug */,
-				F0FBCB2429AE96590046D27E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
