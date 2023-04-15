@@ -19,8 +19,8 @@ let package = Package(
     ],
     
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
         .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4"),
     ],
     
     targets: [
@@ -28,8 +28,8 @@ let package = Package(
             name: "RequestBuilderClient",
             dependencies: [
                 .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
+                    name: "Dependencies",
+                    package: "swift-dependencies"
                 ),
                 .product(name: "RequestBuilder", package: "swift-core"),
             ]
@@ -38,8 +38,8 @@ let package = Package(
             name: "APIClient",
             dependencies: [
                 .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
+                    name: "Dependencies",
+                    package: "swift-dependencies"
                 ),
                 .product(name: "Networking", package: "swift-core"),
                 .product(name: "RequestBuilder", package: "swift-core"),

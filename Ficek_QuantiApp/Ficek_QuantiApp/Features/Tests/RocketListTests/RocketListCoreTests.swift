@@ -1,10 +1,3 @@
-//
-//  RocketListCoreTests.swift
-//  
-//
-//  Created by Martin Ficek on 10.04.2023.
-//
-
 import Foundation
 import XCTest
 import ComposableArchitecture
@@ -16,7 +9,7 @@ import RocketDetail
 
 @MainActor
 final class RocketListCoreTests: XCTestCase {
-    func testRocketListCore() async {
+    func test_RocketListCore() async {
         let store = TestStore(
             initialState: RocketListCore.State(),
             reducer: RocketListCore()

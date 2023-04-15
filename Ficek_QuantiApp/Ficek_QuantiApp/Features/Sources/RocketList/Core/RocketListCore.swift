@@ -1,10 +1,3 @@
-//
-//  RocketListDomain.swift
-//  Ficek_QuantiApp
-//
-//  Created by Martin Ficek on 25.02.2023.
-//
-
 import Foundation
 import ComposableArchitecture
 import RocketDetail

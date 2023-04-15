@@ -1,10 +1,3 @@
-//
-//  RocketClientTests.swift
-//  
-//
-//  Created by Martin Ficek on 10.04.2023.
-//
-
 import Foundation
 import XCTest
 import ComposableArchitecture
@@ -19,7 +12,7 @@ import XCTestHelper
 final class RocketClientTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
     
-    func testRocketClient() throws {
+    func test_RocketClient() throws {
         
         let sut = withDependencies {
             $0.apiClient = APIClient(request: { _ in
@@ -49,12 +42,14 @@ final class RocketClientTests: XCTestCase {
         var cancellables = Set<AnyCancellable>()
         
         let sut = withDependencies {
-            $0.apiClient = APIClient(request: { _ in
-                let mockHeaders = [
-                    HTTPHeader(name: "Content-Type",
-                               value: "None")
-                ]
-                
+            $0.apiClient = APIClient(
+                request: { _ in
+                    let mockHeaders = [
+                        HTTPHeader(
+                            name: "Content-Type",
+                            value: "None"
+                        )
+                    ]
                 let mockBody = try! JSONEncoder().encode([Rocket].mock)
                 
                 return Just<(headers: [HTTPHeader], body: Data)> (

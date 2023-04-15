@@ -1,9 +1,3 @@
-//
-//  RocketLaunchCoreTests.swift
-//  
-//
-//  Created by Martin Ficek on 10.04.2023.
-//
 import Foundation
 import XCTest
 import ComposableArchitecture
@@ -15,7 +9,7 @@ import RocketLaunch
 final class RocketLaunchCoreTests: XCTestCase {
     @Dependency(\.coreMotionClient) var coreMotionClient
 
-    func testDomain() async {
+    func test_Domain() async {
         let store = TestStore(
             initialState: RocketLaunchCore.State(),
             reducer: RocketLaunchCore()

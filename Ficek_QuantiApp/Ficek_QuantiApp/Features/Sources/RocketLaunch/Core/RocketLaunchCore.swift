@@ -1,10 +1,3 @@
-//
-//  RocketLaunchCore.swift
-//  Ficek_QuantiApp
-//
-//  Created by Martin Ficek on 26.02.2023.
-//
-
 import Foundation
 import ComposableArchitecture
 import Dependencies
