@@ -41,6 +41,12 @@ public struct RocketListView: View {
 
 struct RocketListView_Previews: PreviewProvider {
     static var previews: some View {
-        RocketListView(store: Store(initialState: RocketListCore.State(), reducer: RocketListCore()))
+        RocketListView(
+            store:
+                Store(
+                    initialState: RocketListCore.State(),
+                    reducer: RocketListCore()
+                )
+        )
     }
 }

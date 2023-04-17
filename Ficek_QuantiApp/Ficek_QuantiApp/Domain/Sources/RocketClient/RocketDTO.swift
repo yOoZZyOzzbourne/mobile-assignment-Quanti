@@ -1,14 +1,14 @@
 import Foundation
 
 //MARK: Rocket Struct
-public struct Rocket: Codable, Equatable, Identifiable{
+public struct RocketDTO: Codable, Equatable, Identifiable{
     public var id: String
     public var firstFlight: String
-    public var height, diameter: Diameter
-    public var mass: Mass
-    public var firstStage: FirstStage
-    public var secondStage: SecondStage
-    public var engines: Engines
+    public var height, diameter: DiameterDTO
+    public var mass: MassDTO
+    public var firstStage: FirstStageDTO
+    public var secondStage: SecondStageDTO
+    public var engines: EnginesDTO
     public var flickrImages: [String]
     public var description: String
     public var name: String
@@ -28,14 +28,14 @@ public struct Rocket: Codable, Equatable, Identifiable{
     }
 }
 
-public struct Diameter: Codable, Equatable {
+public struct DiameterDTO: Codable, Equatable {
     public var meters, feet: Double?
 }
 
-public struct Engines: Codable, Equatable {
-    public var number: Int
-    public var type: String
-    public var version: String
+public struct EnginesDTO: Codable, Equatable {
+    public var number: Int?
+    public var type: String?
+    public var version: String?
 
     enum CodingKeys: String, CodingKey {
         case number
@@ -44,10 +44,10 @@ public struct Engines: Codable, Equatable {
     }
 }
 
-public struct FirstStage: Codable, Equatable {
-   public var reusable: Bool
-   public var engines: Int
-   public var fuelAmountTons: Double
+public struct FirstStageDTO: Codable, Equatable {
+   public var reusable: Bool?
+   public var engines: Int?
+   public var fuelAmountTons: Double?
    public var burnTimeSEC: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -57,14 +57,14 @@ public struct FirstStage: Codable, Equatable {
     }
 }
 
-public struct Mass: Codable, Equatable  {
-   public var kg, lb: Int
+public struct MassDTO: Codable, Equatable  {
+   public var kg, lb: Int?
 }
 
-public struct SecondStage: Codable, Equatable {
-   public var reusable: Bool
-   public var engines: Int
-   public var fuelAmountTons: Double
+public struct SecondStageDTO: Codable, Equatable {
+   public var reusable: Bool?
+   public var engines: Int?
+   public var fuelAmountTons: Double?
    public var burnTimeSEC: Int?
 
     enum CodingKeys: String, CodingKey {

@@ -45,6 +45,50 @@ extension Rocket {
         )
 }
 
+extension RocketDTO {
+   public static let mock: Self =
+         RocketDTO(
+          id: "5e9d0d95eda69955f709d1eb",
+          firstFlight: "2006-03-24",
+          height: DiameterDTO(
+            meters: 22.25,
+            feet: 73.0
+          ),
+          diameter: DiameterDTO(
+            meters: 1.68,
+            feet: 5.5
+          ),
+          mass: MassDTO(
+            kg: 30146,
+            lb: 66460
+          ),
+          firstStage: FirstStageDTO(
+            reusable: false,
+            engines: 1,
+            fuelAmountTons: 44.3,
+            burnTimeSEC: 169
+          ),
+          secondStage: SecondStageDTO(
+            reusable: false,
+            engines: 1,
+            fuelAmountTons: 3.38,
+            burnTimeSEC: 378
+          ),
+          engines: EnginesDTO(
+            number: 1,
+            type: "merlin",
+            version: "1C"
+          ),
+          flickrImages: [
+           "https://imgur.com/DaCfMsj.jpg",
+           "https://imgur.com/azYafd8.jpg"
+          ],
+          description: "The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.",
+          name: "Falcon 1",
+          type: "rocket"
+        )
+}
+
 //MARK: Mock data array
 extension [Rocket] {
     public static let mock: Self = [

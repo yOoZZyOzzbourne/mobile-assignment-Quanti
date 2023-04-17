@@ -41,8 +41,8 @@ public struct RocketListCore: ReducerProtocol{
                 )
                 return .none
                 
-            case .fetchRockets(.failure(let error)):
-                print(error)
+            case .fetchRockets(.failure(_)):
+               // print(error)
                 return .none
             
             }
