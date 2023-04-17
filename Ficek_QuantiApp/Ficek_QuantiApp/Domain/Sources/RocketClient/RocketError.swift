@@ -3,7 +3,8 @@ import ErrorReporting
 import ModelConvertible
 
 public struct RocketError: ErrorReporting, Equatable, ModelConvertibleErrorCapable {
-    public static var modelConvertibleError: RocketError = .modelConvertibleError
+    // TODO: Use proper error - .timeout is just a placeholder for now...
+    public static let modelConvertibleError: RocketError = RocketError(cause: .timeout)
     
     public static func == (lhs: RocketError, rhs: RocketError) -> Bool {
         lhs.isEqual(to: rhs)

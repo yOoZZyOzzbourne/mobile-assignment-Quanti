@@ -1,7 +1,7 @@
 import Foundation
 
 //MARK: Rocket Struct
-public struct Rocket: Equatable, Identifiable{
+public struct Rocket: Equatable, Identifiable, Codable {
     public var id: String
     public var firstFlight: String
     public var height, diameter: Diameter
@@ -28,11 +28,12 @@ public struct Rocket: Equatable, Identifiable{
 //    }
 }
 
-public struct Diameter: Equatable {
-    public var meters, feet: Double?
+public struct Diameter: Equatable, Codable {
+    public var meters: Double?
+    public var feet: Double?
 }
 
-public struct Engines: Equatable {
+public struct Engines: Equatable, Codable {
     public var number: Int?
     public var type: String?
     public var version: String?
@@ -44,7 +45,7 @@ public struct Engines: Equatable {
 //    }
 }
 
-public struct FirstStage: Equatable {
+public struct FirstStage: Equatable, Codable {
    public var reusable: Bool?
    public var engines: Int?
    public var fuelAmountTons: Double?
@@ -57,11 +58,12 @@ public struct FirstStage: Equatable {
 //    }
 }
 
-public struct Mass: Equatable  {
-   public var kg, lb: Int?
+public struct Mass: Equatable, Codable {
+   public var kg: Int?
+   public var lb: Int?
 }
 
-public struct SecondStage: Equatable {
+public struct SecondStage: Equatable, Codable {
    public var reusable: Bool?
    public var engines: Int?
    public var fuelAmountTons: Double?

@@ -26,7 +26,15 @@ extension RocketClient: DependencyKey {
                     networkMonitorClient: .live(onQueue: DispatchQueue.main)
                 )
                
-                let converter = RocketsConverter()
+                let converter = RocketsConverter.live(
+                    rocketConverter: .live(
+                        massConverter: .live(),
+                        secondStageConverter: .live(),
+                        firstStageConverter: .live(),
+                        enginesConverter: .live(),
+                        diameterConverter: .live()
+                    )
+                )
                 
 
 //                let req: AnyPublisher<[RocketDTO], RocketError> =
