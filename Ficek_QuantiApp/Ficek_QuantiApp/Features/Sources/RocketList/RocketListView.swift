@@ -10,7 +10,7 @@ public struct RocketListView: View {
     }
     
    public var body: some View {
-        WithViewStore(self.store, observe: \.rocketItems) { viewStore in
+        WithViewStore(self.store) { viewStore in
             VStack(alignment: .leading) {
                 NavigationStack {
                     List {
@@ -33,6 +33,10 @@ public struct RocketListView: View {
                     .onAppear{
                         viewStore.send(.task)
                     }
+                    .alert(
+                        self.store.scope(state: \.alert),
+                        dismiss: .alertCancelTapped
+                    )
                 }
             }
         }

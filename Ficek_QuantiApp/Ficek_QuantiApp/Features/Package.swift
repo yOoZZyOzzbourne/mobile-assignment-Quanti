@@ -24,6 +24,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
         .package(path: "../Domain/"),
+        .package(path: "../Infrastructure/"),
     ],
     
     targets: [
@@ -34,7 +35,7 @@ let package = Package(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
                 ),
-                .product(name: "CoreMotionClient", package: "Domain"),
+                .product(name: "CoreMotionClient", package: "Infrastructure"),
                 "Resources",
                
             ]
@@ -81,7 +82,7 @@ let package = Package(
                     package: "swift-composable-architecture"
                 ),
                 .product(name: "RocketClient", package: "Domain"),
-                .product(name: "CoreMotionClient", package: "Domain"),
+                .product(name: "CoreMotionClient", package: "Infrastructure"),
             ]
         ),
         
@@ -96,7 +97,7 @@ let package = Package(
                     package: "swift-composable-architecture"
                 ),
                 .product(name: "RocketClient", package: "Domain"),
-                .product(name: "CoreMotionClient", package: "Domain"),
+                .product(name: "CoreMotionClient", package: "Infrastructure"),
                 ]
             ),
     ]

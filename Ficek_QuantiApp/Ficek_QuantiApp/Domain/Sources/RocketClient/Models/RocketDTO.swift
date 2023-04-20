@@ -1,6 +1,6 @@
 import Foundation
 
-//MARK: Rocket Struct
+//MARK: RocketDTO Struct
 public struct RocketDTO: Codable, Equatable, Identifiable{
     public var id: String
     public var firstFlight: String
@@ -35,7 +35,7 @@ public struct DiameterDTO: Codable, Equatable {
 public struct EnginesDTO: Codable, Equatable {
     public var number: Int?
     public var type: String?
-    public var version: String?
+    public var version: String
 
     enum CodingKeys: String, CodingKey {
         case number

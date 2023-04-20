@@ -9,7 +9,7 @@ import RocketLaunch
 final class RocketLaunchCoreTests: XCTestCase {
     @Dependency(\.coreMotionClient) var coreMotionClient
 
-    func test_Domain() async {
+    func test_is_flying() async {
         let store = TestStore(
             initialState: RocketLaunchCore.State(),
             reducer: RocketLaunchCore()

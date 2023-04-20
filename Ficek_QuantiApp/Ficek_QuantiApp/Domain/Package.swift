@@ -8,10 +8,6 @@ let package = Package(
     platforms: [.iOS(.v16)],
     products: [
         .library(
-            name: "CoreMotionClient",
-            targets: ["CoreMotionClient"]),
-        
-        .library(
             name: "RocketClient",
             targets: ["RocketClient"]),
     ],
@@ -22,25 +18,13 @@ let package = Package(
     ],
     
     targets: [
-        .target(
-            name: "CoreMotionClient",
-            dependencies: [
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                )
-            ]
-        ),
-        
-        .target(
+       .target(
             name: "RocketClient",
             dependencies: [
                 .product(
                     name: "ComposableArchitecture",
                     package: "swift-composable-architecture"
                 ),
-                .product(name: "APIClient", package: "Infrastructure"),
-                .product(name: "RequestBuilderClient", package: "Infrastructure"),
                 .product(name: "Networking", package: "swift-core"),
             ]
         ),
@@ -56,7 +40,6 @@ let package = Package(
                 .product(name: "RequestBuilder", package: "swift-core"),
                 .product(name: "NetworkMonitoring", package: "swift-core"),
                 .product(name: "ModelConvertible", package: "swift-core"),
-                .product(name: "APIClient", package: "Infrastructure"),
                 .product(name: "XCTestHelper", package: "Infrastructure"),
                 "RocketClient"
             ]
