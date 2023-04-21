@@ -6,7 +6,7 @@ extension Rocket {
          Rocket(
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
-          height: Diameter(
+          height: Height(
             meters: 22.25,
             feet: 73.0
           ),
@@ -50,7 +50,7 @@ extension RocketDTO {
          RocketDTO(
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
-          height: DiameterDTO(
+          height: HeightDTO(
             meters: 22.25,
             feet: 73.0
           ),
@@ -95,7 +95,7 @@ extension [Rocket] {
          Rocket(
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
-          height: Diameter(
+          height: Height(
             meters: 22.25,
             feet: 73.0
           ),
@@ -125,8 +125,8 @@ extension [Rocket] {
             version: "1C"
           ),
           flickrImages: [
-           "https://imgur.com/DaCfMsj.jpg"
-         //  "https://imgur.com/azYafd8.jpg"
+           "https://imgur.com/DaCfMsj.jpg",
+           "https://imgur.com/azYafd8.jpg"
           ],
           description: "The Falcon 1 was an expendable launch system privately developed and manufactured by SpaceX during 2006-2009. On 28 September 2008, Falcon 1 became the first privately-developed liquid-fuel launch vehicle to go into orbit around the Earth.",
           name: "Falcon 1",
@@ -135,7 +135,7 @@ extension [Rocket] {
          Rocket(
           id: "5e9d0d95eda69973a809d1ec",
           firstFlight: "2010-06-04",
-          height: Diameter(
+          height: Height(
             meters: 70.0,
             feet: 229.6
           ),
@@ -179,7 +179,7 @@ extension [Rocket] {
          Rocket(
           id: "5e9d0d95eda69974db09d1ed",
           firstFlight: "2018-02-06",
-          height: Diameter(
+          height: Height(
             meters: 70.0,
             feet: 229.6
           ),
@@ -221,7 +221,7 @@ extension [Rocket] {
          Rocket(
           id: "5e9d0d96eda699382d09d1ee",
           firstFlight: "2021-12-01",
-          height: Diameter(
+          height: Height(
             meters: 118.0,
             feet: 387.0
           ),
@@ -268,7 +268,7 @@ extension [Rocket] {
          Rocket(
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
-          height: Diameter(
+          height: Height(
             meters: 22.25,
             feet: 73.0
           ),
@@ -313,7 +313,7 @@ extension [RocketDTO] {
          RocketDTO(
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
-          height: DiameterDTO(
+          height: HeightDTO(
             meters: 22.25,
             feet: 73.0
           ),
@@ -353,7 +353,7 @@ extension [RocketDTO] {
          RocketDTO(
           id: "5e9d0d95eda69973a809d1ec",
           firstFlight: "2010-06-04",
-          height: DiameterDTO(
+          height: HeightDTO(
             meters: 70.0,
             feet: 229.6
           ),
@@ -397,7 +397,7 @@ extension [RocketDTO] {
          RocketDTO(
           id: "5e9d0d95eda69974db09d1ed",
           firstFlight: "2018-02-06",
-          height: DiameterDTO(
+          height: HeightDTO(
             meters: 70.0,
             feet: 229.6
           ),
@@ -439,7 +439,7 @@ extension [RocketDTO] {
          RocketDTO(
           id: "5e9d0d96eda699382d09d1ee",
           firstFlight: "2021-12-01",
-          height: DiameterDTO(
+          height: HeightDTO(
             meters: 118.0,
             feet: 387.0
           ),
@@ -486,7 +486,7 @@ extension [RocketDTO] {
          RocketDTO(
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
-          height: DiameterDTO(
+          height: HeightDTO(
             meters: 22.25,
             feet: 73.0
           ),

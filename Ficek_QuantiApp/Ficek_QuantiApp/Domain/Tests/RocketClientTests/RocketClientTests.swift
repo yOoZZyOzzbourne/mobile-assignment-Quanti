@@ -43,8 +43,7 @@ final class RocketClientTests: XCTestCase {
         }
         
         let result = try awaitPublisher(sut.fetchAllRockets())
-        print(result)
-        //XCTAssertEqual(result, [Rocket].mock)
+        XCTAssertNoDifference(result, [Rocket].mock)
     }
 //
 //    func test_fail_request_bad_decoding() throws {

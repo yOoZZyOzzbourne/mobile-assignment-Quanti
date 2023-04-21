@@ -4,7 +4,8 @@ import Foundation
 public struct RocketDTO: Codable, Equatable, Identifiable{
     public var id: String
     public var firstFlight: String
-    public var height, diameter: DiameterDTO
+    public var height: HeightDTO
+    public var diameter: DiameterDTO
     public var mass: MassDTO
     public var firstStage: FirstStageDTO
     public var secondStage: SecondStageDTO
@@ -72,4 +73,8 @@ public struct SecondStageDTO: Codable, Equatable {
         case fuelAmountTons = "fuel_amount_tons"
         case burnTimeSEC = "burn_time_sec"
     }
+}
+
+public struct HeightDTO: Codable, Equatable {
+    public var meters, feet: Double?
 }

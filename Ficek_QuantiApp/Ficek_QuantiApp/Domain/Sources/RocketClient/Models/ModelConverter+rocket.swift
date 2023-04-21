@@ -37,6 +37,41 @@ public extension DiameterConverter {
     }
 }
 
+public typealias HeightConverter = ModelConverter<Height, HeightDTO>
+
+public extension HeightConverter {
+    static func live() -> Self {
+        .init(
+            externalModelConverter: { height in
+                guard
+                    let meters = height.meters,
+                    let feet = height.feet
+                else {
+                    return nil
+                }
+                
+                return HeightDTO(
+                    meters: meters,
+                    feet: feet
+                )
+            },
+            domainModelConverter: { heightDTO in
+                guard
+                    let meters = heightDTO.meters,
+                    let feet = heightDTO.feet
+                else {
+                    return nil
+                }
+                
+                return Height(
+                    meters: meters,
+                    feet: feet
+                )
+            }
+        )
+    }
+}
+
 public typealias EnginesConverter = ModelConverter<Engines, EnginesDTO>
 
 public extension EnginesConverter {
@@ -84,6 +119,7 @@ public extension FirstStageConverter {
                     let reusable = firstStage.reusable,
                     let engines = firstStage.engines,
                     let fuelAmountTons = firstStage.fuelAmountTons
+                   // let burnTimeSEC = firstStage.burnTimeSEC
                 else {
                     return nil
                 }
@@ -100,6 +136,7 @@ public extension FirstStageConverter {
                     let reusable = firstStageDTO.reusable,
                     let engines = firstStageDTO.engines,
                     let fuelAmountTons = firstStageDTO.fuelAmountTons
+                   // let burnTimeSEC = firstStageDTO.burnTimeSEC
                 else {
                     return nil
                 }
@@ -125,6 +162,7 @@ public extension SecondStageConverter {
                     let reusable = secondStage.reusable,
                     let engines = secondStage.engines,
                     let fuelAmountTons = secondStage.fuelAmountTons
+                   // let burnTimeSEC = secondStage.burnTimeSEC
                 else {
                     return nil
                 }
@@ -141,6 +179,7 @@ public extension SecondStageConverter {
                     let reusable = secondStageDTO.reusable,
                     let engines = secondStageDTO.engines,
                     let fuelAmountTons = secondStageDTO.fuelAmountTons
+                   // let burnTimeSEC = secondStageDTO.burnTimeSEC
                 else {
                     return nil
                 }
@@ -193,7 +232,8 @@ public extension RocketConverter {
         secondStageConverter: SecondStageConverter,
         firstStageConverter: FirstStageConverter,
         enginesConverter: EnginesConverter,
-        diameterConverter: DiameterConverter
+        diameterConverter: DiameterConverter,
+        heightConverter: HeightConverter
     ) -> Self {
         .init(
             externalModelConverter: { rocket in
@@ -206,7 +246,8 @@ public extension RocketConverter {
                     ),
                     let firstStage = firstStageConverter.externalModel(
                         fromDomain: rocket.firstStage
-                    )
+                    ),
+                    let height = heightConverter.externalModel(fromDomain: rocket.height)
                 else {
                     return nil
                 }
@@ -214,7 +255,7 @@ public extension RocketConverter {
                 return RocketDTO(
                     id: rocket.id,
                     firstFlight: rocket.firstFlight,
-                    height: diameter,
+                    height: height,
                     diameter: diameter,
                     mass: mass,
                     firstStage: firstStage,
@@ -229,10 +270,17 @@ public extension RocketConverter {
             domainModelConverter: { rocketDTO in
                 guard
                     let mass = massConverter.domainModel(fromExternal: rocketDTO.mass),
-                    let secondStage = secondStageConverter.domainModel(fromExternal: rocketDTO.secondStage),
-                    let firstStage = firstStageConverter.domainModel(fromExternal: rocketDTO.firstStage),
                     let engines = enginesConverter.domainModel(fromExternal: rocketDTO.engines),
-                    let diameter = diameterConverter.domainModel(fromExternal: rocketDTO.diameter)
+                    let diameter = diameterConverter.domainModel(
+                        fromExternal: rocketDTO.diameter
+                    ),
+                    let secondStage = secondStageConverter.domainModel(
+                        fromExternal: rocketDTO.secondStage
+                    ),
+                    let firstStage = firstStageConverter.domainModel(
+                        fromExternal: rocketDTO.firstStage
+                    ),
+                    let height = heightConverter.domainModel(fromExternal: rocketDTO.height)
                 else {
                     return nil
                 }
@@ -240,7 +288,7 @@ public extension RocketConverter {
                 return Rocket(
                     id: rocketDTO.id,
                     firstFlight: rocketDTO.firstFlight,
-                    height: diameter,
+                    height: height,
                     diameter: diameter,
                     mass: mass,
                     firstStage: firstStage,

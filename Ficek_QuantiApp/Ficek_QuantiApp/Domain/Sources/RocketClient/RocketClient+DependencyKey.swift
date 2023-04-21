@@ -22,9 +22,17 @@ extension RocketClient: DependencyKey {
                         secondStageConverter: .live(),
                         firstStageConverter: .live(),
                         enginesConverter: .live(),
-                        diameterConverter: .live()
+                        diameterConverter: .live(),
+                        heightConverter: .live()
                     )
                 )
+                
+                return requestClient
+                    .execute(networkClient)
+                    .mapErrorReporting(to: RocketError() )
+                    .convertToDomainModel(using: converter)
+                    .eraseToAnyPublisher()
+                
 //                let request = Request(
 //                    endpoint: Self.RocketRequest.allRockets.rawValue
 //                )
@@ -34,12 +42,6 @@ extension RocketClient: DependencyKey {
 //                    .mapErrorReporting(to: RocketError(cause: .modelConvertibleError))
 //                    .convertToDomainModel(using: converter)
 //                    .eraseToAnyPublisher()
-                
-                return requestClient
-                    .execute(networkClient)
-                    .mapErrorReporting(to: RocketError() )
-                    .convertToDomainModel(using: converter)
-                    .eraseToAnyPublisher()
             }
         )
     }
