@@ -29,7 +29,7 @@ public struct RocketListView: View {
                                 }
                     }
                     .navigationTitle("Rockets")
-                    .onAppear{
+                    .onAppear {
                         viewStore.send(.task)
                     }
                     .alert(

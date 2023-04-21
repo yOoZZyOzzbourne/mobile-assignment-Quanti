@@ -63,6 +63,18 @@ public struct RocketListCore: ReducerProtocol{
                             primaryButton: .default(TextState("Try again"),action: .send(.task)),
                             secondaryButton: .cancel(TextState("Cancel"))
                         )
+                        
+                    case .timeoutError:
+                        return .send(.task)
+                        
+                    case .serverError(statusCode: 500):
+                        state.alert = AlertState(
+                            title: TextState("Server is down"),
+                            message: TextState("Wait and try again"),
+                            primaryButton: .default(TextState("Try again"),action: .send(.task)),
+                            secondaryButton: .cancel(TextState("Cancel"))
+                        )
+                        
                     default:
                         print("Response was invalid")
                     }
