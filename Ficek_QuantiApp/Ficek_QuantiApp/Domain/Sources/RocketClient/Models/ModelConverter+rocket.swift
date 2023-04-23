@@ -14,11 +14,8 @@ public extension DiameterConverter {
                 else {
                     return nil
                 }
-                
-                return DiameterDTO(
-                    meters: meters,
-                    feet: feet
-                )
+                //TODO: If it fits, let it be
+                return DiameterDTO(meters: meters, feet: feet)
             },
             domainModelConverter: { diameterDTO in
                 guard
@@ -28,10 +25,7 @@ public extension DiameterConverter {
                     return nil
                 }
                 
-                return Diameter(
-                    meters: meters,
-                    feet: feet
-                )
+                return Diameter(meters: meters, feet: feet)
             }
         )
     }
@@ -50,10 +44,7 @@ public extension HeightConverter {
                     return nil
                 }
                 
-                return HeightDTO(
-                    meters: meters,
-                    feet: feet
-                )
+                return HeightDTO(meters: meters, feet: feet)
             },
             domainModelConverter: { heightDTO in
                 guard
@@ -63,10 +54,7 @@ public extension HeightConverter {
                     return nil
                 }
                 
-                return Height(
-                    meters: meters,
-                    feet: feet
-                )
+                return Height(meters: meters, feet: feet)
             }
         )
     }
@@ -85,11 +73,7 @@ public extension EnginesConverter {
                     return nil
                 }
                 
-                return EnginesDTO(
-                    number: number,
-                    type: type,
-                    version: engine.version
-                )
+                return EnginesDTO(number: number, type: type, version: engine.version)
             },
             domainModelConverter: { engineDTO in
                 guard
@@ -99,11 +83,7 @@ public extension EnginesConverter {
                     return nil
                 }
                 
-                return Engines(
-                    number: number,
-                    type: type,
-                    version: engineDTO.version
-                )
+                return Engines(number: number, type: type, version: engineDTO.version)
             }
         )
     }
@@ -224,7 +204,7 @@ public extension MassConverter {
     }
 }
 
-public typealias RocketConverter = ModelConverter<Rocket,RocketDTO>
+public typealias RocketConverter = ModelConverter<Rocket, RocketDTO>
 
 public extension RocketConverter {
     static func live(
@@ -241,12 +221,8 @@ public extension RocketConverter {
                     let mass = massConverter.externalModel(fromDomain: rocket.mass),
                     let engines = enginesConverter.externalModel(fromDomain: rocket.engines),
                     let diameter = diameterConverter.externalModel(fromDomain: rocket.diameter),
-                    let secondStage = secondStageConverter.externalModel(
-                        fromDomain: rocket.secondStage
-                    ),
-                    let firstStage = firstStageConverter.externalModel(
-                        fromDomain: rocket.firstStage
-                    ),
+                    let secondStage = secondStageConverter.externalModel(fromDomain: rocket.secondStage),
+                    let firstStage = firstStageConverter.externalModel(fromDomain: rocket.firstStage),
                     let height = heightConverter.externalModel(fromDomain: rocket.height)
                 else {
                     return nil
@@ -271,15 +247,9 @@ public extension RocketConverter {
                 guard
                     let mass = massConverter.domainModel(fromExternal: rocketDTO.mass),
                     let engines = enginesConverter.domainModel(fromExternal: rocketDTO.engines),
-                    let diameter = diameterConverter.domainModel(
-                        fromExternal: rocketDTO.diameter
-                    ),
-                    let secondStage = secondStageConverter.domainModel(
-                        fromExternal: rocketDTO.secondStage
-                    ),
-                    let firstStage = firstStageConverter.domainModel(
-                        fromExternal: rocketDTO.firstStage
-                    ),
+                    let diameter = diameterConverter.domainModel(fromExternal: rocketDTO.diameter),
+                    let secondStage = secondStageConverter.domainModel(fromExternal: rocketDTO.secondStage),
+                    let firstStage = firstStageConverter.domainModel(fromExternal: rocketDTO.firstStage),
                     let height = heightConverter.domainModel(fromExternal: rocketDTO.height)
                 else {
                     return nil
@@ -304,7 +274,7 @@ public extension RocketConverter {
     }
 }
 
-public typealias RocketsConverter = ModelConverter<[Rocket],[RocketDTO]>
+public typealias RocketsConverter = ModelConverter<[Rocket], [RocketDTO]>
 
 public extension RocketsConverter {
     static func live(
@@ -321,6 +291,7 @@ public extension RocketsConverter {
     }
 }
 
+//TODO: Dependencies
 
 //extension ModelConverter: TestDependencyKey where <#requirements#> {
 //   
@@ -330,13 +301,32 @@ public extension RocketsConverter {
 //
 //}
 //
+//extension ModelConverter: TestDependencyKey where <#requirements#> {
+//    <#witnesses#>
+//}
+
 //extension RocketsConverter: DependencyKey {
 //    public static var liveValue: RocketsConverter {
 //        return Self(
-//            
+//            externalModelConverter: .live(),
+//            domainModelConverter: .live()
 //            )
 //    }
+//
+//    public static let testValue = Self(
+//        externalModelConverter: unimplemented("\(Self.self).converter"),
+//        domainModelConverter: unimplemented("\(Self.self).converter")
+//        )
 //}
+//
+//
+//extension RocketConverter {
+//    static let test = Self(
+//        externalModelConverter: unimplemented("\(Self.self).externalModelConverter"),
+//        domainModelConverter: unimplemented("\(Self.self).domainModelConverter")
+//      )
+//}
+//
 //
 //extension DependencyValues {
 //    public var rocketsConverter: RocketsConverter {
@@ -344,3 +334,53 @@ public extension RocketsConverter {
 //        set { self[RocketsConverter.self] = newValue }
 //    }
 //}
+
+//DiameterConverter
+
+//
+//
+extension ModelConverter: TestDependencyKey where <#requirements#> {
+    <#witnesses#>
+}
+
+extension DiameterConverter: DependencyKey {
+    public static var liveValue: DiameterConverter {
+        return Self(
+            externalModelConverter: { diameter in
+                guard
+                    let meters = diameter.meters,
+                    let feet = diameter.feet
+                else {
+                    return nil
+                }
+                //TODO: If it fits, let it be
+                return DiameterDTO(meters: meters, feet: feet)
+            },
+            domainModelConverter: { diameterDTO in
+                guard
+                    let meters = diameterDTO.meters,
+                    let feet = diameterDTO.feet
+                else {
+                    return nil
+                }
+
+                return Diameter(
+                    meters: meters,
+                    feet: feet
+                )
+            }
+        )
+    }
+
+    public static let testValue = Self(
+        externalModelConverter: unimplemented("\(Self.self).converter"),
+        domainModelConverter: unimplemented("\(Self.self).converter")
+        )
+}
+
+extension DependencyValues {
+    public var diameterConverter: DiameterConverter {
+        get { self[DiameterConverter.self] }
+        set { self[DiameterConverter.self] = newValue }
+    }
+}

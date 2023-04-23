@@ -18,7 +18,9 @@ public struct RocketDTO: Codable, Equatable, Identifiable{
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case firstFlight = "first_flight"
-        case height, diameter, mass
+        case height
+        case diameter
+        case mass
         case firstStage = "first_stage"
         case secondStage = "second_stage"
         case engines
@@ -28,9 +30,10 @@ public struct RocketDTO: Codable, Equatable, Identifiable{
         case type = "type"
     }
 }
-
+//TODO: Each value - new row
 public struct DiameterDTO: Codable, Equatable {
-    public var meters, feet: Double?
+    public var meters: Double?
+    public var feet: Double?
 }
 
 public struct EnginesDTO: Codable, Equatable {
@@ -52,14 +55,16 @@ public struct FirstStageDTO: Codable, Equatable {
    public var burnTimeSEC: Int?
 
     enum CodingKeys: String, CodingKey {
-        case reusable, engines
+        case reusable
+        case engines
         case fuelAmountTons = "fuel_amount_tons"
         case burnTimeSEC = "burn_time_sec"
     }
 }
 
 public struct MassDTO: Codable, Equatable  {
-   public var kg, lb: Int?
+   public var kg: Int?
+   public var lb: Int?
 }
 
 public struct SecondStageDTO: Codable, Equatable {
@@ -69,12 +74,14 @@ public struct SecondStageDTO: Codable, Equatable {
    public var burnTimeSEC: Int?
 
     enum CodingKeys: String, CodingKey {
-        case reusable, engines
+        case reusable
+        case engines
         case fuelAmountTons = "fuel_amount_tons"
         case burnTimeSEC = "burn_time_sec"
     }
 }
 
 public struct HeightDTO: Codable, Equatable {
-    public var meters, feet: Double?
+    public var meters: Double?
+    public var feet: Double?
 }

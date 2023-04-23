@@ -11,7 +11,6 @@ extension RocketClient: DependencyKey {
 
     public static var liveValue: RocketClient {
         @Dependency(\.networkClient) var networkClient
-        @Dependency(\.requestClient) var requestClient
         
         return Self(
             fetchAllRockets: {
@@ -26,22 +25,22 @@ extension RocketClient: DependencyKey {
                         heightConverter: .live()
                     )
                 )
-                
-                return requestClient
-                    .execute(networkClient)
-                    .mapErrorReporting(to: RocketError() )
-                    .convertToDomainModel(using: converter)
-                    .eraseToAnyPublisher()
-                
-//                let request = Request(
-//                    endpoint: Self.RocketRequest.allRockets.rawValue
-//                )
-//
-//                return request
-//                    .execute(using: networkClient)
-//                    .mapErrorReporting(to: RocketError(cause: .modelConvertibleError))
+            //MARK: Should work witkout mapErrorReporting
+//                return requestClient
+//                    .execute(networkClient)
+//                    .mapErrorReporting(to: RocketError(cause: <#RocketError.Cause#>) )
 //                    .convertToDomainModel(using: converter)
 //                    .eraseToAnyPublisher()
+//
+                let request = Request(
+                    endpoint: Self.RocketRequest.allRockets.rawValue
+                )
+
+                return request
+                    .execute(using: networkClient)
+                   // .mapErrorReporting(to: RocketError(cause: .modelConvertibleError))
+                    .convertToDomainModel(using: converter)
+                    .eraseToAnyPublisher()
             }
         )
     }

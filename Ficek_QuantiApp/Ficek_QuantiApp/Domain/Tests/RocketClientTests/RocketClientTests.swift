@@ -28,21 +28,20 @@ final class RocketClientTests: XCTestCase {
                 )
             )
             
-            let requestClient = RequestClient { networkClient in
-           
-                return Just([RocketDTO].mock)
-                    .setFailureType(to: NetworkError.self)
-                    .eraseToAnyPublisher()
-                
-//                let mockHeaders = [
-//                    HTTPHeader(name: "Content-Type",
-//                               value: "application/json; charset=utf-8")
-//                ]
-//                let mockBody = try! JSONEncoder().encode([Rocket].mock)
-            }
+//            let requestClient = RequestClient { networkClient in
+//
+//                return Just([RocketDTO].mock)
+//                    .setFailureType(to: NetworkError.self)
+//                    .eraseToAnyPublisher()
+//
+////                let mockHeaders = [
+////                    HTTPHeader(name: "Content-Type",
+////                               value: "application/json; charset=utf-8")
+////                ]
+////                let mockBody = try! JSONEncoder().encode([Rocket].mock)
+//            }
             
             dependency.networkClient = networkClient
-            dependency.requestClient = requestClient
         } operation: {
             RocketClient.liveValue
         }
@@ -67,7 +66,7 @@ final class RocketClientTests: XCTestCase {
 //
 //        let sut = withDependencies { dependencies in
 //            let failedNetworkClient = NetworkClient(
-//                urlRequester: URLRequester(request: req() ),
+//                urlRequester: URLRequester(),
 //                networkMonitorClient:
 //                        .mockSequence(
 //                            withValues: [.unavailable],

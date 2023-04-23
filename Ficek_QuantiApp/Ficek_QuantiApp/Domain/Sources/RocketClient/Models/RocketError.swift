@@ -2,31 +2,26 @@ import Foundation
 import ErrorReporting
 import ModelConvertible
 
-public struct RocketError: ErrorReporting, ModelConvertibleErrorCapable {
+//TODO: Protocols to extensions
+public struct RocketError: ErrorReporting {
     public var underlyingError: ErrorReporting?
     
     public var stackID: UUID
-    
-    public static var modelConvertibleError: Self {
-        .init(cause: .modelConvertibleError)
-    }
-    
+   
     public enum Cause: Error, CustomStringConvertible {
-        case urlError
-        case invalidResponse
-        case timeout
+        //TODO: No more networkingError
+        case networkError
         case modelConvertibleError
+        case urlRequestBuilderError
         
         public var description: String {
             switch self {
-            case .invalidResponse:
-                return "invalidResponse"
-            case .timeout:
-                return "timeout"
             case .modelConvertibleError:
                 return "modelConvertibleError"
-            case .urlError:
-                return "urlError"
+            case .networkError:
+                return "networkError"
+            case .urlRequestBuilderError:
+                return "urlRequestBuilderError"
             }
         }
     }
@@ -39,7 +34,7 @@ public struct RocketError: ErrorReporting, ModelConvertibleErrorCapable {
     
     init(
         stackID: UUID = UUID(),
-        cause: Cause = .timeout,
+        cause: Cause,
         underlyingError: ErrorReporting? = nil
     ) {
         self.underlyingError = underlyingError
@@ -54,15 +49,33 @@ extension RocketError: Equatable {
     }
 }
 
-public extension RocketError {
-    static var invalidResponse: Self {
-        RocketError(cause: .invalidResponse)
+//public extension RocketError {
+//    static var invalidResponse: Self {
+//        RocketError(cause: .invalidResponse)
+//    }
+//
+//    static var timeoutError: Self {
+//        RocketError(cause: .timeout)
+//    }
+//    static var urlError: Self {
+//        RocketError(cause: .urlError)
+//    }
+//}
+
+extension RocketError: NetworkErrorCapable {
+    public static var networkError: Self {
+        .init(cause: .networkError)
     }
-    
-    static var timeoutError: Self {
-        RocketError(cause: .timeout)
+}
+
+extension RocketError: ModelConvertibleErrorCapable {
+    public static var modelConvertibleError: Self {
+        .init(cause: .modelConvertibleError)
     }
-    static var urlError: Self {
-        RocketError(cause: .urlError)
+}
+
+extension RocketError: URLRequestBuilderErrorCapable {
+    public static var urlRequestBuilderError: Self {
+        .init(cause: .urlRequestBuilderError)
     }
 }
