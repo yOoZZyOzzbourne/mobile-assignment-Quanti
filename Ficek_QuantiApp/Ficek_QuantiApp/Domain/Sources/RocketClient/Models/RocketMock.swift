@@ -523,5 +523,5 @@ extension [RocketDTO] {
           name: "Falcon 1",
           type: "rocket"
         )
-        ]
+    ]
 }

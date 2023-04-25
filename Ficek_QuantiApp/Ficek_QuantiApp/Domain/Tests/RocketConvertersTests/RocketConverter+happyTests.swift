@@ -12,8 +12,7 @@ import Networking
 final class RocketRonverterHappyTests: XCTestCase {
     let rocketDTO = RocketDTO.mock
     let rocket = Rocket.mock
-    //DiameterHeightConverterEnginesConverterFirstStageConverterSecondStageConverterMassConverterRocketConverter
-    
+   
     override func invokeTest() {
         withDependencies {
             $0.heightConverter = .live()

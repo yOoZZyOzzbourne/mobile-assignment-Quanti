@@ -14,7 +14,7 @@ public extension DiameterConverter {
                 else {
                     return nil
                 }
-             
+                
                 return DiameterDTO(meters: meters, feet: feet)
             },
             domainModelConverter: { diameterDTO in
@@ -24,7 +24,7 @@ public extension DiameterConverter {
                 else {
                     return nil
                 }
-
+                
                 return Diameter(meters: meters, feet: feet)
             }
         )
@@ -121,7 +121,6 @@ public extension FirstStageConverter {
                     let reusable = firstStage.reusable,
                     let engines = firstStage.engines,
                     let fuelAmountTons = firstStage.fuelAmountTons
-                   // let burnTimeSEC = firstStage.burnTimeSEC
                 else {
                     return nil
                 }
@@ -138,7 +137,6 @@ public extension FirstStageConverter {
                     let reusable = firstStageDTO.reusable,
                     let engines = firstStageDTO.engines,
                     let fuelAmountTons = firstStageDTO.fuelAmountTons
-                   // let burnTimeSEC = firstStageDTO.burnTimeSEC
                 else {
                     return nil
                 }
@@ -171,7 +169,6 @@ public extension SecondStageConverter {
                     let reusable = secondStage.reusable,
                     let engines = secondStage.engines,
                     let fuelAmountTons = secondStage.fuelAmountTons
-                   // let burnTimeSEC = secondStage.burnTimeSEC
                 else {
                     return nil
                 }
@@ -188,7 +185,6 @@ public extension SecondStageConverter {
                     let reusable = secondStageDTO.reusable,
                     let engines = secondStageDTO.engines,
                     let fuelAmountTons = secondStageDTO.fuelAmountTons
-                   // let burnTimeSEC = secondStageDTO.burnTimeSEC
                 else {
                     return nil
                 }
@@ -260,7 +256,6 @@ public extension RocketConverter {
         
         return .init(
             externalModelConverter: { rocket in
-                
                 
                 guard
                     let mass = massConverter.externalModel(fromDomain: rocket.mass),

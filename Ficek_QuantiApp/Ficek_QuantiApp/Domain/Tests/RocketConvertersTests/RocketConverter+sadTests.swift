@@ -63,4 +63,42 @@ final class RocketRonverterSadTests: XCTestCase {
         waitForExpectations(timeout: 10)
         XCTAssertTrue(errorRecieved, "Error was not recieved")
     }
+    
+    func test_rocketConverter_fail() {
+        let expectation = expectation(description: "Awaiting Failure")
+        var cancellables = Set<AnyCancellable>()
+        var errorRecieved = false
+        
+        let converter = withDependencies { dependency in
+        } operation: {
+            RocketConverterKey.liveValue
+        }
+        
+        let sut =
+        Just([RocketDTO].mockTest.first!)
+            .setFailureType(to: RocketError.self)
+            .convertToDomainModel(using: converter)
+            .eraseToAnyPublisher()
+        
+        sut
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished: XCTFail("Test should fail")
+                    case let .failure(error):
+                        if error.underlyingError is NetworkError {
+                            XCTFail("Error shouldnt be networkError")
+                        } else {
+                            errorRecieved = true
+                        }
+                    }
+                    expectation.fulfill()
+                    
+                }, receiveValue: { _ in }
+            )
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10)
+        XCTAssertTrue(errorRecieved, "Error was not recieved")
+    }
 }
