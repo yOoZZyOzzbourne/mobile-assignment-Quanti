@@ -6,39 +6,23 @@ import NetworkMonitoring
 import RequestBuilder
 import ModelConvertible
 import ErrorReporting
+import NetworkClientDependency
 
 extension RocketClient: DependencyKey {
 
     public static var liveValue: RocketClient {
         @Dependency(\.networkClient) var networkClient
+        @Dependency(\.rocketsConverter) var converter
         
         return Self(
             fetchAllRockets: {
                 
-                let converter = RocketsConverter.live(
-                    rocketConverter: .live(
-                        massConverter: .live(),
-                        secondStageConverter: .live(),
-                        firstStageConverter: .live(),
-                        enginesConverter: .live(),
-                        diameterConverter: .live(),
-                        heightConverter: .live()
-                    )
-                )
-            //MARK: Should work witkout mapErrorReporting
-//                return requestClient
-//                    .execute(networkClient)
-//                    .mapErrorReporting(to: RocketError(cause: <#RocketError.Cause#>) )
-//                    .convertToDomainModel(using: converter)
-//                    .eraseToAnyPublisher()
-//
                 let request = Request(
                     endpoint: Self.RocketRequest.allRockets.rawValue
                 )
 
                 return request
                     .execute(using: networkClient)
-                   // .mapErrorReporting(to: RocketError(cause: .modelConvertibleError))
                     .convertToDomainModel(using: converter)
                     .eraseToAnyPublisher()
             }

@@ -31,10 +31,7 @@ let package = Package(
         .target(
             name: "RocketLaunch",
             dependencies: [
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "CoreMotionClient", package: "Infrastructure"),
                 "Resources",
                
@@ -43,10 +40,7 @@ let package = Package(
         .target(
             name: "RocketDetail",
             dependencies: [
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 "RocketLaunch",
                 "Resources",
@@ -56,10 +50,7 @@ let package = Package(
         .target(
             name: "RocketList",
             dependencies: [
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 "RocketDetail",
                 "Resources",
@@ -77,10 +68,7 @@ let package = Package(
                 "RocketList",
                 "RocketDetail",
                 "RocketLaunch",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 .product(name: "CoreMotionClient", package: "Infrastructure"),
             ]
@@ -92,10 +80,7 @@ let package = Package(
                 "RocketList",
                 "RocketDetail",
                 "RocketLaunch",
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 .product(name: "CoreMotionClient", package: "Infrastructure"),
                 ]

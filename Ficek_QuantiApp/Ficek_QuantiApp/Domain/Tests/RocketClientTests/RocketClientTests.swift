@@ -3,10 +3,10 @@ import XCTest
 import ComposableArchitecture
 import Combine
 import XCTestDynamicOverlay
-import RocketClient
-import Networking
 import XCTestHelper
 import RequestBuilder
+@testable import Networking
+@testable import RocketClient
 
 final class RocketClientTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
@@ -16,30 +16,44 @@ final class RocketClientTests: XCTestCase {
         DispatchQueue.SchedulerOptions
     >! = DispatchQueue.test
     
-    func test_fetch_sucessful() throws {
+    override func invokeTest() {
+        withDependencies {
+            $0.heightConverter = .live()
+            $0.enginesConverter = .live()
+            $0.secondStageConverter = .live()
+            $0.firstStageConverter = .live()
+            $0.massConverter = .live()
+            $0.diameterConverter = .live()
+            $0.rocketConverter = .live()
+            $0.rocketsConverter = .live()
+        } operation: {
+          super.invokeTest()
+        }
+      }
+    
+    func test_fetchAllRockets_sucessful() throws {
+        let successResponse = try JSONEncoder().encode([RocketDTO].mock)
+        let mockResponse = HTTPURLResponse(
+              url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
+              statusCode: 200,
+              httpVersion: nil,
+              headerFields: [
+                "\(HTTPHeaderName.acceptType.rawValue)": "\(AcceptTypeValue.json.rawValue)",
+                "\(HTTPHeaderName.contentType.rawValue)": "\(ContentTypeValue.json.rawValue)"
+              ]
+        )
+        
+        let mockUrlRequester = URLRequester { _ in
+              Just((successResponse, mockResponse!))
+                .setFailureType(to: URLError.self)
+                .eraseToAnyPublisher()
+        }
         
         let sut = withDependencies { dependency in
             let networkClient = NetworkClient(
-                urlRequester: .live(urlSessionConfiguration: .default),
-                networkMonitorClient: .mockJust(
-                    value: .available,
-                    delayedFor: 0,
-                    scheduler: testScheduler
-                )
+                urlRequester: mockUrlRequester,
+                networkMonitorClient: .live(onQueue: .main)
             )
-            
-//            let requestClient = RequestClient { networkClient in
-//
-//                return Just([RocketDTO].mock)
-//                    .setFailureType(to: NetworkError.self)
-//                    .eraseToAnyPublisher()
-//
-////                let mockHeaders = [
-////                    HTTPHeader(name: "Content-Type",
-////                               value: "application/json; charset=utf-8")
-////                ]
-////                let mockBody = try! JSONEncoder().encode([Rocket].mock)
-//            }
             
             dependency.networkClient = networkClient
         } operation: {
@@ -49,82 +63,135 @@ final class RocketClientTests: XCTestCase {
         let result = try awaitPublisher(sut.fetchAllRockets())
         XCTAssertNoDifference(result, .mock)
     }
-}
-//
-//    func test_fail_request_no_connection() throws {
-//        let expectation = expectation(description: "Awaiting Failure")
-//        var cancellables = Set<AnyCancellable>()
-//        var errorRecieved = false
-//        let urlResponse = URLResponse(url: URL(string:"")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
-//
-////        func req() -> (URLRequest) -> AnyPublisher<(Data,URLResponse), URLError> {
-////            return Just((data: Data(), response: urlResponse))
-////                .setFailureType(to: URLError.self)
-////                .eraseToAnyPublisher()
-////        }
-////
-//
-//        let sut = withDependencies { dependencies in
-//            let failedNetworkClient = NetworkClient(
-//                urlRequester: URLRequester(),
-//                networkMonitorClient:
-//                        .mockSequence(
-//                            withValues: [.unavailable],
-//                            onScheduler: testScheduler, every: 1
-//                        )
-//            )
-//
-//            dependencies.networkClient = failedNetworkClient
-//            dependencies.requestClient = .liveValue
-//
-//        } operation: {
-//            RocketClient.liveValue
-//        }
-//
-//        let result = sut.fetchAllRockets()
-//
-//        result
-//            .sink(
-//                receiveCompletion: { completion in
-//                    switch completion {
-//                    case .finished: XCTFail("Test should fail")
-//                    case let .failure(error):
-//                        if let networkError = error.underlyingError as? NetworkError {
-//                            switch networkError {
-//                            case .noConnection:
-//                                errorRecieved = true
-//                                expectation.fulfill()
-//
-//                            default:
-//                                XCTFail("Error wasnt .noConnection")
-//                            }
-//                        } else {
-//                            XCTFail("Error should be networkError")
-//                        }
-//
-//                    }
-//
-//                }, receiveValue: { _ in }
-//            )
-//            .store(in: &cancellables)
-//
-//        waitForExpectations(timeout: 10)
-//        XCTAssertTrue(errorRecieved, "Error was not recieved")
-//    }
-//}
+    
+    func test_fail_network_not_functioning() throws {
+        let expectation = expectation(description: "Awaiting Failure")
+        var cancellables = Set<AnyCancellable>()
+        var errorRecieved = false
+        let urlResponse = URLResponse(
+            url: URL(string:"https://api.spacexdata.com/v4/rockets")!,
+            mimeType: nil,
+            expectedContentLength: 0,
+            textEncodingName: nil
+        )
+        
+        let sut = withDependencies { dependency in
+            
+            let mockUrlRequester = URLRequester { _ in
+                 Just((Data(), urlResponse))
+                    .setFailureType(to: URLError.self)
+                    .eraseToAnyPublisher()
+            }
+            
+            let failedNetworkClient = NetworkClient(
+                urlRequester: mockUrlRequester,
+                networkMonitorClient: .live(onQueue: .main)
+            )
+            
+            dependency.networkClient = failedNetworkClient
+        } operation: {
+            RocketClient.liveValue
+        }
+        
+        let result = sut.fetchAllRockets()
+        
+        result
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished: XCTFail("Test should fail")
+                    case let .failure(error):
+                        if error.underlyingError is NetworkError {
+                            errorRecieved = true
+                            expectation.fulfill()
+                        } else {
+                            XCTFail("Error should be networkError")
+                        }
+                    }
+                    
+                }, receiveValue: { _ in }
+            )
+            .store(in: &cancellables)
+        
+        waitForExpectations(timeout: 10)
+        XCTAssertTrue(errorRecieved, "Error was not recieved")
+        }
+    
+    
+    func test_fail_convertor() throws {
+        let expectation = expectation(description: "Awaiting Failure")
+        var cancellables = Set<AnyCancellable>()
+        let successResponse = try JSONEncoder().encode([RocketDTO].mockTest)
+        let mockResponse = HTTPURLResponse(
+              url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
+              statusCode: 200,
+              httpVersion: nil,
+              headerFields: [
+                "\(HTTPHeaderName.acceptType.rawValue)": "\(AcceptTypeValue.json.rawValue)",
+                "\(HTTPHeaderName.contentType.rawValue)": "\(ContentTypeValue.json.rawValue)"
+              ]
+        )
 
-//extension NetworkClientType {
-//    func request(_ urlRequest: URLRequest) -> AnyPublisher<(headers: [RequestBuilder.HTTPHeader], body: Data), Networking.NetworkError> {
-//        let mockHeaders = [
-//            HTTPHeader(name: "Content-Type",
-//                       value: "application/json; charset=utf-8")
-//        ]
-//        
-//        let mockBody = try! JSONEncoder().encode([Rocket].mock)
+        let mockUrlRequester = URLRequester { _ in
+              Just((successResponse, mockResponse!))
+                .setFailureType(to: URLError.self)
+                .eraseToAnyPublisher()
+        }
+
+       let sut = withDependencies { dependency in
+            let networkClient = NetworkClient(
+                urlRequester: mockUrlRequester,
+                networkMonitorClient: .live(onQueue: .main)
+            )
+            
+            dependency.networkClient = networkClient
+//            dependency.heightConverter = .live()
+//            dependency.enginesConverter = .live()
+//            dependency.secondStageConverter = .live()
+//            dependency.firstStageConverter = .live()
+//            dependency.massConverter = .live()
+//            dependency.diameterConverter = .live()
+//            dependency.rocketConverter = .live()
+//            dependency.rocketsConverter = .live()
+           
+        } operation: {
+            RocketClient.liveValue
+        }
+        
+       sut.fetchAllRockets()
+                .sink(
+                    receiveCompletion: { completion in
+                        switch completion {
+                        case .finished: break
+                        case let .failure(error):
+                            if error.underlyingError is NetworkError {
+                                XCTFail("Error shouldnt be networkError")
+                            } else {
+                                XCTFail("Shouldnt fail")
+                            }
+                        }
+                        expectation.fulfill()
+                        
+                    }, receiveValue: { rocket in
+                        XCTAssertNotEqual(rocket, [Rocket].mockTest)
+                    }
+                )
+                .store(in: &cancellables)
+
+            waitForExpectations(timeout: 10)
+    }
+}
+
+//            let networkClient = NetworkClientMock { _ in
+//                Just((headers: [HTTPHeader(name: "Content/Json", value: "1")],body: successResponse))
+//                    .setFailureType(to: NetworkError.self)
+//                    .eraseToAnyPublisher()
+//            }
 //
-//        return Just<(headers: [HTTPHeader], body: Data)> (
-//            (headers: mockHeaders, body: mockBody))
-//        .setFailureType(to: NetworkError.self)
-//        .eraseToAnyPublisher()
-//    }
+//struct NetworkClientMock: NetworkClientType {
+//  var request: (_ urlRequest: URLRequest) -> AnyPublisher<(headers: [HTTPHeader], body: Data), NetworkError>
+//
+//  func request(_ urlRequest: URLRequest) -> AnyPublisher<(headers: [HTTPHeader], body: Data), NetworkError> {
+//    request(urlRequest)
+//  }
 //}

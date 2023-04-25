@@ -269,8 +269,8 @@ extension [Rocket] {
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
           height: Height(
-            meters: 22.25,
-            feet: 73.0
+//            meters: 22.25,
+//            feet: 73.0
           ),
           diameter: Diameter(
             meters: 1.68,
@@ -487,8 +487,8 @@ extension [RocketDTO] {
           id: "5e9d0d95eda69955f709d1eb",
           firstFlight: "2006-03-24",
           height: HeightDTO(
-            meters: 22.25,
-            feet: 73.0
+//            meters: 22.25,
+//            feet: 73.0
           ),
           diameter: DiameterDTO(
             meters: 1.68,
