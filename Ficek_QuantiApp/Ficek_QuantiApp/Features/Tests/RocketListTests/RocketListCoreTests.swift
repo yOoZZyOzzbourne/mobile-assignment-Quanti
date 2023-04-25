@@ -9,7 +9,7 @@ import RocketDetail
 
 @MainActor
 final class RocketListCoreTests: XCTestCase {
-    func test_RocketListCore() async {
+    func test_rocket_fetch_successful() async {
         let store = TestStore(
             initialState: RocketListCore.State(),
             reducer: RocketListCore()

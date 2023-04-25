@@ -10,7 +10,7 @@ public struct RocketListView: View {
     }
     
    public var body: some View {
-        WithViewStore(self.store, observe: \.rocketItems) { viewStore in
+        WithViewStore(self.store) { viewStore in
             VStack(alignment: .leading) {
                 NavigationStack {
                     List {
@@ -29,10 +29,13 @@ public struct RocketListView: View {
                                 }
                     }
                     .navigationTitle("Rockets")
-                    .navigationBarTitleDisplayMode(.large)
-                    .onAppear{
+                    .onAppear {
                         viewStore.send(.task)
                     }
+                    .alert(
+                        self.store.scope(state: \.alert),
+                        dismiss: .alertCancelTapped
+                    )
                 }
             }
         }
@@ -41,6 +44,12 @@ public struct RocketListView: View {
 
 struct RocketListView_Previews: PreviewProvider {
     static var previews: some View {
-        RocketListView(store: Store(initialState: RocketListCore.State(), reducer: RocketListCore()))
+        RocketListView(
+            store:
+                Store(
+                    initialState: RocketListCore.State(),
+                    reducer: RocketListCore()
+                )
+        )
     }
 }

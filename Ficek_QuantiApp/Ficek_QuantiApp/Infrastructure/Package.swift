@@ -8,14 +8,11 @@ let package = Package(
     platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: "APIClient",
-            targets: ["APIClient"]),
-        .library(
-            name: "RequestBuilderClient",
-            targets: ["RequestBuilderClient"]),
-        .library(
             name: "XCTestHelper",
             targets: ["XCTestHelper"]),
+        .library(
+            name: "CoreMotionClient",
+            targets: ["CoreMotionClient"]),
     ],
     
     dependencies: [
@@ -25,31 +22,19 @@ let package = Package(
     
     targets: [
         .target(
-            name: "RequestBuilderClient",
-            dependencies: [
-                .product(
-                    name: "Dependencies",
-                    package: "swift-dependencies"
-                ),
-                .product(name: "RequestBuilder", package: "swift-core"),
-            ]
-        ),
-        .target(
-            name: "APIClient",
-            dependencies: [
-                .product(
-                    name: "Dependencies",
-                    package: "swift-dependencies"
-                ),
-                .product(name: "Networking", package: "swift-core"),
-                .product(name: "RequestBuilder", package: "swift-core"),
-                .product(name: "NetworkMonitoring", package: "swift-core"),
-            ]
-        ),
-        .target(
             name: "XCTestHelper",
             dependencies: [
             ]
         ),
+        .target(
+            name: "CoreMotionClient",
+            dependencies: [
+                .product(
+                    name: "Dependencies",
+                    package: "swift-dependencies"
+                )
+            ]
+        ),
+        
     ]
 )
