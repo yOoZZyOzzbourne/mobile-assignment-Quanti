@@ -349,3 +349,53 @@ public extension RocketsConverter {
 }
 
 
+//public protocol ModelConvertible {
+//    associatedtype ExternalModel
+//    associatedtype DomainModel
+//
+//    var externalModelConverter: (DomainModel) -> ExternalModel? { get }
+//    var domainModelConverter: (ExternalModel) -> DomainModel? { get }
+//}
+//
+//struct DiameterConverter1: ModelConvertible {
+//    var externalModelConverter: (Diameter) -> DiameterDTO?
+//    var domainModelConverter: (DiameterDTO) -> Diameter?
+//}
+//
+//extension DiameterConverter1: DependencyKey {
+//    public static let liveValue = Self(
+//        externalModelConverter: { diameter in
+//            guard
+//                let meters = diameter.meters,
+//                let feet = diameter.feet
+//            else {
+//                return nil
+//            }
+//
+//            return DiameterDTO(meters: meters, feet: feet)
+//        },
+//        domainModelConverter: { diameterDTO in
+//            guard
+//                let meters = diameterDTO.meters,
+//                let feet = diameterDTO.feet
+//            else {
+//                return nil
+//            }
+//
+//            return Diameter(meters: meters, feet: feet)
+//        }
+//        )
+//
+//    public static let testValue = Self(
+//            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+//            domainModelConverter: unimplemented("\(Self.self).domainConverter")
+//        )
+//}
+//
+//extension DependencyValues {
+//    var diameterConverter2: DiameterConverter1 {
+//        get { self[DiameterConverter1.self] }
+//        set { self[DiameterConverter1.self] = newValue }
+//    }
+//}
+//

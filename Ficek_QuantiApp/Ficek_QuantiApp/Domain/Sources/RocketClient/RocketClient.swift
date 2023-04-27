@@ -11,5 +11,7 @@ public struct RocketClient{
     }
     
     public let fetchAllRockets: () -> AnyPublisher<[Rocket], RocketError>
+    
+    public let fetchAsync: () async throws -> [Rocket]
 }
 
