@@ -13,6 +13,10 @@ let package = Package(
         .library(
             name: "CoreMotionClient",
             targets: ["CoreMotionClient"]),
+        .library(
+            name: "NetworkClientDependency",
+            targets: ["NetworkClientDependency"]),
+        
     ],
     
     dependencies: [
@@ -29,10 +33,14 @@ let package = Package(
         .target(
             name: "CoreMotionClient",
             dependencies: [
-                .product(
-                    name: "Dependencies",
-                    package: "swift-dependencies"
-                )
+                .product(name: "Dependencies", package: "swift-dependencies")
+            ]
+        ),
+        .target(
+            name: "NetworkClientDependency",
+            dependencies: [
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "Networking", package: "swift-core")
             ]
         ),
         

@@ -14,7 +14,7 @@ public extension DiameterConverter {
                 else {
                     return nil
                 }
-                //TODO: If it fits, let it be
+                
                 return DiameterDTO(meters: meters, feet: feet)
             },
             domainModelConverter: { diameterDTO in
@@ -29,7 +29,15 @@ public extension DiameterConverter {
             }
         )
     }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
+        )
+    }
 }
+
 
 public typealias HeightConverter = ModelConverter<Height, HeightDTO>
 
@@ -56,6 +64,13 @@ public extension HeightConverter {
                 
                 return Height(meters: meters, feet: feet)
             }
+        )
+    }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
         )
     }
 }
@@ -87,6 +102,13 @@ public extension EnginesConverter {
             }
         )
     }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
+        )
+    }
 }
 
 public typealias FirstStageConverter = ModelConverter<FirstStage, FirstStageDTO>
@@ -99,7 +121,6 @@ public extension FirstStageConverter {
                     let reusable = firstStage.reusable,
                     let engines = firstStage.engines,
                     let fuelAmountTons = firstStage.fuelAmountTons
-                   // let burnTimeSEC = firstStage.burnTimeSEC
                 else {
                     return nil
                 }
@@ -116,7 +137,6 @@ public extension FirstStageConverter {
                     let reusable = firstStageDTO.reusable,
                     let engines = firstStageDTO.engines,
                     let fuelAmountTons = firstStageDTO.fuelAmountTons
-                   // let burnTimeSEC = firstStageDTO.burnTimeSEC
                 else {
                     return nil
                 }
@@ -128,6 +148,13 @@ public extension FirstStageConverter {
                     burnTimeSEC: firstStageDTO.burnTimeSEC
                 )
             }
+        )
+    }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
         )
     }
 }
@@ -142,7 +169,6 @@ public extension SecondStageConverter {
                     let reusable = secondStage.reusable,
                     let engines = secondStage.engines,
                     let fuelAmountTons = secondStage.fuelAmountTons
-                   // let burnTimeSEC = secondStage.burnTimeSEC
                 else {
                     return nil
                 }
@@ -159,7 +185,6 @@ public extension SecondStageConverter {
                     let reusable = secondStageDTO.reusable,
                     let engines = secondStageDTO.engines,
                     let fuelAmountTons = secondStageDTO.fuelAmountTons
-                   // let burnTimeSEC = secondStageDTO.burnTimeSEC
                 else {
                     return nil
                 }
@@ -171,6 +196,13 @@ public extension SecondStageConverter {
                     burnTimeSEC: secondStageDTO.burnTimeSEC
                 )
             }
+        )
+    }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
         )
     }
 }
@@ -202,21 +234,29 @@ public extension MassConverter {
             }
         )
     }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
+        )
+    }
 }
 
 public typealias RocketConverter = ModelConverter<Rocket, RocketDTO>
 
 public extension RocketConverter {
-    static func live(
-        massConverter: MassConverter,
-        secondStageConverter: SecondStageConverter,
-        firstStageConverter: FirstStageConverter,
-        enginesConverter: EnginesConverter,
-        diameterConverter: DiameterConverter,
-        heightConverter: HeightConverter
-    ) -> Self {
-        .init(
+    static func live() -> Self {
+        @Dependency(\.diameterConverter) var diameterConverter
+        @Dependency(\.massConverter) var massConverter
+        @Dependency(\.firstStageConverter) var firstStageConverter
+        @Dependency(\.secondStageConverter) var secondStageConverter
+        @Dependency(\.enginesConverter) var enginesConverter
+        @Dependency(\.heightConverter) var heightConverter
+        
+        return .init(
             externalModelConverter: { rocket in
+                
                 guard
                     let mass = massConverter.externalModel(fromDomain: rocket.mass),
                     let engines = enginesConverter.externalModel(fromDomain: rocket.engines),
@@ -244,6 +284,7 @@ public extension RocketConverter {
                 )
             },
             domainModelConverter: { rocketDTO in
+                
                 guard
                     let mass = massConverter.domainModel(fromExternal: rocketDTO.mass),
                     let engines = enginesConverter.domainModel(fromExternal: rocketDTO.engines),
@@ -272,115 +313,89 @@ public extension RocketConverter {
             }
         )
     }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
+        )
+    }
 }
 
 public typealias RocketsConverter = ModelConverter<[Rocket], [RocketDTO]>
 
 public extension RocketsConverter {
-    static func live(
-        rocketConverter: RocketConverter
-    ) -> Self {
-        .init(
+    static func live() -> Self {
+        @Dependency(\.rocketConverter) var rocketConverter
+        
+        return .init(
             externalModelConverter: { rocket in
+                
                 return rocket.compactMap(rocketConverter.externalModel(fromDomain:))
             },
             domainModelConverter: { rocketDTO in
+                
                 return rocketDTO.compactMap(rocketConverter.domainModel(fromExternal:))
             }
         )
     }
+    
+    static func test() -> Self {
+        .init(
+            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+            domainModelConverter: unimplemented("\(Self.self).domainConverter")
+        )
+    }
 }
 
-//TODO: Dependencies
 
-//extension ModelConverter: TestDependencyKey where <#requirements#> {
-//   
-//    public static let testValue = Self(
-//        unimplemented("\(Self.self).converter")
-//    )
+//public protocol ModelConvertible {
+//    associatedtype ExternalModel
+//    associatedtype DomainModel
 //
+//    var externalModelConverter: (DomainModel) -> ExternalModel? { get }
+//    var domainModelConverter: (ExternalModel) -> DomainModel? { get }
 //}
 //
-//extension ModelConverter: TestDependencyKey where <#requirements#> {
-//    <#witnesses#>
+//struct DiameterConverter1: ModelConvertible {
+//    var externalModelConverter: (Diameter) -> DiameterDTO?
+//    var domainModelConverter: (DiameterDTO) -> Diameter?
 //}
-
-//extension RocketsConverter: DependencyKey {
-//    public static var liveValue: RocketsConverter {
-//        return Self(
-//            externalModelConverter: .live(),
-//            domainModelConverter: .live()
-//            )
-//    }
+//
+//extension DiameterConverter1: DependencyKey {
+//    public static let liveValue = Self(
+//        externalModelConverter: { diameter in
+//            guard
+//                let meters = diameter.meters,
+//                let feet = diameter.feet
+//            else {
+//                return nil
+//            }
+//
+//            return DiameterDTO(meters: meters, feet: feet)
+//        },
+//        domainModelConverter: { diameterDTO in
+//            guard
+//                let meters = diameterDTO.meters,
+//                let feet = diameterDTO.feet
+//            else {
+//                return nil
+//            }
+//
+//            return Diameter(meters: meters, feet: feet)
+//        }
+//        )
 //
 //    public static let testValue = Self(
-//        externalModelConverter: unimplemented("\(Self.self).converter"),
-//        domainModelConverter: unimplemented("\(Self.self).converter")
+//            externalModelConverter: unimplemented("\(Self.self).externalConverter"),
+//            domainModelConverter: unimplemented("\(Self.self).domainConverter")
 //        )
 //}
 //
-//
-//extension RocketConverter {
-//    static let test = Self(
-//        externalModelConverter: unimplemented("\(Self.self).externalModelConverter"),
-//        domainModelConverter: unimplemented("\(Self.self).domainModelConverter")
-//      )
-//}
-//
-//
 //extension DependencyValues {
-//    public var rocketsConverter: RocketsConverter {
-//        get { self[RocketsConverter.self] }
-//        set { self[RocketsConverter.self] = newValue }
+//    var diameterConverter2: DiameterConverter1 {
+//        get { self[DiameterConverter1.self] }
+//        set { self[DiameterConverter1.self] = newValue }
 //    }
 //}
-
-//DiameterConverter
-
 //
-//
-extension ModelConverter: TestDependencyKey where <#requirements#> {
-    <#witnesses#>
-}
-
-extension DiameterConverter: DependencyKey {
-    public static var liveValue: DiameterConverter {
-        return Self(
-            externalModelConverter: { diameter in
-                guard
-                    let meters = diameter.meters,
-                    let feet = diameter.feet
-                else {
-                    return nil
-                }
-                //TODO: If it fits, let it be
-                return DiameterDTO(meters: meters, feet: feet)
-            },
-            domainModelConverter: { diameterDTO in
-                guard
-                    let meters = diameterDTO.meters,
-                    let feet = diameterDTO.feet
-                else {
-                    return nil
-                }
-
-                return Diameter(
-                    meters: meters,
-                    feet: feet
-                )
-            }
-        )
-    }
-
-    public static let testValue = Self(
-        externalModelConverter: unimplemented("\(Self.self).converter"),
-        domainModelConverter: unimplemented("\(Self.self).converter")
-        )
-}
-
-extension DependencyValues {
-    public var diameterConverter: DiameterConverter {
-        get { self[DiameterConverter.self] }
-        set { self[DiameterConverter.self] = newValue }
-    }
-}

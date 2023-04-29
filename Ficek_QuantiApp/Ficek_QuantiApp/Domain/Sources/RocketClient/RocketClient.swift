@@ -1,7 +1,6 @@
 import Foundation
 import Dependencies
 import Combine
-import Networking
 import RequestBuilder
 
 public struct RocketClient{
@@ -12,5 +11,7 @@ public struct RocketClient{
     }
     
     public let fetchAllRockets: () -> AnyPublisher<[Rocket], RocketError>
+    
+    public let fetchAsync: () async throws -> [Rocket]
 }
 

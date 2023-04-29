@@ -21,21 +21,16 @@ let package = Package(
        .target(
             name: "RocketClient",
             dependencies: [
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "Networking", package: "swift-core"),
+                .product(name: "NetworkClientDependency", package: "Infrastructure"),
             ]
         ),
         
         .testTarget(
             name: "RocketClientTests",
             dependencies: [
-                .product(
-                    name: "ComposableArchitecture",
-                    package: "swift-composable-architecture"
-                ),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "Networking", package: "swift-core"),
                 .product(name: "RequestBuilder", package: "swift-core"),
                 .product(name: "NetworkMonitoring", package: "swift-core"),
@@ -44,5 +39,14 @@ let package = Package(
                 "RocketClient"
             ]
         ),
+       .testTarget(
+           name: "RocketConvertersTests",
+           dependencies: [
+               .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+               .product(name: "ModelConvertible", package: "swift-core"),
+               .product(name: "XCTestHelper", package: "Infrastructure"),
+               "RocketClient"
+           ]
+       ),
     ]
 )

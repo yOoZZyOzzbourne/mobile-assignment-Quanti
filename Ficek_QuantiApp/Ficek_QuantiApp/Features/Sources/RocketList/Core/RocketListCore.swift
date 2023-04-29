@@ -31,18 +31,28 @@ public struct RocketListCore: ReducerProtocol{
         case task
         case fetchRockets(Result<[Rocket], RocketError>)
         case alertCancelTapped
+        case fetchAsync(TaskResult<[Rocket]>)
     }
     
     @Dependency(\.rocketClient.fetchAllRockets) var fetchAllRockets
+    @Dependency(\.rocketClient.fetchAsync) var fetchAsync
     
     public var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
                 
             case .task:
-                return fetchAllRockets()
-                    .receive(on: DispatchQueue.main)
-                    .catchToEffect(Action.fetchRockets)
+                                return fetchAllRockets()
+                                    .receive(on: DispatchQueue.main)
+                                    .catchToEffect(Action.fetchRockets)
+                //MARK: Async 
+//                return .task {
+//                    await .fetchAsync(
+//                        TaskResult {
+//                            return try await fetchAsync()
+//                        }
+//                    )
+//                }
                 
             case .fetchRockets(.success(let result)):
                 state.rocketItems = IdentifiedArrayOf(
@@ -84,6 +94,17 @@ public struct RocketListCore: ReducerProtocol{
                 
             case .alertCancelTapped:
                 state.alert = nil
+                return .none
+                
+            case .fetchAsync(.success(let result)):
+                state.rocketItems = IdentifiedArrayOf(
+                    uniqueElements: result.map {
+                        RocketDetailCore.State(rocket: $0)
+                    }
+                )
+                
+                return .none
+            case .fetchAsync(.failure(_)):
                 return .none
             }
         }

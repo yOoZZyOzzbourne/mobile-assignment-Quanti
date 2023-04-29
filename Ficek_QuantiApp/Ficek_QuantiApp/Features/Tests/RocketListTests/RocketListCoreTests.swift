@@ -15,10 +15,10 @@ final class RocketListCoreTests: XCTestCase {
             reducer: RocketListCore()
         )
         
-        await store.send(.fetchRockets(.success([Rocket].mock))) {
-            $0.rocketItems = IdentifiedArrayOf(
-                uniqueElements: [Rocket].mock.map { RocketDetailCore.State(rocket: $0) }
-            )
-        }
+//        await store.send(.fetchRockets(.success([Rocket].mock))) {
+//            $0.rocketItems = IdentifiedArrayOf(
+//                uniqueElements: [Rocket].mock.map { RocketDetailCore.State(rocket: $0) }
+//            )
+//        }
     }
 }

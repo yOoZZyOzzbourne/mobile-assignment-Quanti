@@ -9,7 +9,6 @@ public struct RocketError: ErrorReporting {
     public var stackID: UUID
    
     public enum Cause: Error, CustomStringConvertible {
-        //TODO: No more networkingError
         case networkError
         case modelConvertibleError
         case urlRequestBuilderError
@@ -48,19 +47,6 @@ extension RocketError: Equatable {
         lhs.isEqual(to: rhs)
     }
 }
-
-//public extension RocketError {
-//    static var invalidResponse: Self {
-//        RocketError(cause: .invalidResponse)
-//    }
-//
-//    static var timeoutError: Self {
-//        RocketError(cause: .timeout)
-//    }
-//    static var urlError: Self {
-//        RocketError(cause: .urlError)
-//    }
-//}
 
 extension RocketError: NetworkErrorCapable {
     public static var networkError: Self {
