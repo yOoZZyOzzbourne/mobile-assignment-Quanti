@@ -13,8 +13,7 @@ extension RocketClient: DependencyKey {
     public static var liveValue: RocketClient {
         @Dependency(\.networkClient) var networkClient
         @Dependency(\.rocketsConverter) var converter
-//        @Dependency(\.diameterConverter2) var diameterConverter
-        
+
         return Self(
             fetchAllRockets: {
                 
@@ -30,9 +29,15 @@ extension RocketClient: DependencyKey {
                 let request = Request(
                     endpoint: Self.RocketRequest.allRockets.rawValue
                 )
-          
+                
                 let data: [RocketDTO] = try await request.execute(using: networkClient)
-                  
+//                var data: [RocketDTO]
+//
+//                do {
+//                    data = try await request.execute(using: networkClient)
+//                } catch {
+//                    throw error
+//                }
                 guard let result = converter.domainModel(fromExternal: data) else {
                     throw NetworkError.invalidResponse
                 }

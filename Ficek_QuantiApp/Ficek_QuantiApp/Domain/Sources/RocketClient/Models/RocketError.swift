@@ -1,13 +1,15 @@
 import Foundation
 import ErrorReporting
 import ModelConvertible
+import ErrorHandlingConcurrency
 
 //TODO: Protocols to extensions
-public struct RocketError: ErrorReporting {
+public struct RocketError: ErrorReporting, ErrorHandlingConcurrency {
+    
     public var underlyingError: ErrorReporting?
     
     public var stackID: UUID
-   
+    
     public enum Cause: Error, CustomStringConvertible {
         case networkError
         case modelConvertibleError
@@ -23,10 +25,40 @@ public struct RocketError: ErrorReporting {
                 return "urlRequestBuilderError"
             }
         }
+        
+        public var UIdescription: String {
+            switch self {
+            case .modelConvertibleError:
+                return "Internal error"
+            case .networkError:
+                return "Error with network"
+            case .urlRequestBuilderError:
+                return "Internal error"
+            }
+        }
+        
+        public var name: String {
+            switch self {
+            case .modelConvertibleError:
+                return "Model Converter Error"
+            case .networkError:
+                return "Network Error"
+            case .urlRequestBuilderError:
+                return "Internal Error"
+            }
+        }
     }
     
     public var causeDescription: String {
         cause.description
+    }
+    
+    public var causeUIDescription: String {
+        cause.UIdescription
+    }
+    
+    public var causeName: String {
+        cause.name
     }
     
     public let cause: Cause

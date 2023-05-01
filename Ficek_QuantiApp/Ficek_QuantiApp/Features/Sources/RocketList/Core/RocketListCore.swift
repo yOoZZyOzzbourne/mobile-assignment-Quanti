@@ -7,6 +7,7 @@ import SwiftUI
 import Networking
 import ErrorReporting
 import ModelConvertible
+import ErrorHandlingConcurrency
 
 public struct RocketListCore: ReducerProtocol{
     
@@ -42,10 +43,10 @@ public struct RocketListCore: ReducerProtocol{
             switch action {
                 
             case .task:
-                                return fetchAllRockets()
-                                    .receive(on: DispatchQueue.main)
-                                    .catchToEffect(Action.fetchRockets)
-                //MARK: Async 
+                return fetchAllRockets()
+                    .receive(on: DispatchQueue.main)
+                    .catchToEffect(Action.fetchRockets)
+//MARK: Async
 //                return .task {
 //                    await .fetchAsync(
 //                        TaskResult {
@@ -73,10 +74,10 @@ public struct RocketListCore: ReducerProtocol{
                             primaryButton: .default(TextState("Try again"),action: .send(.task)),
                             secondaryButton: .cancel(TextState("Cancel"))
                         )
-                        
+
                     case .timeoutError:
                         return .send(.task)
-                        
+
                     case .serverError(statusCode: 500):
                         state.alert = AlertState(
                             title: TextState("Server is down"),
@@ -84,7 +85,7 @@ public struct RocketListCore: ReducerProtocol{
                             primaryButton: .default(TextState("Try again"),action: .send(.task)),
                             secondaryButton: .cancel(TextState("Cancel"))
                         )
-                        
+
                     default:
                         print("Response was invalid")
                     }
@@ -104,7 +105,8 @@ public struct RocketListCore: ReducerProtocol{
                 )
                 
                 return .none
-            case .fetchAsync(.failure(_)):
+            case .fetchAsync(.failure(let error)):
+                state.alert = .errorAlert(error: error)
                 return .none
             }
         }

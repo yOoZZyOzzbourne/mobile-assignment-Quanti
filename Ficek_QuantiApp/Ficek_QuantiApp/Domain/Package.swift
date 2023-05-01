@@ -10,6 +10,9 @@ let package = Package(
         .library(
             name: "RocketClient",
             targets: ["RocketClient"]),
+        .library(
+            name: "ErrorHandlingConcurrency",
+            targets: ["ErrorHandlingConcurrency"]),
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
@@ -20,6 +23,15 @@ let package = Package(
     targets: [
        .target(
             name: "RocketClient",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "Networking", package: "swift-core"),
+                .product(name: "NetworkClientDependency", package: "Infrastructure"),
+                "ErrorHandlingConcurrency"
+            ]
+        ),
+       .target(
+            name: "ErrorHandlingConcurrency",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "Networking", package: "swift-core"),

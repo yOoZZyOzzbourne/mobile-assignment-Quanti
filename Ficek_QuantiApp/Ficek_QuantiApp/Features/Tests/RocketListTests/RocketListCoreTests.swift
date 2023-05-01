@@ -20,5 +20,9 @@ final class RocketListCoreTests: XCTestCase {
 //                uniqueElements: [Rocket].mock.map { RocketDetailCore.State(rocket: $0) }
 //            )
 //        }
-    }
+        
+//        await store.send(.fetchAsync(.failure(RocketError.networkError))) {
+//            $0.self.alert = .errorAlert(error: RocketError.networkError)
+//        }
+//    }
 }

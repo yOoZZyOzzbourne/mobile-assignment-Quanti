@@ -52,6 +52,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
+                .product(name: "ErrorHandlingConcurrency", package: "Domain"),
                 "RocketDetail",
                 "Resources",
                 
