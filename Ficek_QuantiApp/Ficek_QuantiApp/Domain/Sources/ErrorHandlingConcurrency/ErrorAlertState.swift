@@ -7,14 +7,14 @@ public extension AlertState {
     static func errorAlert(error: Error?) -> AlertState {
         if let error = error as? ErrorHandlingConcurrency {
             return AlertState {
-                TextState(error.causeUIDescription)
+                TextState(error.causeName)
             } actions: {
                 .cancel(TextState("Ok"))
             } message: {
                 TextState(error.causeUIDescription)
             }
         } else {
-            //            return unimplemented("\(Self.self) is not confronting ErrorHandlingConcurrency")
+//            return unimplemented("\(Self.self) is not confronting ErrorHandlingConcurrency")
             return AlertState {
                 TextState("Sorry")
             } actions: {
@@ -35,7 +35,7 @@ public extension Alert {
                 dismissButton: .cancel(Text("Ok"))
             )
         } else {
-            //            return unimplemented("\(Self.self) is not confronting ErrorHandlingConcurrency")
+//            return unimplemented("\(Self.self) is not confronting ErrorHandlingConcurrency")
             return Alert(
                 title: Text("Sorry"),
                 message: Text("Something went wrong"),

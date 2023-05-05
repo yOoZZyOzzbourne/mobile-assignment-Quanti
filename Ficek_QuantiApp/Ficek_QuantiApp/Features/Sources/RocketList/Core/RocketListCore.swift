@@ -43,17 +43,17 @@ public struct RocketListCore: ReducerProtocol{
             switch action {
                 
             case .task:
-                return fetchAllRockets()
-                    .receive(on: DispatchQueue.main)
-                    .catchToEffect(Action.fetchRockets)
+//                return fetchAllRockets()
+//                    .receive(on: DispatchQueue.main)
+//                    .catchToEffect(Action.fetchRockets)
 //MARK: Async
-//                return .task {
-//                    await .fetchAsync(
-//                        TaskResult {
-//                            return try await fetchAsync()
-//                        }
-//                    )
-//                }
+                return .task {
+                    await .fetchAsync(
+                        TaskResult {
+                            return try await fetchAsync()
+                        }
+                    )
+                }
                 
             case .fetchRockets(.success(let result)):
                 state.rocketItems = IdentifiedArrayOf(

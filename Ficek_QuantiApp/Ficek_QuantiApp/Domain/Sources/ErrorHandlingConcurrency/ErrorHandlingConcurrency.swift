@@ -2,22 +2,24 @@ import Foundation
 import ComposableArchitecture
 import Networking
 
-
-public protocol ErrorHandlingConcurrency: Error {
+public protocol ErrorHandlingConcurrency: Error, CustomDebugStringConvertible, CustomStringConvertible {
   var causeUIDescription: String { get }
   var causeName: String { get }
 }
 
 struct GeneralAsyncError: ErrorHandlingConcurrency {
+    var debugDescription: String
+    var description: String
+    
     public enum Cause: Error, CustomStringConvertible {
-        case badUrl
+        case badURL
         case noConnection
         
         public var description: String {
             switch self {
                 
-            case .badUrl:
-                return "badUrl"
+            case .badURL:
+                return "badURL"
             case .noConnection:
                 return "noConnection"
             }
@@ -26,7 +28,7 @@ struct GeneralAsyncError: ErrorHandlingConcurrency {
         public var UIdescription: String {
             switch self {
                 
-            case .badUrl:
+            case .badURL:
                 return "The url is invalid"
             case .noConnection:
                 return "Cannot connect to the intertet"
@@ -36,7 +38,7 @@ struct GeneralAsyncError: ErrorHandlingConcurrency {
         public var name: String {
             switch self {
                 
-            case .badUrl:
+            case .badURL:
                 return "Bad url"
             case .noConnection:
                 return "No connection"
@@ -54,37 +56,3 @@ struct GeneralAsyncError: ErrorHandlingConcurrency {
     
     public let cause: Cause
 }
-
-
-//public struct ErrorAlertState {
-//
-//    public struct Input {
-//        let state: any ReducerProtocol
-//
-//        public init(state: any ReducerProtocol) {
-//            self.state = state
-//        }
-//    }
-//
-//    public let errorAlertState: (ErrorHandlingConcurrency) -> AlertState<Input>
-//}
-//
-//extension ErrorAlertState: DependencyKey {
-//
-//    public static var liveValue: ErrorAlertState {
-//
-//        return Self(
-//            errorAlertState: { input in
-//
-//
-//            }
-//        )
-//    }
-//}
-//
-//extension DependencyValues {
-//    public var errorAlertState: ErrorAlertState {
-//        get { self[ErrorAlertState.self] }
-//        set { self[ErrorAlertState.self] = newValue }
-//    }
-//}

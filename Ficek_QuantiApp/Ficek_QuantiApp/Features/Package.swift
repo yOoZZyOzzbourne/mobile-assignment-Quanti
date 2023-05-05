@@ -19,6 +19,9 @@ let package = Package(
         .library(
             name: "Resources",
             targets: ["Resources"]),
+        .library(
+            name: "RocketErrorView",
+            targets: ["RocketErrorView"]),
     ],
     
     dependencies: [
@@ -44,7 +47,6 @@ let package = Package(
                 .product(name: "RocketClient", package: "Domain"),
                 "RocketLaunch",
                 "Resources",
-               
             ]
         ),
         .target(
@@ -55,13 +57,22 @@ let package = Package(
                 .product(name: "ErrorHandlingConcurrency", package: "Domain"),
                 "RocketDetail",
                 "Resources",
-                
             ]
         ),
         
         .target(
             name: "Resources"
         ),
+        
+        .target(
+            name: "RocketErrorView",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "RocketClient", package: "Domain"),
+                .product(name: "ErrorHandlingConcurrency", package: "Domain"),
+                "Resources",
+                ]
+            ),
 
         .testTarget(
             name: "RocketListTests",

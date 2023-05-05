@@ -9,6 +9,7 @@ public enum SharedImages {
     public static let reusableImage = Image("Reusable", bundle: .module)
     public static let rocketFlyingImage = Image("Rocket Flying", bundle: .module)
     public static let rocketIdleImage = Image("Rocket Idle", bundle: .module)
+    public static let rocketErrorImage = Image("rocketError", bundle: .module)
 }
 
 public enum SharedColors {
