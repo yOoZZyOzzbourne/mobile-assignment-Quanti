@@ -8,7 +8,6 @@ import RequestBuilder
 @testable import Networking
 @testable import RocketClient
 
-
 final class RocketClientSadTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
     
@@ -28,7 +27,7 @@ final class RocketClientSadTests: XCTestCase {
       }
     
     func test_network_not_functioning() throws {
-        let expectation = expectation(description: "Awaiting Failure")
+        let expectation = expectation(description: "Awaiting Success")
         var cancellables = Set<AnyCancellable>()
         var errorRecieved = false
         let urlResponse = URLResponse(
@@ -80,9 +79,8 @@ final class RocketClientSadTests: XCTestCase {
         XCTAssertTrue(errorRecieved, "Error was not recieved")
         }
     
-    
     func test_fail_convertor() throws {
-        let expectation = expectation(description: "Awaiting Failure")
+        let expectation = expectation(description: "Awaiting Success")
         var cancellables = Set<AnyCancellable>()
         let successResponse = try JSONEncoder().encode([RocketDTO].mockTest)
         let mockResponse = HTTPURLResponse(
@@ -108,15 +106,6 @@ final class RocketClientSadTests: XCTestCase {
             )
             
             dependency.networkClient = networkClient
-//            dependency.heightConverter = .live()
-//            dependency.enginesConverter = .live()
-//            dependency.secondStageConverter = .live()
-//            dependency.firstStageConverter = .live()
-//            dependency.massConverter = .live()
-//            dependency.diameterConverter = .live()
-//            dependency.rocketConverter = .live()
-//            dependency.rocketsConverter = .live()
-           
         } operation: {
             RocketClient.liveValue
         }
@@ -143,4 +132,75 @@ final class RocketClientSadTests: XCTestCase {
 
             waitForExpectations(timeout: 10)
     }
+  
+  func test_network_not_functioning_async() async throws {
+    var errorRecieved = false
+    let urlResponse = URLResponse(
+      url: URL(string:"https://api.spacexdata.com/v4/rockets")!,
+      mimeType: nil,
+      expectedContentLength: 0,
+      textEncodingName: nil
+    )
+    
+    let sut = withDependencies { dependency in
+      
+      let mockUrlRequester = URLRequester { _ in
+        Just((Data(), urlResponse))
+          .setFailureType(to: URLError.self)
+          .eraseToAnyPublisher()
+      }
+      
+      let failedNetworkClient = NetworkClient(
+        urlRequester: mockUrlRequester,
+        networkMonitorClient: .live(onQueue: .main)
+      )
+      
+      dependency.networkClient = failedNetworkClient
+    } operation: {
+      RocketClient.liveValue
+    }
+    
+    do {
+      let _ = try await sut.fetchAsync()
+    } catch is NetworkError {
+      errorRecieved = true
+    }
+      XCTAssertTrue(errorRecieved, "Error was not recieved")
+    }
+  
+  func test_fail_convertor_async() async throws {
+      let successResponse = try JSONEncoder().encode([RocketDTO].mockTest)
+      let mockResponse = HTTPURLResponse(
+            url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
+            statusCode: 200,
+            httpVersion: nil,
+            headerFields: [
+              "\(HTTPHeaderName.acceptType.rawValue)": "\(AcceptTypeValue.json.rawValue)",
+              "\(HTTPHeaderName.contentType.rawValue)": "\(ContentTypeValue.json.rawValue)"
+            ]
+      )
+
+      let mockUrlRequester = URLRequester { _ in
+            Just((successResponse, mockResponse!))
+              .setFailureType(to: URLError.self)
+              .eraseToAnyPublisher()
+      }
+
+     let sut = withDependencies { dependency in
+          let networkClient = NetworkClient(
+              urlRequester: mockUrlRequester,
+              networkMonitorClient: .live(onQueue: .main)
+          )
+       
+          dependency.networkClient = networkClient
+      } operation: {
+          RocketClient.liveValue
+      }
+      
+    do {
+      let _ = try await sut.fetchAsync()
+    } catch {
+       XCTFail("Test shouldnt fail")
+    }
+  }
 }

@@ -7,7 +7,7 @@ import Resources
 
 public struct RocketLaunchCore: ReducerProtocol{
     
-    public init() { }
+   public init() { }
     
    public struct State: Equatable {
        public var isFlying: Bool = false
@@ -17,8 +17,6 @@ public struct RocketLaunchCore: ReducerProtocol{
        
        public init() { }
     }
-    
-    
     
     public enum Action: Equatable {
         case onAppear

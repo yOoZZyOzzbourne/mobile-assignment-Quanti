@@ -39,7 +39,7 @@ struct RocketListPartView_Previews: PreviewProvider {
     static var previews: some View {
         RocketListPartView(
             store: Store(
-                initialState: RocketDetailCore.State(rocket: .mock),
+              initialState: RocketDetailCore.State(rocket: .mock, rocketLaunch: .init()),
                 reducer: RocketDetailCore()
             )
         )

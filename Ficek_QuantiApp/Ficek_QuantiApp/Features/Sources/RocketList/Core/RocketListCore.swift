@@ -43,10 +43,11 @@ public struct RocketListCore: ReducerProtocol{
             switch action {
                 
             case .task:
+              //MARK: Combine
 //                return fetchAllRockets()
 //                    .receive(on: DispatchQueue.main)
 //                    .catchToEffect(Action.fetchRockets)
-//MARK: Async
+              //MARK: Async
                 return .task {
                     await .fetchAsync(
                         TaskResult {
@@ -58,7 +59,7 @@ public struct RocketListCore: ReducerProtocol{
             case .fetchRockets(.success(let result)):
                 state.rocketItems = IdentifiedArrayOf(
                     uniqueElements: result.map {
-                        RocketDetailCore.State(rocket: $0)
+                      RocketDetailCore.State(rocket: $0)
                     }
                 )
                 
@@ -100,7 +101,7 @@ public struct RocketListCore: ReducerProtocol{
             case .fetchAsync(.success(let result)):
                 state.rocketItems = IdentifiedArrayOf(
                     uniqueElements: result.map {
-                        RocketDetailCore.State(rocket: $0)
+                      RocketDetailCore.State(rocket: $0)
                     }
                 )
                 
@@ -108,6 +109,8 @@ public struct RocketListCore: ReducerProtocol{
             case .fetchAsync(.failure(let error)):
                 state.alert = .errorAlert(error: error)
                 return .none
+            case .rockets(id: _, action: _):
+              return .none
             }
         }
         .forEach(\.rocketItems, action: /Action.rockets(id:action:)) {

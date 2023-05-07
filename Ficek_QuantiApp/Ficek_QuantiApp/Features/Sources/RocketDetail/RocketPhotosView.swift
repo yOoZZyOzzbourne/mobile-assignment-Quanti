@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import RocketLaunch
 
 struct RocketPhotosView: View {
     let store: StoreOf<RocketDetailCore>
@@ -37,7 +38,7 @@ struct RocketPhotosView_Previews: PreviewProvider {
     static var previews: some View {
         RocketPhotosView(
             store: Store(
-                initialState: RocketDetailCore.State(rocket: .mock),
+                initialState: RocketDetailCore.State(rocket: .mock, rocketLaunch: RocketLaunchCore.State.init()),
                 reducer: RocketDetailCore()
             )
         )

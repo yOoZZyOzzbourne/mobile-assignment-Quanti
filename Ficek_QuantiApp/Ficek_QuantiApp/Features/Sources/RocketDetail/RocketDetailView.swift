@@ -23,21 +23,19 @@ public struct RocketDetailView: View {
             }
             
             .toolbar {
-                ToolbarItem(placement: .navigation) {
-                    NavigationLink(
-                        destination: {
-                            RocketLaunchView(
-                                store:  Store(
-                                    initialState: RocketLaunchCore.State(),
-                                    reducer: RocketLaunchCore()
-                                )
-                            )
-                        },
-                        label: {
-                            Text("Launch")
-                        }
-                    )
-                }
+              ToolbarItem(placement: .navigation) {
+                NavigationLink(
+                  destination: RocketLaunchView(
+                    store: self.store.scope(
+                      state: \.rocketLaunch,
+                      action: RocketDetailCore.Action.rocketLaunch
+                   )
+                  ),
+                  label: {
+                    Text("Launch")
+                  }
+                )
+              }
             }
             .navigationTitle(viewStore.name)
         }
@@ -49,7 +47,7 @@ struct RocketDetailView_Previews: PreviewProvider {
     static var previews: some View {
         RocketDetailView(
             store: Store(
-                initialState: RocketDetailCore.State(rocket: .mock),
+              initialState: RocketDetailCore.State(rocket: .mock),
                 reducer: RocketDetailCore()
             )
         )

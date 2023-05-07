@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import Resources
+import RocketLaunch
 
 struct RocketSecondStageView: View {
     let store: StoreOf<RocketDetailCore>
@@ -42,7 +43,7 @@ struct RocketSecondStageView_Previews: PreviewProvider {
     static var previews: some View {
         RocketSecondStageView(
             store: Store(
-                initialState: RocketDetailCore.State(rocket: .mock),
+                initialState: RocketDetailCore.State(rocket: .mock, rocketLaunch: RocketLaunchCore.State.init()),
                 reducer: RocketDetailCore()
             )
         )

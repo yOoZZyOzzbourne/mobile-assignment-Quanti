@@ -2,12 +2,11 @@ import Foundation
 import ComposableArchitecture
 import Dependencies
 import RocketClient
+import RocketLaunch
 
 public struct RocketDetailCore: ReducerProtocol{
     
-    public init() {
-        
-    }
+    public init() {}
     
     public struct State: Equatable, Identifiable {
         public var id: String { rocket.id }
@@ -46,17 +45,30 @@ public struct RocketDetailCore: ReducerProtocol{
                return "Data not available"
             }
         }
+      public var rocketLaunch: RocketLaunchCore.State
         
-        public init(rocket: Rocket) {
+      public init(
+        rocket: Rocket,
+        rocketLaunch: RocketLaunchCore.State = .init()
+      ) {
             self.rocket = rocket
+            self.rocketLaunch = rocketLaunch
         }
     }
     
     public enum Action: Equatable {
-        
+      case rocketLaunch(RocketLaunchCore.Action)
     }
     
-    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        
+  public var body: some ReducerProtocol<State, Action> {
+    Reduce { state, action in
+      switch action {
+      case .rocketLaunch:
+        return .none
+      }
     }
+    Scope(state: \.rocketLaunch, action: /Action.rocketLaunch) {
+      RocketLaunchCore()
+    }
+  }
 }

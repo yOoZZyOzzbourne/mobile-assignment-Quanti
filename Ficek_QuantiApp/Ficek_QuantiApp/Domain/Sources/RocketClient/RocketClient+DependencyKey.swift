@@ -21,10 +21,10 @@ extension RocketClient: DependencyKey {
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue
         )
-        return try await request
+        return request
           .execute(using: networkClient)
           .convertToDomainModel(using: converter)
-          .async()
+          .eraseToAnyPublisher()
       },
       fetchAsync: {
         let request = Request(
@@ -48,7 +48,9 @@ extension RocketClient: DependencyKey {
   
   public static let previewValue = RocketClient(
     fetchAllRockets: {
-      return [Rocket].mock
+      return Just([Rocket].mock)
+        .setFailureType(to: RocketError.self)
+        .eraseToAnyPublisher()
     },
     fetchAsync: {
       return [Rocket].mock
