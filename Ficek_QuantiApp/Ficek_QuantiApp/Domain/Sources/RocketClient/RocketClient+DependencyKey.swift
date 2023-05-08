@@ -17,7 +17,6 @@ extension RocketClient: DependencyKey {
     
     return Self(
       fetchAllRockets: {
-        
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue
         )
@@ -60,7 +59,7 @@ extension RocketClient: DependencyKey {
 
 extension NetworkError: ModelConvertibleErrorCapable {
   public static var modelConvertibleError: NetworkError {
-    .modelConvertibleError
+    .timeoutError
   }
 }
 
@@ -110,6 +109,4 @@ extension NetworkError: ErrorHandlingConcurrency {
       return "Timeout"
     }
   }
-  
-  
 }

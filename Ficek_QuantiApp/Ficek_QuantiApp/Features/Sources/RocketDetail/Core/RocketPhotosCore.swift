@@ -6,7 +6,7 @@ import RocketLaunch
 
 public struct RocketPhotosCore: ReducerProtocol{
   
-  public init() {}
+  public init() { }
   
   public struct State: Equatable, Identifiable {
     public var id: String { rocket.id }
