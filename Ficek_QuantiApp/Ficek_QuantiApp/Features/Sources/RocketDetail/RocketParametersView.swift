@@ -4,7 +4,7 @@ import Resources
 import RocketLaunch
 
 struct RocketParametersView: View {
-    let store: StoreOf<RocketDetailCore>
+    let store: StoreOf<RocketParametersCore>
     
     var body: some View {
         WithViewStore(self.store) { viewStore in
@@ -57,8 +57,8 @@ struct RocketParametersView_Previews: PreviewProvider {
     static var previews: some View {
         RocketParametersView(
             store: Store(
-                initialState: RocketDetailCore.State(rocket: .mock, rocketLaunch: RocketLaunchCore.State.init()),
-                reducer: RocketDetailCore()
+                initialState: RocketParametersCore.State(rocket: .mock),
+                reducer: RocketParametersCore()
             )
         )
     }

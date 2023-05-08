@@ -26,7 +26,6 @@ public struct RocketLaunchCore: ReducerProtocol{
     @Dependency(\.coreMotionClient) var coreMotionClient
     
     public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        
         switch action {
         case .onAppear:
             return .run { send in
