@@ -1,7 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
-import Resources
 import RocketLaunch
+import UIToolkit
 
 struct RocketParametersView: View {
     let store: StoreOf<RocketParametersCore>
@@ -42,7 +42,7 @@ struct RocketParametersView: View {
                     .frame(width: 108, height: 108)
                     .background (
                         RoundedRectangle(cornerRadius: 16)
-                            .foregroundColor(SharedColors.pinkColor)
+                            .foregroundColor(Color.pinkColor)
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 16))
                 }

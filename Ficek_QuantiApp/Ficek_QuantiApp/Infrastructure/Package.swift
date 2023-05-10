@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Infrastructure",
+    defaultLocalization: "en",
     platforms: [.iOS(.v15)],
     products: [
         .library(
@@ -16,6 +17,10 @@ let package = Package(
         .library(
             name: "NetworkClientDependency",
             targets: ["NetworkClientDependency"]),
+        .library(
+          name: "UIToolkit",
+          targets: ["UIToolkit"]
+        )
         
     ],
     
@@ -41,6 +46,11 @@ let package = Package(
             dependencies: [
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "Networking", package: "swift-core")
+            ]
+        ),
+        .target(
+            name: "UIToolkit",
+            dependencies: [
             ]
         ),
         

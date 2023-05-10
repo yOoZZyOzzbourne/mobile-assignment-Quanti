@@ -6,6 +6,7 @@ import XCTestDynamicOverlay
 import RocketClient
 import RocketList
 import RocketDetail
+import Networking
 
 @MainActor
 final class RocketListCoreTests: XCTestCase {
@@ -15,14 +16,14 @@ final class RocketListCoreTests: XCTestCase {
             reducer: RocketListCore()
         )
         
-//        await store.send(.fetchRockets(.success([Rocket].mock))) {
-//            $0.rocketItems = IdentifiedArrayOf(
+//        await store.send(.fetchAsync(.success([Rocket].mock))) {
+//          $0.self.rocketItems = IdentifiedArrayOf(
 //                uniqueElements: [Rocket].mock.map { RocketDetailCore.State(rocket: $0) }
 //            )
 //        }
-        
-//        await store.send(.fetchAsync(.failure(RocketError.networkError))) {
-//            $0.self.alert = .errorAlert(error: RocketError.networkError)
+//        
+//      await store.send(.fetchAsync(.failure(NetworkError.timeoutError))) {
+//        $0.self.alert = .errorAlert(error: NetworkError.timeoutError)
 //        }
-//    }
+    }
 }

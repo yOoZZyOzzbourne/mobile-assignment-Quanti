@@ -1,14 +1,8 @@
-//
-//  File.swift
-//  
-//
-//  Created by Martin Ficek on 02.05.2023.
-//
-
 import Foundation
 import Resources
 import ComposableArchitecture
 import SwiftUI
+import UIToolkit
 
 public struct RocketErrorView: View {
     
@@ -19,7 +13,7 @@ public struct RocketErrorView: View {
                .font(.largeTitle)
            Text("Something went wrong")
            
-           SharedImages.rocketErrorImage
+           .rocketError
                .resizable()
                .frame(width: 150, height: 150)
                .background(.opacity(0))
@@ -30,7 +24,7 @@ public struct RocketErrorView: View {
            .foregroundColor(.black)
            .background {
                RoundedRectangle(cornerRadius: 5)
-                   .foregroundColor(SharedColors.pinkColor)
+                   .foregroundColor(.pinkColor)
                    .padding(-20)
            }
            .padding(.top, 100)

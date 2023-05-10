@@ -22,10 +22,5 @@ public struct RocketPhotosCore: ReducerProtocol{
   public enum Action: Equatable {
   }
   
-  public var body: some ReducerProtocol<State, Action> {
-    Reduce { state, action in
-      switch action {
-      }
-    }
-  }
+  public func reduce(into state: inout State, action: Action) -> EffectTask<Action> { }
 }

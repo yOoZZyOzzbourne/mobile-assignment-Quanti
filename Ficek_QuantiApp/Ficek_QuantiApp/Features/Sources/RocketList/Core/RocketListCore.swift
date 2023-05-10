@@ -8,6 +8,7 @@ import Networking
 import ErrorReporting
 import ModelConvertible
 import ErrorHandlingConcurrency
+import UIToolkit
 
 public struct RocketListCore: ReducerProtocol{
     
@@ -26,7 +27,7 @@ public struct RocketListCore: ReducerProtocol{
         }
     }
     
-    public enum Action {
+  public enum Action: Equatable {
         case rockets(id: RocketDetailCore.State.ID, action: RocketDetailCore.Action)
         
         case task
@@ -109,6 +110,7 @@ public struct RocketListCore: ReducerProtocol{
             case .fetchAsync(.failure(let error)):
                 state.alert = .errorAlert(error: error)
                 return .none
+              
             case .rockets(id: _, action: _):
               return .none
             }

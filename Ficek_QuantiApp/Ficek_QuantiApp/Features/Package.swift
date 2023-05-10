@@ -17,9 +17,6 @@ let package = Package(
             name: "RocketList",
             targets: ["RocketList"]),
         .library(
-            name: "Resources",
-            targets: ["Resources"]),
-        .library(
             name: "RocketErrorView",
             targets: ["RocketErrorView"]),
     ],
@@ -36,7 +33,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "CoreMotionClient", package: "Infrastructure"),
-                "Resources",
+                .product(name: "UIToolkit", package: "Infrastructure"),
                
             ]
         ),
@@ -45,23 +42,20 @@ let package = Package(
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
+                .product(name: "UIToolkit", package: "Infrastructure"),
                 "RocketLaunch",
-                "Resources",
             ]
         ),
         .target(
             name: "RocketList",
             dependencies: [
+                "RocketDetail",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 .product(name: "ErrorHandlingConcurrency", package: "Domain"),
-                "RocketDetail",
-                "Resources",
+                .product(name: "UIToolkit", package: "Infrastructure"),
+               
             ]
-        ),
-        
-        .target(
-            name: "Resources"
         ),
         
         .target(
@@ -70,7 +64,7 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 .product(name: "ErrorHandlingConcurrency", package: "Domain"),
-                "Resources",
+                .product(name: "UIToolkit", package: "Infrastructure"),
                 ]
             ),
 

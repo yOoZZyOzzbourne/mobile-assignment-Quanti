@@ -1,7 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
-import Resources
 import RocketLaunch
+import UIToolkit
 
 struct RocketSecondStageView: View {
     let store: StoreOf<RocketSecondStageCore>
@@ -13,19 +13,19 @@ struct RocketSecondStageView: View {
                     .font(.headline)
                 Group {
                     HStack(spacing: 16) {
-                        SharedImages.reusableImage
+                      Image.reusable
                         Text(viewStore.reusableSecondSt)
                     }
                     HStack(spacing: 16) {
-                        SharedImages.engineImage
+                      Image.engine
                         Text(viewStore.enginesSecondSt)
                     }
                     HStack(spacing: 16) {
-                        SharedImages.fuelImage
+                      Image.fuel
                         Text(viewStore.fuelAmmountSecondSt)
                     }
                     HStack(spacing: 16) {
-                        SharedImages.burnImage
+                      Image.burn
                         Text(viewStore.burnTimeSecondSt)
                     }
                 }

@@ -1,14 +1,7 @@
-//
-//  RocketListPartView.swift
-//  Ficek_QuantiApp
-//
-//  Created by Martin Ficek on 24.02.2023.
-//
-
 import SwiftUI
 import ComposableArchitecture
 import RocketDetail
-import Resources
+import UIToolkit
 
 public struct RocketListPartView: View {
    public let store: StoreOf<RocketDetailCore>
@@ -20,7 +13,7 @@ public struct RocketListPartView: View {
     public var body: some View {
         WithViewStore(self.store) { viewStore in
             HStack {
-                SharedImages.rocketImage
+                Image.rocket
                     .padding(7)
                 
                 VStack(alignment: .leading) {
