@@ -8,7 +8,7 @@ struct RocketFirstStageView: View {
   
   var body: some View {
     WithViewStore(self.store) { viewStore in
-      VStack(alignment: .leading, spacing: 16) {
+      VStack(alignment: .leading, spacing: 16){
         Text("First Stage")
           .font(.headline)
         Group {

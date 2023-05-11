@@ -6,9 +6,7 @@ import UIToolkit
 public struct RocketListView: View {
   public let store: StoreOf<RocketListCore>
   
-  public init(
-    store: StoreOf<RocketListCore>
-  ) {
+  public init(store: StoreOf<RocketListCore>) {
     self.store = store
   }
   
