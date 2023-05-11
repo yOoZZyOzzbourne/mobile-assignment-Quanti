@@ -8,51 +8,51 @@ public protocol ErrorHandlingConcurrency: Error, CustomDebugStringConvertible, C
 }
 
 struct GeneralAsyncError: ErrorHandlingConcurrency {
-    var debugDescription: String
-    var description: String
+  var debugDescription: String
+  var description: String
+  
+  public enum Cause: Error, CustomStringConvertible {
+    case badURL
+    case noConnection
     
-    public enum Cause: Error, CustomStringConvertible {
-        case badURL
-        case noConnection
+    public var description: String {
+      switch self {
         
-        public var description: String {
-            switch self {
-                
-            case .badURL:
-                return "badURL"
-            case .noConnection:
-                return "noConnection"
-            }
-        }
-        
-        public var UIdescription: String {
-            switch self {
-                
-            case .badURL:
-                return "The url is invalid"
-            case .noConnection:
-                return "Cannot connect to the intertet"
-            }
-        }
-        
-        public var name: String {
-            switch self {
-                
-            case .badURL:
-                return "Bad url"
-            case .noConnection:
-                return "No connection"
-            }
-        }
+      case .badURL:
+        return "badURL"
+      case .noConnection:
+        return "noConnection"
+      }
     }
     
-    public var causeUIDescription: String {
-        cause.UIdescription
+    public var UIdescription: String {
+      switch self {
+        
+      case .badURL:
+        return "The url is invalid"
+      case .noConnection:
+        return "Cannot connect to the intertet"
+      }
     }
     
-    public var causeName: String {
-        cause.name
+    public var name: String {
+      switch self {
+        
+      case .badURL:
+        return "Bad url"
+      case .noConnection:
+        return "No connection"
+      }
     }
-    
-    public let cause: Cause
+  }
+  
+  public var causeUIDescription: String {
+    cause.UIdescription
+  }
+  
+  public var causeName: String {
+    cause.name
+  }
+  
+  public let cause: Cause
 }

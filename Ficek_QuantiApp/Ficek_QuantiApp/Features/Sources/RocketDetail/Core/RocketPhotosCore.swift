@@ -4,7 +4,7 @@ import Dependencies
 import RocketClient
 import RocketLaunch
 
-public struct RocketPhotosCore: ReducerProtocol{
+public struct RocketPhotosCore: ReducerProtocol {
   
   public init() { }
   
