@@ -15,10 +15,10 @@ public struct RocketDetailCore: ReducerProtocol{
         public var firstFlight: String { "First flight: \(rocket.firstFlight)"}
       
       public var rocketLaunch: RocketLaunchCore.State
-      public var rocketFirstStage: RocketFirstStageCore.State?
-      public var rocketSecondStage: RocketSecondStageCore.State?
-      public var rocketPhotos: RocketPhotosCore.State?
-      public var rocketParameters: RocketParametersCore.State?
+      public var rocketFirstStage: RocketFirstStageCore.State
+      public var rocketSecondStage: RocketSecondStageCore.State
+      public var rocketPhotos: RocketPhotosCore.State
+      public var rocketParameters: RocketParametersCore.State
         
       public init(
         rocket: Rocket,
@@ -42,22 +42,19 @@ public struct RocketDetailCore: ReducerProtocol{
     }
     
   public var body: some ReducerProtocol<State, Action> {
-    Reduce { state, action in
-      switch action {
-      case .rocketLaunch:
-        return .none
-      }
-    }
-    .ifLet(\.rocketFirstStage, action: /Action.rocketFirstStage) {
+    Scope(state: \.rocketFirstStage, action: /Action.rocketFirstStage) {
       RocketFirstStageCore()
     }
-    .ifLet(\.rocketSecondStage, action: /Action.rocketSecondStage) {
+    
+    Scope(state: \.rocketSecondStage, action: /Action.rocketSecondStage) {
       RocketSecondStageCore()
     }
-    .ifLet(\.rocketParameters, action: /Action.rocketParameters) {
+    
+    Scope(state: \.rocketParameters, action: /Action.rocketParameters) {
       RocketParametersCore()
     }
-    .ifLet(\.rocketPhotos, action: /Action.rocketPhotos) {
+    
+    Scope(state: \.rocketPhotos, action: /Action.rocketPhotos) {
       RocketPhotosCore()
     }
     

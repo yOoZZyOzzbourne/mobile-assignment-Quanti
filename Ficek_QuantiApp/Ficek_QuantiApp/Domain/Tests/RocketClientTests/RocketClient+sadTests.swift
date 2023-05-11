@@ -11,20 +11,20 @@ import RequestBuilder
 final class RocketClientSadTests: XCTestCase {
     var cancellables = Set<AnyCancellable>()
     
-    override func invokeTest() {
-        withDependencies {
-            $0.heightConverter = .live()
-            $0.enginesConverter = .live()
-            $0.secondStageConverter = .live()
-            $0.firstStageConverter = .live()
-            $0.massConverter = .live()
-            $0.diameterConverter = .live()
-            $0.rocketConverter = .live()
-            $0.rocketsConverter = .live()
-        } operation: {
-          super.invokeTest()
-        }
-      }
+//    override func invokeTest() {
+//        withDependencies {
+//            $0.heightConverter = .live()
+//            $0.enginesConverter = .live()
+//            $0.secondStageConverter = .live()
+//            $0.firstStageConverter = .live()
+//            $0.massConverter = .live()
+//            $0.diameterConverter = .live()
+//            $0.rocketConverter = .live()
+//            $0.rocketsConverter = .live()
+//        } operation: {
+//          super.invokeTest()
+//        }
+//      }
     
     func test_network_not_functioning() throws {
         let expectation = expectation(description: "Awaiting Success")
@@ -80,9 +80,10 @@ final class RocketClientSadTests: XCTestCase {
         }
     
     func test_fail_convertor() throws {
-        let expectation = expectation(description: "Awaiting Success")
+        let expectation = expectation(description: "Awaiting Failure")
         var cancellables = Set<AnyCancellable>()
-        let successResponse = try JSONEncoder().encode([RocketDTO].mockTest)
+        let successResponse = try JSONEncoder().encode([RocketDTO].mock)
+        var errorRecieved = false
         let mockResponse = HTTPURLResponse(
               url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
               statusCode: 200,
@@ -106,6 +107,12 @@ final class RocketClientSadTests: XCTestCase {
             )
             
             dependency.networkClient = networkClient
+         dependency.rocketsConverter = .init(externalModelConverter: { rocket in
+           return nil
+         }, domainModelConverter: { rocketDTO in
+           return nil
+         }
+         )
         } operation: {
             RocketClient.liveValue
         }
@@ -119,18 +126,19 @@ final class RocketClientSadTests: XCTestCase {
                             if error.underlyingError is NetworkError {
                                 XCTFail("Error shouldnt be networkError")
                             } else {
-                                XCTFail("Shouldnt fail")
+                               errorRecieved = true
                             }
                         }
                         expectation.fulfill()
                         
                     }, receiveValue: { rocket in
-                        XCTAssertNotEqual(rocket, [Rocket].mockTest)
+                        XCTAssertNoDifference(rocket, [Rocket].mock)
                     }
                 )
                 .store(in: &cancellables)
-
+       
             waitForExpectations(timeout: 10)
+      XCTAssertTrue(errorRecieved, "Convertor passed")
     }
   
   func test_network_not_functioning_async() async throws {
@@ -170,6 +178,7 @@ final class RocketClientSadTests: XCTestCase {
   
   func test_fail_convertor_async() async throws {
       let successResponse = try JSONEncoder().encode([RocketDTO].mockTest)
+      var errorRecieved = false
       let mockResponse = HTTPURLResponse(
             url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
             statusCode: 200,
@@ -193,6 +202,12 @@ final class RocketClientSadTests: XCTestCase {
           )
        
           dependency.networkClient = networkClient
+       dependency.rocketsConverter = .init(externalModelConverter: { rocket in
+         return nil
+       }, domainModelConverter: { rocketDTO in
+         return nil
+       }
+       )
       } operation: {
           RocketClient.liveValue
       }
@@ -200,7 +215,9 @@ final class RocketClientSadTests: XCTestCase {
     do {
       let _ = try await sut.fetchAsync()
     } catch {
-       XCTFail("Test shouldnt fail")
+       errorRecieved = true
     }
+    
+    XCTAssertTrue(errorRecieved, "Convertor passed")
   }
 }

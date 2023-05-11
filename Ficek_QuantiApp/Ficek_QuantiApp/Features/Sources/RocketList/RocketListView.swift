@@ -31,7 +31,7 @@ public struct RocketListView: View {
                     }
                     .navigationTitle("Rockets")
                     .onAppear {
-                        viewStore.send(.task)
+                        viewStore.send(.onAppear)
                     }
                     .alert(
                         self.store.scope(state: \.alert),

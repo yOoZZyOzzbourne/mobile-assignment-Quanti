@@ -3,7 +3,6 @@ import ErrorReporting
 import ModelConvertible
 import ErrorHandlingConcurrency
 
-//TODO: Protocols to extensions
 public struct RocketError: ErrorReporting, ErrorHandlingConcurrency {
     
     public var underlyingError: ErrorReporting?

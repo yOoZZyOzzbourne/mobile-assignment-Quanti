@@ -1,6 +1,7 @@
 import Foundation
 import CoreMotion
 import Dependencies
+import XCTestDynamicOverlay
 
 extension CoreMotionClient: DependencyKey {
    @MainActor
@@ -23,4 +24,8 @@ extension CoreMotionClient: DependencyKey {
             }
         )
     }
+  
+  public static let testValue = CoreMotionClient(
+    xRotationRate: unimplemented("\(Self.self).xRotationRate")
+  )
 }

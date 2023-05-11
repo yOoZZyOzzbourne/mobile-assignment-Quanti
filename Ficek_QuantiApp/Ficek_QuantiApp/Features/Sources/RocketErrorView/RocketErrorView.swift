@@ -1,11 +1,9 @@
 import Foundation
-import Resources
 import ComposableArchitecture
 import SwiftUI
 import UIToolkit
 
 public struct RocketErrorView: View {
-    
    public var body: some View {
     
        VStack {
@@ -13,7 +11,7 @@ public struct RocketErrorView: View {
                .font(.largeTitle)
            Text("Something went wrong")
            
-           .rocketError
+           Image.rocketError
                .resizable()
                .frame(width: 150, height: 150)
                .background(.opacity(0))

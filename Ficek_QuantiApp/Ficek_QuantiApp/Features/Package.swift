@@ -76,7 +76,6 @@ let package = Package(
                 "RocketLaunch",
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
-                .product(name: "CoreMotionClient", package: "Infrastructure"),
             ]
         ),
         
@@ -89,6 +88,17 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "RocketClient", package: "Domain"),
                 .product(name: "CoreMotionClient", package: "Infrastructure"),
+                ]
+            ),
+        
+        .testTarget(
+            name: "RocketDetailTests",
+            dependencies: [
+                "RocketList",
+                "RocketDetail",
+                "RocketLaunch",
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "RocketClient", package: "Domain"),
                 ]
             ),
     ]

@@ -16,10 +16,6 @@ public struct RocketListCore: ReducerProtocol{
     }
     
     public struct State: Equatable{
-        public static func == (lhs: RocketListCore.State, rhs: RocketListCore.State) -> Bool {
-            lhs.rocketItems != rhs.rocketItems
-        }
-        
         public var rocketItems: IdentifiedArrayOf<RocketDetailCore.State> = []
         public var alert: AlertState<Action>? = nil
         
@@ -30,7 +26,7 @@ public struct RocketListCore: ReducerProtocol{
   public enum Action: Equatable {
         case rockets(id: RocketDetailCore.State.ID, action: RocketDetailCore.Action)
         
-        case task
+        case onAppear
         case fetchRockets(Result<[Rocket], RocketError>)
         case alertCancelTapped
         case fetchAsync(TaskResult<[Rocket]>)
@@ -43,7 +39,7 @@ public struct RocketListCore: ReducerProtocol{
         Reduce { state, action in
             switch action {
                 
-            case .task:
+            case .onAppear:
               //MARK: Combine
 //                return fetchAllRockets()
 //                    .receive(on: DispatchQueue.main)
@@ -73,18 +69,18 @@ public struct RocketListCore: ReducerProtocol{
                         state.alert = AlertState(
                             title: TextState("No connection"),
                             message: TextState("Phone canot connect to internet"),
-                            primaryButton: .default(TextState("Try again"),action: .send(.task)),
+                            primaryButton: .default(TextState("Try again"),action: .send(.onAppear)),
                             secondaryButton: .cancel(TextState("Cancel"))
                         )
 
                     case .timeoutError:
-                        return .send(.task)
+                        return .send(.onAppear)
 
                     case .serverError(statusCode: 500):
                         state.alert = AlertState(
                             title: TextState("Server is down"),
                             message: TextState("Wait and try again"),
-                            primaryButton: .default(TextState("Try again"),action: .send(.task)),
+                            primaryButton: .default(TextState("Try again"),action: .send(.onAppear)),
                             secondaryButton: .cancel(TextState("Cancel"))
                         )
 

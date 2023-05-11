@@ -13,38 +13,34 @@ public struct RocketDetailView: View {
     WithViewStore(self.store) { viewStore in
       ScrollView {
         VStack(alignment: .leading) {
-          IfLetStore(
-            self.store.scope(
+          RocketParametersView(
+            store: self.store.scope(
               state: \.rocketParameters,
               action: RocketDetailCore.Action.rocketParameters
-            ),
-            then: RocketParametersView.init(store:)
+            )
           )
           
-          IfLetStore(
-            self.store.scope(
+          RocketFirstStageView(
+            store: self.store.scope(
               state: \.rocketFirstStage,
               action: RocketDetailCore.Action.rocketFirstStage
-            ),
-            then: RocketFirstStageView.init(store:)
+            )
           )
           .padding()
-          
-          IfLetStore(
-            self.store.scope(
+   
+          RocketSecondStageView(
+            store: self.store.scope(
               state: \.rocketSecondStage,
               action: RocketDetailCore.Action.rocketSecondStage
-            ),
-            then: RocketSecondStageView.init(store:)
+            )
           )
           .padding()
           
-          IfLetStore(
-            self.store.scope(
+          RocketPhotosView(
+            store: self.store.scope(
               state: \.rocketPhotos,
               action: RocketDetailCore.Action.rocketPhotos
-            ),
-            then: RocketPhotosView.init(store:)
+            )
           )
         }
       }

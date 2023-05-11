@@ -23,7 +23,7 @@ extension RocketClient: DependencyKey {
         return request
           .execute(using: networkClient)
           .convertToDomainModel(using: converter)
-          .eraseToAnyPublisher()
+//          .eraseToAnyPublisher()
       },
       fetchAsync: {
         let request = Request(
