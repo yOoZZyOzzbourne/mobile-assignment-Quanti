@@ -1,6 +1,5 @@
 import Foundation
 import Networking
-import ErrorForAlerts
 import ErrorReporting
 
 extension NetworkError: ModelConvertibleErrorCapable {

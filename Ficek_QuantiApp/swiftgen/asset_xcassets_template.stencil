@@ -17,31 +17,31 @@
 {# Macro to printing cases or folder with flag "Provides Namespace" in the atributes inspector and create tree of enumarations with extra parameters "shouldHaveAccessModifier" #}
 {# It's for printing access control modifier in nested enumarations because in the extension is redudant #}
 {% macro recursiveBlock assets shouldHaveAccessModifier %}
-    {% for asset in assets %}
-    {% set currentAccessModifier %}{% if shouldHaveAccessModifier %}{{ accessModifier }}{% endif %}{% endset %}
-    {% if asset.type == param.type %}
-    {{ currentAccessModifier }}static let {{ asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords }} = {{ param.type|capitalize }}("{{ asset.value }}")
-    {% elif asset.items and asset.isNamespaced == "true" %}
-    enum {{ asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords }} {
-        {% filter indent:4," ",true %}{% call recursiveBlock asset.items true %}{% endfilter %}
-    }
-    {% elif asset.items %}
-    {% call recursiveBlock asset.items shouldHaveAccessModifier %}
-    {% endif %}
-    {% endfor %}
+  {% for asset in assets %}
+  {% set currentAccessModifier %}{% if shouldHaveAccessModifier %}{{ accessModifier }}{% endif %}{% endset %}
+  {% if asset.type == param.type %}
+  {{ currentAccessModifier }}static let {{ asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords }} = {{ param.type|capitalize }}("{{ asset.value }}")
+  {% elif asset.items and asset.isNamespaced == "true" %}
+  enum {{ asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords }} {
+      {% filter indent:4," ",true %}{% call recursiveBlock asset.items true %}{% endfilter %}
+  }
+  {% elif asset.items %}
+  {% call recursiveBlock asset.items shouldHaveAccessModifier %}
+  {% endif %}
+  {% endfor %}
 {% endmacro %}
 {# If set parameter "allValues" to true it's going create static constants of array of all assets #}
 {% macro allValuesBlock assets filter prefix %}
-    {% for asset in assets %}
-    {% if asset.type == filter %}
-    {{ prefix }}{{ asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords }},
-    {% elif asset.items and asset.isNamespaced == "true" %}
-    {% set prefix2 %}{{ prefix }}{{ asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords }}.{% endset %}
-    {% call allValuesBlock asset.items filter prefix2 %}
-    {% elif asset.items %}
-    {% call allValuesBlock asset.items filter prefix %}
-    {% endif %}
-    {% endfor %}
+  {% for asset in assets %}
+  {% if asset.type == filter %}
+  {{ prefix }}{{ asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords }},
+  {% elif asset.items and asset.isNamespaced == "true" %}
+  {% set prefix2 %}{{ prefix }}{{ asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords }}.{% endset %}
+  {% call allValuesBlock asset.items filter prefix2 %}
+  {% elif asset.items %}
+  {% call allValuesBlock asset.items filter prefix %}
+  {% endif %}
+  {% endfor %}
 {% endmacro %}
 {# Implementations #}
 {# body #}
@@ -51,28 +51,28 @@ import SwiftUI
 // MARK: - {{ param.type|capitalize }}+
 
 {{ accessModifier }}extension {{ param.type|capitalize }} {
-    {% if catalogs.count > 1 %}
-    {% for catalog in catalogs %}
-    enum {{ catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords }} {
-        {% filter indent:4," ",true %}{% call recursiveBlock catalog.assets true %}{% endfilter %}
-    }
-    {% endfor %}
-    {% else %}
-    {% call recursiveBlock catalogs.first.assets false %}
-    {% endif %}
-    {% if param.allValues %}
+  {% if catalogs.count > 1 %}
+  {% for catalog in catalogs %}
+  enum {{ catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords }} {
+      {% filter indent:4," ",true %}{% call recursiveBlock catalog.assets true %}{% endfilter %}
+  }
+  {% endfor %}
+  {% else %}
+  {% call recursiveBlock catalogs.first.assets false %}
+  {% endif %}
+  {% if param.allValues %}
 
-    static let all: [{{ param.type|capitalize }}] = [
-        {% filter indent:4," ",true %}{% call allValuesBlock catalogs.first.assets param.type "" %}{% endfilter %}
-    ]
-    {% endif %}
+  static let all: [{{ param.type|capitalize }}] = [
+      {% filter indent:4," ",true %}{% call allValuesBlock catalogs.first.assets param.type "" %}{% endfilter %}
+  ]
+  {% endif %}
 }
 {% if param.bundleModule %}
 
 public extension {{ param.type|capitalize }} {
-    init(_ name: String) {
-        self.init(name, bundle: .module)
-    }
+  init(_ name: String) {
+      self.init(name, bundle: .module)
+  }
 }
 {% endif %}
 {% else %}

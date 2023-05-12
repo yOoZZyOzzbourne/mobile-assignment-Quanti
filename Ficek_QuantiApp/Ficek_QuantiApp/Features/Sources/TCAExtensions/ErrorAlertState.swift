@@ -2,9 +2,10 @@ import Foundation
 import ComposableArchitecture
 import SwiftUI
 import ErrorReporting
+import RocketClient
 
 public extension AlertState {
-  static func errorAlert(error: Error?) -> AlertState {
+  static func errorAlert(error: Error) -> AlertState {
     if let error = error as? ErrorForAlerts {
       return AlertState {
         TextState(error.causeName)
@@ -14,7 +15,6 @@ public extension AlertState {
         TextState(error.causeUIDescription)
       }
     } else {
-      //            return unimplemented("\(Self.self) is not confronting ErrorHandlingConcurrency")
       return AlertState {
         TextState("Sorry")
       } actions: {
@@ -27,7 +27,7 @@ public extension AlertState {
 }
 
 public extension Alert {
-  static func errorAlert(error: Error?) -> Alert {
+  static func errorAlert(error: Error) -> Alert {
     if let error = error as? ErrorForAlerts {
       return Alert(
         title: Text(error.causeName),
@@ -35,7 +35,6 @@ public extension Alert {
         dismissButton: .cancel(Text("Ok"))
       )
     } else {
-      //            return unimplemented("\(Self.self) is not confronting ErrorHandlingConcurrency")
       return Alert(
         title: Text("Sorry"),
         message: Text("Something went wrong"),

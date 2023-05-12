@@ -19,10 +19,14 @@ let package = Package(
     .library(
       name: "RocketErrorView",
       targets: ["RocketErrorView"]),
+    .library(
+      name: "TCAExtensions",
+      targets: ["TCAExtensions"]),
   ],
   
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
+    .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
     .package(path: "../Domain/"),
     .package(path: "../Infrastructure/"),
   ],
@@ -50,23 +54,32 @@ let package = Package(
       name: "RocketList",
       dependencies: [
         "RocketDetail",
+        "TCAExtensions",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
-        .product(name: "ErrorForAlerts", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
         
       ]
     ),
-    
       .target(
         name: "RocketErrorView",
         dependencies: [
+          "TCAExtensions",
           .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
           .product(name: "RocketClient", package: "Domain"),
-          .product(name: "ErrorForAlerts", package: "Domain"),
           .product(name: "UIToolkit", package: "Infrastructure"),
         ]
       ),
+    .target(
+      name: "TCAExtensions",
+      dependencies: [
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "Networking", package: "swift-core"),
+        .product(name: "RocketClient", package: "Domain"),
+        .product(name: "NetworkClientDependency", package: "Infrastructure"),
+        .product(name: "UIToolkit", package: "Infrastructure"),
+      ]
+    ),
     
       .testTarget(
         name: "RocketListTests",
@@ -102,4 +115,4 @@ let package = Package(
         ]
       ),
   ]
-)
+) 

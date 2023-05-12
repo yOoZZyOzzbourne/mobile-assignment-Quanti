@@ -17,7 +17,7 @@ public struct RocketErrorView: View {
                .background(.opacity(0))
           
            Button("Close the app") {
-               fatalError()
+               
            }
            .foregroundColor(.black)
            .background {

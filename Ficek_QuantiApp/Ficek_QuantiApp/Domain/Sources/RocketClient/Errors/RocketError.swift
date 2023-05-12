@@ -1,7 +1,5 @@
 import Foundation
 import ErrorReporting
-import ModelConvertible
-import ErrorForAlerts
 
 public struct RocketError: CombineErrorReporting, ErrorReporting {
   

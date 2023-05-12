@@ -10,22 +10,7 @@ import RequestBuilder
 
 final class RocketClientSadTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
-  
-  //    override func invokeTest() {
-  //        withDependencies {
-  //            $0.heightConverter = .live()
-  //            $0.enginesConverter = .live()
-  //            $0.secondStageConverter = .live()
-  //            $0.firstStageConverter = .live()
-  //            $0.massConverter = .live()
-  //            $0.diameterConverter = .live()
-  //            $0.rocketConverter = .live()
-  //            $0.rocketsConverter = .live()
-  //        } operation: {
-  //          super.invokeTest()
-  //        }
-  //      }
-  
+
   func test_network_not_functioning_combine() throws {
     let expectation = expectation(description: "Awaiting Success")
     var cancellables = Set<AnyCancellable>()
@@ -74,7 +59,7 @@ final class RocketClientSadTests: XCTestCase {
       )
       .store(in: &cancellables)
     
-    waitForExpectations(timeout: 10)
+    waitForExpectations(timeout: 0.1)
     XCTAssertTrue(errorRecieved, "Error was not recieved")
   }
   
@@ -139,7 +124,7 @@ final class RocketClientSadTests: XCTestCase {
       )
       .store(in: &cancellables)
     
-    waitForExpectations(timeout: 10)
+    waitForExpectations(timeout: 0.1)
     XCTAssertTrue(errorRecieved, "Convertor passed")
   }
   

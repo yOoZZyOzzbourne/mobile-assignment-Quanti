@@ -1,5 +1,4 @@
 import Foundation
-import ErrorForAlerts
 import Dependencies
 import Combine
 import Networking
@@ -23,9 +22,7 @@ extension RocketClient: DependencyKey {
         return request
           .execute(using: networkClient)
           .convertToDomainModel(using: converter)
-//          .eraseToAnyPublisher()
       },
-      //TODO: Naming
       fetchAllRocketsAsync: {
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue

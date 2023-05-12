@@ -10,16 +10,12 @@ let package = Package(
     .library(
       name: "RocketClient",
       targets: ["RocketClient"]),
-    .library(
-      name: "ErrorForAlerts",
-      targets: ["ErrorForAlerts"]),
   ],
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
     .package(path: "../Infrastructure/"),
     .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
   ],
-  
   targets: [
     .target(
       name: "RocketClient",
@@ -27,18 +23,8 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "Networking", package: "swift-core"),
         .product(name: "NetworkClientDependency", package: "Infrastructure"),
-        "ErrorForAlerts"
       ]
     ),
-    .target(
-      name: "ErrorForAlerts",
-      dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "Networking", package: "swift-core"),
-        .product(name: "NetworkClientDependency", package: "Infrastructure"),
-      ]
-    ),
-    
       .testTarget(
         name: "RocketClientTests",
         dependencies: [

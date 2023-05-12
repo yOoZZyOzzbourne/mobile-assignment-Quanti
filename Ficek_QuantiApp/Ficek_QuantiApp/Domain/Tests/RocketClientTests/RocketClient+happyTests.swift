@@ -11,10 +11,7 @@ import RequestBuilder
 final class RocketClientHappyTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
   
-  var testScheduler: TestScheduler<
-    DispatchQueue.SchedulerTimeType,
-    DispatchQueue.SchedulerOptions
-  >! = DispatchQueue.test
+  var testScheduler: TestScheduler<DispatchQueue.SchedulerTimeType, DispatchQueue.SchedulerOptions>! = DispatchQueue.test
   
   override func invokeTest() {
     withDependencies {
@@ -33,6 +30,8 @@ final class RocketClientHappyTests: XCTestCase {
   
   func test_fetchAllRocketsCombine_sucessful() throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)
+    let expectation = expectation(description: "Awaiting Success")
+    var cancellables = Set<AnyCancellable>()
     let mockResponse = HTTPURLResponse(
       url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
       statusCode: 200,
@@ -60,8 +59,23 @@ final class RocketClientHappyTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    let result = try awaitPublisher(sut.fetchAllRocketsCombine())
-    XCTAssertNoDifference(result, .mock)
+    sut.fetchAllRocketsCombine()
+      .sink(
+        receiveCompletion: { completion in
+          switch completion {
+          case .finished: break
+          case let .failure(error):
+            XCTFail("\(error.causeName) - Fail")
+          }
+          expectation.fulfill()
+          
+        }, receiveValue: { rocket in
+          XCTAssertNoDifference(rocket, [Rocket].mock)
+        }
+      )
+      .store(in: &cancellables)
+    
+    waitForExpectations(timeout: 0.1)
   }
   
   

@@ -14,7 +14,7 @@ final class RocketListCoreTests: XCTestCase {
     initialState: RocketListCore.State(),
     reducer: RocketListCore()
   )
-  //TODO: Brackets
+  
   func test_rocket_fetch_successful() async {
     await store.send(.fetchAsync(.success([Rocket].mock))) {
       $0.rocketItems = IdentifiedArrayOf(
@@ -43,8 +43,6 @@ final class RocketListCoreTests: XCTestCase {
     store.dependencies.rocketClient.fetchAllRocketsAsync = {
       [Rocket].mock
     }
-    
-    //    store.dependencies.mainQueue = .immediate
     await store.send(.onAppear)
     
     await store.receive(.fetchAsync(.success([Rocket].mock))) {
