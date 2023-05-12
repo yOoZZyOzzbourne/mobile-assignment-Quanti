@@ -20,11 +20,10 @@ extension RocketClient: DependencyKey {
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue
         )
-        
         return request
           .execute(using: networkClient)
           .convertToDomainModel(using: converter)
-        //          .eraseToAnyPublisher()
+//          .eraseToAnyPublisher()
       },
       //TODO: Naming
       fetchAllRocketsAsync: {
@@ -33,7 +32,9 @@ extension RocketClient: DependencyKey {
         )
         
         let data: [RocketDTO] = try await request.execute(using: networkClient)
-        guard let result = converter.domainModel(fromExternal: data) else { throw NetworkError.invalidResponse }
+        guard let result = converter.domainModel(fromExternal: data) else {
+          throw NetworkError.invalidResponse
+        }
         
         return result
       }
@@ -56,4 +57,3 @@ extension RocketClient: DependencyKey {
     }
   )
 }
-

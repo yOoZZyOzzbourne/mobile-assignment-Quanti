@@ -20,11 +20,13 @@ let package = Package(
       name: "RocketErrorView",
       targets: ["RocketErrorView"]),
   ],
+  
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
     .package(path: "../Domain/"),
     .package(path: "../Infrastructure/"),
   ],
+  
   targets: [
     .target(
       name: "RocketLaunch",
@@ -32,15 +34,16 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "CoreMotionClient", package: "Infrastructure"),
         .product(name: "UIToolkit", package: "Infrastructure"),
+        
       ]
     ),
     .target(
       name: "RocketDetail",
       dependencies: [
-        "RocketLaunch",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
+        "RocketLaunch",
       ]
     ),
     .target(
@@ -51,47 +54,52 @@ let package = Package(
         .product(name: "RocketClient", package: "Domain"),
         .product(name: "ErrorForAlerts", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
+        
       ]
     ),
-    .target(
-      name: "RocketErrorView",
-      dependencies: [
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "RocketClient", package: "Domain"),
-        .product(name: "ErrorForAlerts", package: "Domain"),
-        .product(name: "UIToolkit", package: "Infrastructure"),
-      ]
-    ),
-    .testTarget(
-      name: "RocketListTests",
-      dependencies: [
-        "RocketList",
-        "RocketDetail",
-        "RocketLaunch",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "RocketClient", package: "Domain"),
-      ]
-    ),
-    .testTarget(
-      name: "RocketLaunchTests",
-      dependencies: [
-        "RocketList",
-        "RocketDetail",
-        "RocketLaunch",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "RocketClient", package: "Domain"),
-        .product(name: "CoreMotionClient", package: "Infrastructure"),
-      ]
-    ),
-    .testTarget(
-      name: "RocketDetailTests",
-      dependencies: [
-        "RocketList",
-        "RocketDetail",
-        "RocketLaunch",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "RocketClient", package: "Domain"),
-      ]
-    ),
+    
+      .target(
+        name: "RocketErrorView",
+        dependencies: [
+          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+          .product(name: "RocketClient", package: "Domain"),
+          .product(name: "ErrorForAlerts", package: "Domain"),
+          .product(name: "UIToolkit", package: "Infrastructure"),
+        ]
+      ),
+    
+      .testTarget(
+        name: "RocketListTests",
+        dependencies: [
+          "RocketList",
+          "RocketDetail",
+          "RocketLaunch",
+          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+          .product(name: "RocketClient", package: "Domain"),
+        ]
+      ),
+    
+      .testTarget(
+        name: "RocketLaunchTests",
+        dependencies: [
+          "RocketList",
+          "RocketDetail",
+          "RocketLaunch",
+          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+          .product(name: "RocketClient", package: "Domain"),
+          .product(name: "CoreMotionClient", package: "Infrastructure"),
+        ]
+      ),
+    
+      .testTarget(
+        name: "RocketDetailTests",
+        dependencies: [
+          "RocketList",
+          "RocketDetail",
+          "RocketLaunch",
+          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+          .product(name: "RocketClient", package: "Domain"),
+        ]
+      ),
   ]
 )
