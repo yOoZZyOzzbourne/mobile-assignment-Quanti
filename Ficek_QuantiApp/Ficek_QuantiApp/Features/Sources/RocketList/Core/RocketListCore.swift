@@ -14,7 +14,7 @@ public struct RocketListCore: ReducerProtocol {
   
   public init() { }
   
-  public struct State: Equatable{
+  public struct State: Equatable {
     public var rocketItems: IdentifiedArrayOf<RocketDetailCore.State> = []
     public var alert: AlertState<Action>? = nil
     
@@ -50,7 +50,7 @@ public struct RocketListCore: ReducerProtocol {
           )
         }
         
-      case .fetchRockets(.success(let result)):
+      case let .fetchRockets(.success(result)):
         state.rocketItems = IdentifiedArrayOf(
           uniqueElements: result.map {
             RocketDetailCore.State(rocket: $0)
@@ -59,14 +59,14 @@ public struct RocketListCore: ReducerProtocol {
         
         return .none
         
-      case .fetchRockets(.failure(let error)):
+      case let .fetchRockets(.failure(error)):
         if let networkError = error.underlyingError as? NetworkError {
           switch networkError {
           case .noConnection:
             state.alert = AlertState(
               title: TextState("No connection"),
               message: TextState("Phone canot connect to internet"),
-              primaryButton: .default(TextState("Try again"),action: .send(.onAppear)),
+              primaryButton: .default(TextState("Try again"), action: .send(.onAppear)),
               secondaryButton: .cancel(TextState("Cancel"))
             )
             
@@ -77,12 +77,12 @@ public struct RocketListCore: ReducerProtocol {
             state.alert = AlertState(
               title: TextState("Server is down"),
               message: TextState("Wait and try again"),
-              primaryButton: .default(TextState("Try again"),action: .send(.onAppear)),
+              primaryButton: .default(TextState("Try again"), action: .send(.onAppear)),
               secondaryButton: .cancel(TextState("Cancel"))
             )
             
           default:
-            print("Response was invalid")
+            state.alert = .errorAlert(error: error)
           }
         }
         
@@ -92,7 +92,7 @@ public struct RocketListCore: ReducerProtocol {
         state.alert = nil
         return .none
         
-      case .fetchAsync(.success(let result)):
+      case let .fetchAsync(.success(result)):
         state.rocketItems = IdentifiedArrayOf(
           uniqueElements: result.map {
             RocketDetailCore.State(rocket: $0)
@@ -100,7 +100,8 @@ public struct RocketListCore: ReducerProtocol {
         )
         
         return .none
-      case .fetchAsync(.failure(let error)):
+        
+      case let .fetchAsync(.failure(error)):
         state.alert = .errorAlert(error: error)
         return .none
         

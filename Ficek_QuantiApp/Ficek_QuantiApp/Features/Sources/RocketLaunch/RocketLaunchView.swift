@@ -4,14 +4,16 @@ import ComposableArchitecture
 public struct RocketLaunchView: View {
   public let store: StoreOf<RocketLaunchCore>
   
-  public init(store: StoreOf<RocketLaunchCore>) {
+  public init(
+    store: StoreOf<RocketLaunchCore>
+  ) {
     self.store = store
   }
   
   public var body: some View {
     WithViewStore(self.store) { viewStore in
       GeometryReader { geo in
-        VStack(spacing: -380){
+        VStack(spacing: -380) {
           viewStore.image
             .padding()
             .frame(

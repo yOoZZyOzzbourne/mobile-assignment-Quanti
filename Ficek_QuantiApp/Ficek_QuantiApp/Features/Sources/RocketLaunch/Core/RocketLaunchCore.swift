@@ -34,10 +34,11 @@ public struct RocketLaunchCore: ReducerProtocol {
         }
       }
       
-    case .flying(let result):
+    case let .flying(result):
       if result > 2 || result < -2 {
         state.isFlying = true
       }
+      
       return .none
     }
   }
