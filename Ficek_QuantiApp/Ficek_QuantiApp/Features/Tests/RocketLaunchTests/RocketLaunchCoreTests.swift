@@ -9,8 +9,8 @@ import CoreMotion
 
 @MainActor
 final class RocketLaunchCoreTests: XCTestCase {
-    @Dependency(\.coreMotionClient) var coreMotionClient
-
+  @Dependency(\.coreMotionClient) var coreMotionClient
+  
   func test_data_flow_rocketLaunch() async {
     let store = TestStore(
       initialState: RocketLaunchCore.State(),

@@ -10,7 +10,6 @@ import RequestBuilder
 
 final class RocketClientHappyTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
-  
   var testScheduler: TestScheduler<DispatchQueue.SchedulerTimeType, DispatchQueue.SchedulerOptions>! = DispatchQueue.test
   
   override func invokeTest() {

@@ -3,12 +3,14 @@ import ComposableArchitecture
 import RocketLaunch
 
 public struct RocketDetailView: View {
-    public let store: StoreOf<RocketDetailCore>
-    
-    public init(store: StoreOf<RocketDetailCore>) {
-        self.store = store
-    }
-    
+  public let store: StoreOf<RocketDetailCore>
+  
+  public init(
+    store: StoreOf<RocketDetailCore>
+  ) {
+    self.store = store
+  }
+  
   public var body: some View {
     WithViewStore(self.store) { viewStore in
       ScrollView {
@@ -27,7 +29,7 @@ public struct RocketDetailView: View {
             )
           )
           .padding()
-   
+          
           RocketSecondStageView(
             store: self.store.scope(
               state: \.rocketSecondStage,
@@ -65,13 +67,13 @@ public struct RocketDetailView: View {
 }
 
 struct RocketDetailView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        RocketDetailView(
-            store: Store(
-              initialState: RocketDetailCore.State(rocket: .mock),
-                reducer: RocketDetailCore()
-            )
-        )
-    }
+  
+  static var previews: some View {
+    RocketDetailView(
+      store: Store(
+        initialState: RocketDetailCore.State(rocket: .mock),
+        reducer: RocketDetailCore()
+      )
+    )
+  }
 }
