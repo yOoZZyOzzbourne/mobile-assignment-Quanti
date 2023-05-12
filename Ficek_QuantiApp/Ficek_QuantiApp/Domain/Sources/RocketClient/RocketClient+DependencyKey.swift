@@ -1,5 +1,5 @@
 import Foundation
-import ErrorHandlingConcurrency
+import ErrorForAlerts
 import Dependencies
 import Combine
 import Networking
@@ -16,7 +16,7 @@ extension RocketClient: DependencyKey {
     @Dependency(\.rocketsConverter) var converter
     
     return Self(
-      fetchAllRockets: {
+      fetchAllRocketsCombine: {
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue
         )
@@ -25,7 +25,8 @@ extension RocketClient: DependencyKey {
           .convertToDomainModel(using: converter)
 //          .eraseToAnyPublisher()
       },
-      fetchAsync: {
+      //TODO: Naming
+      fetchAllRocketsAsync: {
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue
         )
@@ -41,17 +42,17 @@ extension RocketClient: DependencyKey {
   }
   
   public static let testValue = RocketClient(
-    fetchAllRockets: unimplemented("\(Self.self).fetchAllRockets"),
-    fetchAsync: unimplemented("\(Self.self).fetchAsync")
+    fetchAllRocketsCombine: unimplemented("\(Self.self).fetchAllRockets"),
+    fetchAllRocketsAsync: unimplemented("\(Self.self).fetchAsync")
   )
   
   public static let previewValue = RocketClient(
-    fetchAllRockets: {
+    fetchAllRocketsCombine: {
       return Just([Rocket].mock)
         .setFailureType(to: RocketError.self)
         .eraseToAnyPublisher()
     },
-    fetchAsync: {
+    fetchAllRocketsAsync: {
       return [Rocket].mock
     }
   )
