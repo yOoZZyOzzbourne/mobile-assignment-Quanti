@@ -20,13 +20,11 @@ let package = Package(
       name: "RocketErrorView",
       targets: ["RocketErrorView"]),
   ],
-  
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
     .package(path: "../Domain/"),
     .package(path: "../Infrastructure/"),
   ],
-  
   targets: [
     .target(
       name: "RocketLaunch",
@@ -34,7 +32,6 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "CoreMotionClient", package: "Infrastructure"),
         .product(name: "UIToolkit", package: "Infrastructure"),
-        
       ]
     ),
     .target(
@@ -54,11 +51,9 @@ let package = Package(
         .product(name: "RocketClient", package: "Domain"),
         .product(name: "ErrorForAlerts", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
-        
       ]
     ),
-    
-      .target(
+    .target(
         name: "RocketErrorView",
         dependencies: [
           .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
@@ -67,7 +62,6 @@ let package = Package(
           .product(name: "UIToolkit", package: "Infrastructure"),
         ]
       ),
-    
       .testTarget(
         name: "RocketListTests",
         dependencies: [
@@ -78,7 +72,6 @@ let package = Package(
           .product(name: "RocketClient", package: "Domain"),
         ]
       ),
-    
       .testTarget(
         name: "RocketLaunchTests",
         dependencies: [
@@ -90,7 +83,6 @@ let package = Package(
           .product(name: "CoreMotionClient", package: "Infrastructure"),
         ]
       ),
-    
       .testTarget(
         name: "RocketDetailTests",
         dependencies: [
