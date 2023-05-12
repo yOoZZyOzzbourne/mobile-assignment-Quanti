@@ -15,8 +15,8 @@ struct RocketPhotosView: View {
         ForEach (viewStore.rocket.flickrImages, id: \.self) { image in
           AsyncImage(
             url: URL(string: image),
-            content: { asyncImage in
-              asyncImage
+            content: {
+              $0
                 .resizable()
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

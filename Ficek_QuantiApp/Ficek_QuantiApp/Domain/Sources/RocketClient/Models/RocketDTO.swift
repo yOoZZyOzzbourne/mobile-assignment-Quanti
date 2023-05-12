@@ -62,7 +62,7 @@ public struct FirstStageDTO: Codable, Equatable {
   }
 }
 
-public struct MassDTO: Codable, Equatable  {
+public struct MassDTO: Codable, Equatable {
   public var kg: Int?
   public var lb: Int?
 }

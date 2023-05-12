@@ -32,9 +32,7 @@ extension RocketClient: DependencyKey {
         )
         
         let data: [RocketDTO] = try await request.execute(using: networkClient)
-        guard let result = converter.domainModel(fromExternal: data) else {
-          throw NetworkError.invalidResponse
-        }
+        guard let result = converter.domainModel(fromExternal: data) else { throw NetworkError.invalidResponse }
         
         return result
       }
