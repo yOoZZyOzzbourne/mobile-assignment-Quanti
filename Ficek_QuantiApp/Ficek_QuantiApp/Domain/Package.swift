@@ -19,14 +19,15 @@ let package = Package(
     .package(path: "../Infrastructure/"),
     .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
   ],
+  
   targets: [
     .target(
       name: "RocketClient",
       dependencies: [
-        "ErrorForAlerts",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "Networking", package: "swift-core"),
         .product(name: "NetworkClientDependency", package: "Infrastructure"),
+        "ErrorForAlerts"
       ]
     ),
     .target(
@@ -37,25 +38,26 @@ let package = Package(
         .product(name: "NetworkClientDependency", package: "Infrastructure"),
       ]
     ),
-    .testTarget(
-      name: "RocketClientTests",
-      dependencies: [
-        "RocketClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "Networking", package: "swift-core"),
-        .product(name: "RequestBuilder", package: "swift-core"),
-        .product(name: "NetworkMonitoring", package: "swift-core"),
-        .product(name: "ModelConvertible", package: "swift-core"),
-        .product(name: "XCTestHelper", package: "Infrastructure"),
-      ]
-    ),
+    
+      .testTarget(
+        name: "RocketClientTests",
+        dependencies: [
+          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+          .product(name: "Networking", package: "swift-core"),
+          .product(name: "RequestBuilder", package: "swift-core"),
+          .product(name: "NetworkMonitoring", package: "swift-core"),
+          .product(name: "ModelConvertible", package: "swift-core"),
+          .product(name: "XCTestHelper", package: "Infrastructure"),
+          "RocketClient"
+        ]
+      ),
     .testTarget(
       name: "RocketConvertersTests",
       dependencies: [
-        "RocketClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "ModelConvertible", package: "swift-core"),
         .product(name: "XCTestHelper", package: "Infrastructure"),
+        "RocketClient"
       ]
     ),
   ]
