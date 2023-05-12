@@ -5,7 +5,7 @@ import ErrorReporting
 
 public extension AlertState {
   static func errorAlert(error: Error?) -> AlertState {
-    if let error = error as? ErrorHandlingConcurrency {
+    if let error = error as? ErrorForAlerts {
       return AlertState {
         TextState(error.causeName)
       } actions: {
@@ -28,7 +28,7 @@ public extension AlertState {
 
 public extension Alert {
   static func errorAlert(error: Error?) -> Alert {
-    if let error = error as? ErrorHandlingConcurrency {
+    if let error = error as? ErrorForAlerts {
       return Alert(
         title: Text(error.causeName),
         message: Text(error.causeUIDescription),

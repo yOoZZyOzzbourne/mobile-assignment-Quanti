@@ -26,7 +26,7 @@ final class RocketClientSadTests: XCTestCase {
   //        }
   //      }
   
-  func test_network_not_functioning() throws {
+  func test_network_not_functioning_combine() throws {
     let expectation = expectation(description: "Awaiting Success")
     var cancellables = Set<AnyCancellable>()
     var errorRecieved = false
@@ -54,7 +54,7 @@ final class RocketClientSadTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    let result = sut.fetchAllRockets()
+    let result = sut.fetchAllRocketsCombine()
     
     result
       .sink(
@@ -78,7 +78,7 @@ final class RocketClientSadTests: XCTestCase {
     XCTAssertTrue(errorRecieved, "Error was not recieved")
   }
   
-  func test_fail_convertor() throws {
+  func test_fail_convertor_combine() throws {
     let expectation = expectation(description: "Awaiting Failure")
     var cancellables = Set<AnyCancellable>()
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)
@@ -119,7 +119,7 @@ final class RocketClientSadTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    sut.fetchAllRockets()
+    sut.fetchAllRocketsCombine()
       .sink(
         receiveCompletion: { completion in
           switch completion {
@@ -170,7 +170,7 @@ final class RocketClientSadTests: XCTestCase {
     }
     
     do {
-      let _ = try await sut.fetchAsync()
+      let _ = try await sut.fetchAllRocketsAsync()
     } catch is NetworkError {
       errorRecieved = true
     }
@@ -218,7 +218,7 @@ final class RocketClientSadTests: XCTestCase {
     }
     
     do {
-      let _ = try await sut.fetchAsync()
+      let _ = try await sut.fetchAllRocketsAsync()
     } catch {
       errorRecieved = true
     }

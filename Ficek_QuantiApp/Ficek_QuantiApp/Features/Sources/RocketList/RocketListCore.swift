@@ -7,7 +7,7 @@ import SwiftUI
 import Networking
 import ErrorReporting
 import ModelConvertible
-import ErrorHandlingConcurrency
+import ErrorForAlerts
 import UIToolkit
 
 public struct RocketListCore: ReducerProtocol {
@@ -29,8 +29,8 @@ public struct RocketListCore: ReducerProtocol {
     case fetchAsync(TaskResult<[Rocket]>)
   }
   
-  @Dependency(\.rocketClient.fetchAllRockets) var fetchAllRockets
-  @Dependency(\.rocketClient.fetchAsync) var fetchAsync
+  @Dependency(\.rocketClient.fetchAllRocketsCombine) var fetchAllRockets
+  @Dependency(\.rocketClient.fetchAllRocketsAsync) var fetchAsync
   
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
@@ -38,7 +38,7 @@ public struct RocketListCore: ReducerProtocol {
         
       case .onAppear:
         //MARK: Combine
-        //                return fetchAllRockets()
+        //                return fetchAllRocketsCombine()
         //                    .receive(on: DispatchQueue.main)
         //                    .catchToEffect(Action.fetchRockets)
         //MARK: Async

@@ -49,7 +49,7 @@ let package = Package(
         "RocketDetail",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
-        .product(name: "ErrorHandlingConcurrency", package: "Domain"),
+        .product(name: "ErrorForAlerts", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
       ]
     ),
@@ -58,7 +58,7 @@ let package = Package(
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
-        .product(name: "ErrorHandlingConcurrency", package: "Domain"),
+        .product(name: "ErrorForAlerts", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
       ]
     ),

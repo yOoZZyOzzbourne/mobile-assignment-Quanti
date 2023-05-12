@@ -31,7 +31,7 @@ final class RocketClientHappyTests: XCTestCase {
     }
   }
   
-  func test_fetchAllRockets_sucessful() throws {
+  func test_fetchAllRocketsCombine_sucessful() throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)
     let mockResponse = HTTPURLResponse(
       url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
@@ -60,7 +60,7 @@ final class RocketClientHappyTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    let result = try awaitPublisher(sut.fetchAllRockets())
+    let result = try awaitPublisher(sut.fetchAllRocketsCombine())
     XCTAssertNoDifference(result, .mock)
   }
   
@@ -94,7 +94,7 @@ final class RocketClientHappyTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    let result = try await sut.fetchAsync()
+    let result = try await sut.fetchAllRocketsAsync()
     XCTAssertNoDifference(result, .mock)
   }
 }

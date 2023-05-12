@@ -2,12 +2,12 @@ import Foundation
 import ComposableArchitecture
 import Networking
 
-public protocol ErrorHandlingConcurrency: Error, CustomDebugStringConvertible, CustomStringConvertible {
+public protocol ErrorForAlerts: Error, CustomDebugStringConvertible, CustomStringConvertible {
   var causeUIDescription: String { get }
   var causeName: String { get }
 }
 
-struct GeneralAsyncError: ErrorHandlingConcurrency {
+struct GeneralAsyncError: ErrorForAlerts {
   var debugDescription: String
   var description: String
   

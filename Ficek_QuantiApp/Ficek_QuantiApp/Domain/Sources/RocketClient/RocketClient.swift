@@ -10,8 +10,8 @@ public struct RocketClient {
     case allRockets = "https://api.spacexdata.com/v4/rockets"
   }
   
-  public var fetchAllRockets: ()  -> AnyPublisher<[Rocket], RocketError>
+  public var fetchAllRocketsCombine: ()  -> AnyPublisher<[Rocket], RocketError>
   
-  public var fetchAsync: () async throws -> [Rocket]
+  public var fetchAllRocketsAsync: () async throws -> [Rocket]
 }
 
