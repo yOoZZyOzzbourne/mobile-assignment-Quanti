@@ -10,7 +10,7 @@ import RequestBuilder
 
 final class RocketClientSadTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
-
+  
   func test_network_not_functioning_combine() throws {
     let expectation = expectation(description: "Awaiting Success")
     var cancellables = Set<AnyCancellable>()

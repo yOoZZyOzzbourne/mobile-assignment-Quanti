@@ -9,7 +9,8 @@ let package = Package(
   products: [
     .library(
       name: "RocketClient",
-      targets: ["RocketClient"]),
+      targets: ["RocketClient"]
+    ),
   ],
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
@@ -25,25 +26,25 @@ let package = Package(
         .product(name: "NetworkClientDependency", package: "Infrastructure"),
       ]
     ),
-      .testTarget(
-        name: "RocketClientTests",
-        dependencies: [
-          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-          .product(name: "Networking", package: "swift-core"),
-          .product(name: "RequestBuilder", package: "swift-core"),
-          .product(name: "NetworkMonitoring", package: "swift-core"),
-          .product(name: "ModelConvertible", package: "swift-core"),
-          .product(name: "XCTestHelper", package: "Infrastructure"),
-          "RocketClient"
-        ]
-      ),
+    .testTarget(
+      name: "RocketClientTests",
+      dependencies: [
+        "RocketClient",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "Networking", package: "swift-core"),
+        .product(name: "RequestBuilder", package: "swift-core"),
+        .product(name: "NetworkMonitoring", package: "swift-core"),
+        .product(name: "ModelConvertible", package: "swift-core"),
+        .product(name: "XCTestHelper", package: "Infrastructure"),
+      ]
+    ),
     .testTarget(
       name: "RocketConvertersTests",
       dependencies: [
+        "RocketClient",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "ModelConvertible", package: "swift-core"),
         .product(name: "XCTestHelper", package: "Infrastructure"),
-        "RocketClient"
       ]
     ),
   ]

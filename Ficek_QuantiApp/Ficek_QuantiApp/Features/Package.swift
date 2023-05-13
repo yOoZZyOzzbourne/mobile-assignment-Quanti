@@ -9,28 +9,31 @@ let package = Package(
   products: [
     .library(
       name: "RocketLaunch",
-      targets: ["RocketLaunch"]),
+      targets: ["RocketLaunch"]
+    ),
     .library(
       name: "RocketDetail",
-      targets: ["RocketDetail"]),
+      targets: ["RocketDetail"]
+    ),
     .library(
       name: "RocketList",
-      targets: ["RocketList"]),
+      targets: ["RocketList"]
+    ),
     .library(
       name: "RocketErrorView",
-      targets: ["RocketErrorView"]),
+      targets: ["RocketErrorView"]
+    ),
     .library(
       name: "TCAExtensions",
-      targets: ["TCAExtensions"]),
+      targets: ["TCAExtensions"]
+    ),
   ],
-  
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
     .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
     .package(path: "../Domain/"),
     .package(path: "../Infrastructure/"),
   ],
-  
   targets: [
     .target(
       name: "RocketLaunch",
@@ -38,16 +41,36 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "CoreMotionClient", package: "Infrastructure"),
         .product(name: "UIToolkit", package: "Infrastructure"),
-        
+      ]
+    ),
+    .testTarget(
+      name: "RocketLaunchTests",
+      dependencies: [
+        "RocketList",
+        "RocketDetail",
+        "RocketLaunch",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "RocketClient", package: "Domain"),
+        .product(name: "CoreMotionClient", package: "Infrastructure"),
       ]
     ),
     .target(
       name: "RocketDetail",
       dependencies: [
+        "RocketLaunch",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
+      ]
+    ),
+    .testTarget(
+      name: "RocketDetailTests",
+      dependencies: [
+        "RocketList",
+        "RocketDetail",
         "RocketLaunch",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "RocketClient", package: "Domain"),
       ]
     ),
     .target(
@@ -58,18 +81,27 @@ let package = Package(
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
         .product(name: "UIToolkit", package: "Infrastructure"),
-        
       ]
     ),
-      .target(
-        name: "RocketErrorView",
-        dependencies: [
-          "TCAExtensions",
-          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-          .product(name: "RocketClient", package: "Domain"),
-          .product(name: "UIToolkit", package: "Infrastructure"),
-        ]
-      ),
+    .testTarget(
+      name: "RocketListTests",
+      dependencies: [
+        "RocketList",
+        "RocketDetail",
+        "RocketLaunch",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "RocketClient", package: "Domain"),
+      ]
+    ),
+    .target(
+      name: "RocketErrorView",
+      dependencies: [
+        "TCAExtensions",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+        .product(name: "RocketClient", package: "Domain"),
+        .product(name: "UIToolkit", package: "Infrastructure"),
+      ]
+    ),
     .target(
       name: "TCAExtensions",
       dependencies: [
@@ -80,39 +112,5 @@ let package = Package(
         .product(name: "UIToolkit", package: "Infrastructure"),
       ]
     ),
-    
-      .testTarget(
-        name: "RocketListTests",
-        dependencies: [
-          "RocketList",
-          "RocketDetail",
-          "RocketLaunch",
-          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-          .product(name: "RocketClient", package: "Domain"),
-        ]
-      ),
-    
-      .testTarget(
-        name: "RocketLaunchTests",
-        dependencies: [
-          "RocketList",
-          "RocketDetail",
-          "RocketLaunch",
-          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-          .product(name: "RocketClient", package: "Domain"),
-          .product(name: "CoreMotionClient", package: "Infrastructure"),
-        ]
-      ),
-    
-      .testTarget(
-        name: "RocketDetailTests",
-        dependencies: [
-          "RocketList",
-          "RocketDetail",
-          "RocketLaunch",
-          .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-          .product(name: "RocketClient", package: "Domain"),
-        ]
-      ),
   ]
 ) 

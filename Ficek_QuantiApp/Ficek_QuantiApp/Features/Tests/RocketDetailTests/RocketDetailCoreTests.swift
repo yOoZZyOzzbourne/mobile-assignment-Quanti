@@ -8,7 +8,7 @@ import RocketLaunch
 
 @MainActor
 final class RocketDetailCoreTests: XCTestCase {
-
+  
   func test_data_flow_rocketDetail() async {
     let store = TestStore(
       initialState: RocketDetailCore.State(rocket: .mock),
@@ -26,6 +26,6 @@ final class RocketDetailCoreTests: XCTestCase {
     
     //RocketDetailChild - RocketLaunch
     XCTAssertNoDifference(store.state.rocketLaunch, .init())
-  
+    
   }
 }

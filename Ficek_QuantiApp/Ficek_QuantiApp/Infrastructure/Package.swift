@@ -4,55 +4,52 @@
 import PackageDescription
 
 let package = Package(
-    name: "Infrastructure",
-    defaultLocalization: "en",
-    platforms: [.iOS(.v15)],
-    products: [
-        .library(
-            name: "XCTestHelper",
-            targets: ["XCTestHelper"]),
-        .library(
-            name: "CoreMotionClient",
-            targets: ["CoreMotionClient"]),
-        .library(
-            name: "NetworkClientDependency",
-            targets: ["NetworkClientDependency"]),
-        .library(
-          name: "UIToolkit",
-          targets: ["UIToolkit"]
-        )
-        
-    ],
-    
-    dependencies: [
-        .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4"),
-    ],
-    
-    targets: [
-        .target(
-            name: "XCTestHelper",
-            dependencies: [
-            ]
-        ),
-        .target(
-            name: "CoreMotionClient",
-            dependencies: [
-                .product(name: "Dependencies", package: "swift-dependencies")
-            ]
-        ),
-        .target(
-            name: "NetworkClientDependency",
-            dependencies: [
-                .product(name: "Dependencies", package: "swift-dependencies"),
-                .product(name: "Networking", package: "swift-core")
-            ]
-        ),
-        .target(
-            name: "UIToolkit",
-            dependencies: [
-            ]
-        ),
-        
-    ]
+  name: "Infrastructure",
+  defaultLocalization: "en",
+  platforms: [.iOS(.v15)],
+  products: [
+    .library(
+      name: "XCTestHelper",
+      targets: ["XCTestHelper"]
+    ),
+    .library(
+      name: "CoreMotionClient",
+      targets: ["CoreMotionClient"]
+    ),
+    .library(
+      name: "NetworkClientDependency",
+      targets: ["NetworkClientDependency"]
+    ),
+    .library(
+      name: "UIToolkit",
+      targets: ["UIToolkit"]
+    ),
+  ],
+  dependencies: [
+    .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
+    .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4"),
+  ],
+  targets: [
+    .target(
+      name: "XCTestHelper",
+      dependencies: []
+    ),
+    .target(
+      name: "CoreMotionClient",
+      dependencies: [
+        .product(name: "Dependencies", package: "swift-dependencies")
+      ]
+    ),
+    .target(
+      name: "NetworkClientDependency",
+      dependencies: [
+        .product(name: "Dependencies", package: "swift-dependencies"),
+        .product(name: "Networking", package: "swift-core")
+      ]
+    ),
+    .target(
+      name: "UIToolkit",
+      dependencies: []
+    ),
+  ]
 )

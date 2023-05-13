@@ -4,7 +4,7 @@ import Dependencies
 import RocketClient
 import RocketLaunch
 
-public struct RocketPhotosCore: ReducerProtocol{
+public struct RocketPhotosCore: ReducerProtocol {
   
   public init() { }
   
@@ -19,8 +19,7 @@ public struct RocketPhotosCore: ReducerProtocol{
     }
   }
   
-  public enum Action: Equatable {
-  }
+  public enum Action: Equatable { }
   
   public func reduce(into state: inout State, action: Action) -> EffectTask<Action> { }
 }
