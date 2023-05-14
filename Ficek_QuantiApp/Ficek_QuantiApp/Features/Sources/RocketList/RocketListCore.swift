@@ -56,36 +56,11 @@ public struct RocketListCore: ReducerProtocol {
             RocketDetailCore.State(rocket: $0)
           }
         )
-        
+    
         return .none
         
       case let .fetchRockets(.failure(error)):
-        if let networkError = error.underlyingError as? NetworkError {
-          switch networkError {
-          case .noConnection:
-            state.alert = AlertState(
-              title: TextState("No connection"),
-              message: TextState("Phone canot connect to internet"),
-              primaryButton: .default(TextState("Try again"), action: .send(.onAppear)),
-              secondaryButton: .cancel(TextState("Cancel"))
-            )
-            
-          case .timeoutError:
-            return .send(.onAppear)
-            
-          case .serverError(statusCode: 500):
-            state.alert = AlertState(
-              title: TextState("Server is down"),
-              message: TextState("Wait and try again"),
-              primaryButton: .default(TextState("Try again"), action: .send(.onAppear)),
-              secondaryButton: .cancel(TextState("Cancel"))
-            )
-            
-          default:
-            state.alert = .errorAlert(error: error)
-          }
-        }
-        
+        state.alert = .errorAlert(error: error)
         return .none
         
       case .alertCancelTapped:
