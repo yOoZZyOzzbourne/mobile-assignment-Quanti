@@ -26,6 +26,5 @@ final class RocketDetailCoreTests: XCTestCase {
     
     //RocketDetailChild - RocketLaunch
     XCTAssertNoDifference(store.state.rocketLaunch, .init())
-    
   }
 }

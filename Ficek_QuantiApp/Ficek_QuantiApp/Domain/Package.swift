@@ -35,16 +35,7 @@ let package = Package(
         .product(name: "RequestBuilder", package: "swift-core"),
         .product(name: "NetworkMonitoring", package: "swift-core"),
         .product(name: "ModelConvertible", package: "swift-core"),
-        .product(name: "XCTestHelper", package: "Infrastructure"),
-      ]
-    ),
-    .testTarget(
-      name: "RocketConvertersTests",
-      dependencies: [
-        "RocketClient",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "ModelConvertible", package: "swift-core"),
-        .product(name: "XCTestHelper", package: "Infrastructure"),
+        .product(name: "TestUtils", package: "Infrastructure"),
       ]
     ),
   ]

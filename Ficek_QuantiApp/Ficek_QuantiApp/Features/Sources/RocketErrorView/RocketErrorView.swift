@@ -16,16 +16,14 @@ public struct RocketErrorView: View {
         .frame(width: 150, height: 150)
         .background(.opacity(0))
       
-      Button("Close the app") {
-        
-      }
-      .foregroundColor(.black)
-      .background {
-        RoundedRectangle(cornerRadius: 5)
-          .foregroundColor(.pinkColor)
-          .padding(-20)
-      }
-      .padding(.top, 100)
+//      Button("Refresh") { }
+//      .foregroundColor(.black)
+//      .background {
+//        RoundedRectangle(cornerRadius: 5)
+//          .foregroundColor(.pinkColor)
+//          .padding(-20)
+//      }
+//      .padding(.top, 100)
     }
   }
 }

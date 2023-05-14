@@ -3,7 +3,7 @@ import XCTest
 import ComposableArchitecture
 import Combine
 import XCTestDynamicOverlay
-import XCTestHelper
+import TestUtils
 import RequestBuilder
 @testable import Networking
 @testable import RocketClient
@@ -29,6 +29,7 @@ final class RocketClientHappyTests: XCTestCase {
   
   func test_fetchAllRocketsCombine_sucessful() throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)
+    var valueRecieved = false
     let expectation = expectation(description: "Awaiting Success")
     var cancellables = Set<AnyCancellable>()
     let mockResponse = HTTPURLResponse(
@@ -62,12 +63,12 @@ final class RocketClientHappyTests: XCTestCase {
       .sink(
         receiveCompletion: { completion in
           switch completion {
-          case .finished: break
+          case .finished:
+            expectation.fulfill()
+            valueRecieved = true
           case let .failure(error):
             XCTFail("\(error.causeName) - Fail")
           }
-          expectation.fulfill()
-          
         }, receiveValue: { rocket in
           XCTAssertNoDifference(rocket, [Rocket].mock)
         }
@@ -75,8 +76,8 @@ final class RocketClientHappyTests: XCTestCase {
       .store(in: &cancellables)
     
     waitForExpectations(timeout: 0.1)
+    XCTAssertTrue(valueRecieved)
   }
-  
   
   func test_fetchAllRocketsAsync_sucessful() async throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)

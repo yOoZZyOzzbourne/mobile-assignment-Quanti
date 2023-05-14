@@ -49,11 +49,12 @@ public struct RocketDetailView: View {
       .toolbar {
         ToolbarItem(placement: .navigation) {
           NavigationLink(
-            destination: RocketLaunchView(
-              store: self.store.scope(
+            destination: IfLetStore(
+              self.store.scope(
                 state: \.rocketLaunch,
                 action: RocketDetailCore.Action.rocketLaunch
-              )
+              ),
+              then: RocketLaunchView.init(store:)
             ),
             label: {
               Text("Launch")

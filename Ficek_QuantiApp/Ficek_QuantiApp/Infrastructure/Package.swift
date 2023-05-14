@@ -9,8 +9,8 @@ let package = Package(
   platforms: [.iOS(.v15)],
   products: [
     .library(
-      name: "XCTestHelper",
-      targets: ["XCTestHelper"]
+      name: "TestUtils",
+      targets: ["TestUtils"]
     ),
     .library(
       name: "CoreMotionClient",
@@ -31,7 +31,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "XCTestHelper",
+      name: "TestUtils",
       dependencies: []
     ),
     .target(

@@ -24,8 +24,4 @@ extension CoreMotionClient: DependencyKey {
       }
     )
   }
-  
-  public static let testValue = CoreMotionClient(
-    xRotationRate: unimplemented("\(Self.self).xRotationRate")
-  )
 }

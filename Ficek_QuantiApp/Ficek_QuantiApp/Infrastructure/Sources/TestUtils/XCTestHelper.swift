@@ -1,10 +1,3 @@
-//
-//  XCTestHelper.swift
-//  
-//
-//  Created by Martin Ficek on 10.04.2023.
-//
-
 import Foundation
 import XCTest
 import Combine

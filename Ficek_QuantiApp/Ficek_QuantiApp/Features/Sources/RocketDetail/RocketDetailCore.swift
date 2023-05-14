@@ -14,7 +14,7 @@ public struct RocketDetailCore: ReducerProtocol {
     public var rocket: Rocket
     public var firstFlight: String { "First flight: \(rocket.firstFlight)" }
     
-    public var rocketLaunch: RocketLaunchCore.State
+    public var rocketLaunch: RocketLaunchCore.State?
     public var rocketFirstStage: RocketFirstStageCore.State
     public var rocketSecondStage: RocketSecondStageCore.State
     public var rocketPhotos: RocketPhotosCore.State
@@ -58,7 +58,7 @@ public struct RocketDetailCore: ReducerProtocol {
       RocketPhotosCore()
     }
     
-    Scope(state: \.rocketLaunch, action: /Action.rocketLaunch) {
+    .ifLet(\.rocketLaunch, action: /Action.rocketLaunch){
       RocketLaunchCore()
     }
   }

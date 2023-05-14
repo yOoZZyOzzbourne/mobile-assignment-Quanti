@@ -3,7 +3,6 @@ import Dependencies
 import ModelConvertible
 
 public typealias DiameterConverter = ModelConverter<Diameter, DiameterDTO>
-
 public extension DiameterConverter {
   static func live() -> Self {
     .init(
@@ -29,18 +28,9 @@ public extension DiameterConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
-
 public typealias HeightConverter = ModelConverter<Height, HeightDTO>
-
 public extension HeightConverter {
   static func live() -> Self {
     .init(
@@ -66,17 +56,9 @@ public extension HeightConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
 public typealias EnginesConverter = ModelConverter<Engines, EnginesDTO>
-
 public extension EnginesConverter {
   static func live() -> Self {
     .init(
@@ -102,17 +84,9 @@ public extension EnginesConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
 public typealias FirstStageConverter = ModelConverter<FirstStage, FirstStageDTO>
-
 public extension FirstStageConverter {
   static func live() -> Self {
     .init(
@@ -150,17 +124,9 @@ public extension FirstStageConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
 public typealias SecondStageConverter = ModelConverter<SecondStage, SecondStageDTO>
-
 public extension SecondStageConverter {
   static func live() -> Self {
     .init(
@@ -198,17 +164,9 @@ public extension SecondStageConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
 public typealias MassConverter = ModelConverter<Mass, MassDTO>
-
 public extension MassConverter {
   static func live() -> Self {
     .init(
@@ -234,17 +192,9 @@ public extension MassConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
 public typealias RocketConverter = ModelConverter<Rocket, RocketDTO>
-
 public extension RocketConverter {
   static func live() -> Self {
     @Dependency(\.diameterConverter) var diameterConverter
@@ -313,17 +263,9 @@ public extension RocketConverter {
       }
     )
   }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
-    )
-  }
 }
 
 public typealias RocketsConverter = ModelConverter<[Rocket], [RocketDTO]>
-
 public extension RocketsConverter {
   static func live() -> Self {
     @Dependency(\.rocketConverter) var rocketConverter
@@ -337,13 +279,6 @@ public extension RocketsConverter {
         
         return rocketDTO.compactMap(rocketConverter.domainModel(fromExternal:))
       }
-    )
-  }
-  
-  static func test() -> Self {
-    .init(
-      externalModelConverter: unimplemented("\(Self.self).externalConverter"),
-      domainModelConverter: unimplemented("\(Self.self).domainConverter")
     )
   }
 }

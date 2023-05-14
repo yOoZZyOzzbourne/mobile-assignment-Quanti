@@ -19,6 +19,7 @@ extension RocketClient: DependencyKey {
         let request = Request(
           endpoint: Self.RocketRequest.allRockets.rawValue
         )
+        
         return request
           .execute(using: networkClient)
           .convertToDomainModel(using: converter)
@@ -37,20 +38,4 @@ extension RocketClient: DependencyKey {
       }
     )
   }
-  
-  public static let testValue = RocketClient(
-    fetchAllRocketsCombine: unimplemented("\(Self.self).fetchAllRockets"),
-    fetchAllRocketsAsync: unimplemented("\(Self.self).fetchAsync")
-  )
-  
-  public static let previewValue = RocketClient(
-    fetchAllRocketsCombine: {
-      return Just([Rocket].mock)
-        .setFailureType(to: RocketError.self)
-        .eraseToAnyPublisher()
-    },
-    fetchAllRocketsAsync: {
-      return [Rocket].mock
-    }
-  )
 }

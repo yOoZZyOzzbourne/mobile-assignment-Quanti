@@ -3,7 +3,7 @@ import XCTest
 import ComposableArchitecture
 import Combine
 import XCTestDynamicOverlay
-import XCTestHelper
+import TestUtils
 import RequestBuilder
 @testable import Networking
 @testable import RocketClient
@@ -45,16 +45,15 @@ final class RocketClientSadTests: XCTestCase {
       .sink(
         receiveCompletion: { completion in
           switch completion {
-          case .finished: XCTFail("Test should fail")
-          case let .failure(error):
-            if error.underlyingError is NetworkError {
+          case .finished:
+            XCTFail("Test should fail")
+          case let .failure(error) where error.underlyingError is NetworkError:
               errorRecieved = true
               expectation.fulfill()
-            } else {
-              XCTFail("Error should be networkError")
-            }
+
+          case .failure(_):
+            XCTFail("Error should be networkError")
           }
-          
         }, receiveValue: { _ in }
       )
       .store(in: &cancellables)
@@ -108,16 +107,14 @@ final class RocketClientSadTests: XCTestCase {
       .sink(
         receiveCompletion: { completion in
           switch completion {
-          case .finished: break
-          case let .failure(error):
-            if error.underlyingError is NetworkError {
-              XCTFail("Error shouldnt be networkError")
-            } else {
-              errorRecieved = true
-            }
+          case .finished:
+            XCTFail("Func should fail")
+          case let .failure(error) where error.underlyingError is NetworkError:
+            XCTFail("Error shouldnt be networkError")
+          case .failure:
+            errorRecieved = true
+            expectation.fulfill()
           }
-          expectation.fulfill()
-          
         }, receiveValue: { rocket in
           XCTAssertNoDifference(rocket, [Rocket].mock)
         }
@@ -129,7 +126,6 @@ final class RocketClientSadTests: XCTestCase {
   }
   
   func test_network_not_functioning_async() async throws {
-    var errorRecieved = false
     let urlResponse = URLResponse(
       url: URL(string:"https://api.spacexdata.com/v4/rockets")!,
       mimeType: nil,
@@ -154,18 +150,12 @@ final class RocketClientSadTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    do {
-      let _ = try await sut.fetchAllRocketsAsync()
-    } catch is NetworkError {
-      errorRecieved = true
-    }
-    
-    XCTAssertTrue(errorRecieved, "Error was not recieved")
+    await XCTAssertThrowsErrorAsync(try await sut.fetchAllRocketsAsync())
+    await XCTAssertThrowsErrorAsyncErrorComparable(try await sut.fetchAllRocketsAsync(), NetworkError.invalidResponse)
   }
   
   func test_fail_convertor_async() async throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mockTest)
-    var errorRecieved = false
     let mockResponse = HTTPURLResponse(
       url: URL(string: "https://api.spacexdata.com/v4/rockets")!,
       statusCode: 200,
@@ -202,12 +192,6 @@ final class RocketClientSadTests: XCTestCase {
       RocketClient.liveValue
     }
     
-    do {
-      let _ = try await sut.fetchAllRocketsAsync()
-    } catch {
-      errorRecieved = true
-    }
-    
-    XCTAssertTrue(errorRecieved, "Convertor passed")
+    await XCTAssertThrowsErrorAsync(try await sut.fetchAllRocketsAsync())
   }
 }
