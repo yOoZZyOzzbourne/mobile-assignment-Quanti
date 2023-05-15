@@ -11,18 +11,7 @@ public struct RocketSecondStageCore: ReducerProtocol {
   public struct State: Equatable, Identifiable {
     public var id: String { rocket.id }
     public var rocket: Rocket
-    public var reusableSecondSt: String { rocket.secondStage.reusable ?? false ? "Reusable" : "Not reusable" }
-    public var firstFlight: String { "First flight: \(rocket.firstFlight)" }
-    public var enginesSecondSt: String { "\(rocket.secondStage.engines ?? 0) engines" }
-    public var fuelAmmountSecondSt: String { "\(rocket.secondStage.fuelAmountTons ?? 0) tons of fuel" }
-    public var burnTimeSecondSt: String {
-      if let burnTime = rocket.secondStage.burnTimeSEC {
-        return "\(burnTime) seconds burn time"
-      } else {
-        return "Data not available"
-      }
-    }
-    
+   
     public init(
       rocket: Rocket
     ) {

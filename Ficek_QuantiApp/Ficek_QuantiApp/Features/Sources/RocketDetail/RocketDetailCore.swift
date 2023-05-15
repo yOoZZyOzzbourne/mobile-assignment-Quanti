@@ -10,9 +10,8 @@ public struct RocketDetailCore: ReducerProtocol {
   
   public struct State: Equatable, Identifiable {
     public var id: String { rocket.id }
-    public var name: String { rocket.name }
     public var rocket: Rocket
-    public var firstFlight: String { "First flight: \(rocket.firstFlight)" }
+    public var name: String { rocket.name }
     
     public var rocketLaunch: RocketLaunchCore.State?
     public var rocketFirstStage: RocketFirstStageCore.State
