@@ -50,6 +50,7 @@ struct RocketListView_Previews: PreviewProvider {
         Store(
           initialState: RocketListCore.State(),
           reducer: RocketListCore()
+            .dependency(\.continuousClock, ImmediateClock())
         )
     )
   }

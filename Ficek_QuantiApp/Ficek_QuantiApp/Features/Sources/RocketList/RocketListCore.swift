@@ -31,6 +31,7 @@ public struct RocketListCore: ReducerProtocol {
   
   @Dependency(\.rocketClient.fetchAllRocketsCombine) var fetchAllRockets
   @Dependency(\.rocketClient.fetchAllRocketsAsync) var fetchAsync
+  @Dependency(\.continuousClock) var clock
   
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
@@ -45,6 +46,8 @@ public struct RocketListCore: ReducerProtocol {
         return .task {
           await .fetchAsync(
             TaskResult {
+              //This can be commented, only for testing Swift-Clocks
+              try await clock.sleep(for: .seconds(5))
               return try await fetchAsync()
             }
           )

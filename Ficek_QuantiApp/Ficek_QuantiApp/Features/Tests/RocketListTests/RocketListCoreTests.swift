@@ -45,6 +45,7 @@ final class RocketListCoreTests: XCTestCase {
     store.dependencies.rocketClient.fetchAllRocketsAsync = {
       [Rocket].mock
     }
+    store.dependencies.continuousClock = ImmediateClock()
     await store.send(.onAppear)
     
     await store.receive(.fetchAsync(.success([Rocket].mock))) {
