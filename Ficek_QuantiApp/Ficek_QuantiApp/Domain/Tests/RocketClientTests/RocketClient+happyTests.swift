@@ -29,7 +29,7 @@ final class RocketClient_happyTests: XCTestCase {
   
   func test_fetchAllRocketsCombine_sucessful() throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)
-    var valueRecievedCount = 0
+    var valueReceivedCount = 0
     let expectation = expectation(description: "Awaiting Success")
     var cancellables = Set<AnyCancellable>()
     let mockResponse = HTTPURLResponse(
@@ -70,13 +70,13 @@ final class RocketClient_happyTests: XCTestCase {
           }
         }, receiveValue: { rocket in
           XCTAssertNoDifference(rocket, [Rocket].mock)
-          valueRecievedCount += 1
+          valueReceivedCount += 1
         }
       )
       .store(in: &cancellables)
     
     waitForExpectations(timeout: 0.1)
-    XCTAssertEqual(valueRecievedCount, 1)
+    XCTAssertEqual(valueReceivedCount, 1)
   }
   
   func test_fetchAllRocketsAsync_sucessful() async throws {

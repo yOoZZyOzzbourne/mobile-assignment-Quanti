@@ -51,7 +51,7 @@ final class RocketClient_sadTests: XCTestCase {
               errorRecieved = true
               expectation.fulfill()
 
-          case .failure(_):
+          case .failure:
             XCTFail("Error should be networkError")
           }
         }, receiveValue: { _ in }
@@ -115,9 +115,7 @@ final class RocketClient_sadTests: XCTestCase {
             errorRecieved = true
             expectation.fulfill()
           }
-        }, receiveValue: { rocket in
-          XCTAssertNoDifference(rocket, [Rocket].mock)
-        }
+        }, receiveValue: { _ in }
       )
       .store(in: &cancellables)
     
