@@ -8,7 +8,7 @@ import RequestBuilder
 @testable import Networking
 @testable import RocketClient
 
-final class RocketClientSadTests: XCTestCase {
+final class RocketClient_sadTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
   
   func test_network_not_functioning_combine() throws {

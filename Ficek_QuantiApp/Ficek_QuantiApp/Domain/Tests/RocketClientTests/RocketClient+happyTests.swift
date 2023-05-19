@@ -8,7 +8,7 @@ import RequestBuilder
 @testable import Networking
 @testable import RocketClient
 
-final class RocketClientHappyTests: XCTestCase {
+final class RocketClient_happyTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
   var testScheduler: TestScheduler<DispatchQueue.SchedulerTimeType, DispatchQueue.SchedulerOptions>! = DispatchQueue.test
   
@@ -29,7 +29,7 @@ final class RocketClientHappyTests: XCTestCase {
   
   func test_fetchAllRocketsCombine_sucessful() throws {
     let successResponse = try JSONEncoder().encode([RocketDTO].mock)
-    var valueRecieved = false
+    var valueRecievedCount = 0
     let expectation = expectation(description: "Awaiting Success")
     var cancellables = Set<AnyCancellable>()
     let mockResponse = HTTPURLResponse(
@@ -65,18 +65,18 @@ final class RocketClientHappyTests: XCTestCase {
           switch completion {
           case .finished:
             expectation.fulfill()
-            valueRecieved = true
           case let .failure(error):
             XCTFail("\(error.causeName) - Fail")
           }
         }, receiveValue: { rocket in
           XCTAssertNoDifference(rocket, [Rocket].mock)
+          valueRecievedCount += 1
         }
       )
       .store(in: &cancellables)
     
     waitForExpectations(timeout: 0.1)
-    XCTAssertTrue(valueRecieved)
+    XCTAssertEqual(valueRecievedCount, 1)
   }
   
   func test_fetchAllRocketsAsync_sucessful() async throws {
