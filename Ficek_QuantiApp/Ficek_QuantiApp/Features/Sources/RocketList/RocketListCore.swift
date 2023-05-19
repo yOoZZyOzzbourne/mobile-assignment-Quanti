@@ -9,6 +9,8 @@ import ErrorReporting
 import ModelConvertible
 import TCAExtensions
 import UIToolkit
+import Clocks
+import Dependencies
 
 public struct RocketListCore: ReducerProtocol {
   
@@ -24,14 +26,15 @@ public struct RocketListCore: ReducerProtocol {
   public enum Action: Equatable {
     case rockets(id: RocketDetailCore.State.ID, action: RocketDetailCore.Action)
     case onAppear
-    case fetchRockets(Result<[Rocket], RocketError>)
+    case fetchCombine(Result<[Rocket], RocketError>)
     case alertCancelTapped
     case fetchAsync(TaskResult<[Rocket]>)
   }
-  
-  @Dependency(\.rocketClient.fetchAllRocketsCombine) var fetchAllRockets
-  @Dependency(\.rocketClient.fetchAllRocketsAsync) var fetchAsync
+    
+  @Dependency(\.rocketClient.fetchAllRocketsCombine) var fetchAllRocketsCombine
+  @Dependency(\.rocketClient.fetchAllRocketsAsync) var fetchAllRocketsAsync
   @Dependency(\.continuousClock) var clock
+  @Dependency(\.mainQueue) var mainQueue
   
   public var body: some ReducerProtocol<State, Action> {
     Reduce { state, action in
@@ -39,21 +42,22 @@ public struct RocketListCore: ReducerProtocol {
         
       case .onAppear:
         //MARK: Combine
-        //                return fetchAllRocketsCombine()
-        //                    .receive(on: DispatchQueue.main)
-        //                    .catchToEffect(Action.fetchRockets)
-        //MARK: Async
+//        return fetchAllRocketsCombine()
+//          .receive(on: mainQueue)
+//          .catchToEffect(Action.fetchCombine)
+//        MARK: Async
         return .task {
           await .fetchAsync(
             TaskResult {
               //This can be commented, only for testing Swift-Clocks
               try await clock.sleep(for: .seconds(5))
-              return try await fetchAsync()
+
+              return try await fetchAllRocketsAsync()
             }
           )
         }
         
-      case let .fetchRockets(.success(result)):
+      case let .fetchCombine(.success(result)):
         state.rocketItems = IdentifiedArrayOf(
           uniqueElements: result.map {
             RocketDetailCore.State(rocket: $0)
@@ -62,7 +66,7 @@ public struct RocketListCore: ReducerProtocol {
     
         return .none
         
-      case let .fetchRockets(.failure(error)):
+      case let .fetchCombine(.failure(error)):
         state.alert = .errorAlert(error: error)
         return .none
         

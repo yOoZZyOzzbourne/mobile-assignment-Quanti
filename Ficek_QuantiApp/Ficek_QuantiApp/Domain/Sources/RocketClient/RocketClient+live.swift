@@ -8,6 +8,7 @@ import ModelConvertible
 import ErrorReporting
 import NetworkClientDependency
 import Clocks
+import CombineSchedulers
 
 extension RocketClient: DependencyKey {
   
