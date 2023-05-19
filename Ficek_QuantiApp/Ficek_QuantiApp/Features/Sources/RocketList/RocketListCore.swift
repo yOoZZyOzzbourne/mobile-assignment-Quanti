@@ -43,7 +43,7 @@ public struct RocketListCore: ReducerProtocol {
       case .onAppear:
         //MARK: Combine
 //        return fetchAllRocketsCombine()
-//          .receive(on: mainQueue)
+//          .receive(on: mainQueue) //Chain with subscribe x recieve
 //          .catchToEffect(Action.fetchCombine)
 //        MARK: Async
         return .task {
