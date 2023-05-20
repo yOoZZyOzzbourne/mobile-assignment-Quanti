@@ -9,7 +9,7 @@ import ModelConvertible
 @testable import RocketClient
 import Networking
 
-final class RocketRonverterHappyTests: XCTestCase {
+final class RocketRonverterTests: XCTestCase {
   let rocketDTO = RocketDTO.mock
   let rocket = Rocket.mock
   

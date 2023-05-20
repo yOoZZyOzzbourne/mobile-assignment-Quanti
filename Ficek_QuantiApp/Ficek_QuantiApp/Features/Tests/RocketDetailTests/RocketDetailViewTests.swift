@@ -15,7 +15,7 @@ final class RocketDetailViewTests: XCTestCase {
     )
 
     let view = RocketDetailView(store: store)
-    var viewStore = view.viewStore
+    let viewStore = view.viewStore
     
     XCTAssertNoDifference(viewStore.name, Rocket.mock.name)
     XCTAssertNoDifference(viewStore.firstFlight, "First flight: \(Rocket.mock.firstFlight)")

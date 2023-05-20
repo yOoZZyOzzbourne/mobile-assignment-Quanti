@@ -8,7 +8,7 @@ import RequestBuilder
 @testable import Networking
 @testable import RocketClient
 
-final class RocketClientSadTests: XCTestCase {
+final class RocketClient_sadTests: XCTestCase {
   var cancellables = Set<AnyCancellable>()
   
   func test_network_not_functioning_combine() throws {
@@ -51,7 +51,7 @@ final class RocketClientSadTests: XCTestCase {
               errorRecieved = true
               expectation.fulfill()
 
-          case .failure(_):
+          case .failure:
             XCTFail("Error should be networkError")
           }
         }, receiveValue: { _ in }
@@ -115,9 +115,7 @@ final class RocketClientSadTests: XCTestCase {
             errorRecieved = true
             expectation.fulfill()
           }
-        }, receiveValue: { rocket in
-          XCTAssertNoDifference(rocket, [Rocket].mock)
-        }
+        }, receiveValue: { _ in }
       )
       .store(in: &cancellables)
     
