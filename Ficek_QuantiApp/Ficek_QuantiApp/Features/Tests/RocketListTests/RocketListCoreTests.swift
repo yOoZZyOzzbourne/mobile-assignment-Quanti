@@ -46,8 +46,10 @@ final class RocketListCoreTests: XCTestCase {
     store.dependencies.rocketClient.fetchAllRocketsAsync = {
       [Rocket].mock
     }
-    store.dependencies.continuousClock = ImmediateClock()
+    var clock = TestClock()
+    store.dependencies.continuousClock = clock
     await store.send(.onAppear)
+    await clock.advance(by: .seconds(5))
 
     await store.receive(.fetchAsync(.success([Rocket].mock))) {
       $0.rocketItems = IdentifiedArrayOf(
@@ -68,5 +70,5 @@ final class RocketListCoreTests: XCTestCase {
 //        uniqueElements: [Rocket].mock.map { RocketDetailCore.State(rocket: $0) }
 //      )
 //    }
-  }
+//  }
 }
