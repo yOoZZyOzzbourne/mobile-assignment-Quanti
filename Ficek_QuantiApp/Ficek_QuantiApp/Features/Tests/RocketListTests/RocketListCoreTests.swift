@@ -70,5 +70,5 @@ final class RocketListCoreTests: XCTestCase {
 //        uniqueElements: [Rocket].mock.map { RocketDetailCore.State(rocket: $0) }
 //      )
 //    }
-//  }
+  }
 }
