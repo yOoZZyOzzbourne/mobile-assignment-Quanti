@@ -9,24 +9,12 @@ import RocketClient
 final class RocketDetailViewTests: XCTestCase {
   
   func test_viewState_init_rocketDetail() async {
-    let store = Store(
-      initialState: RocketDetailCore.State(rocket: .mock),
-      reducer: RocketDetailCore()
-    )
-
-    let view = RocketDetailView(store: store)
-    let viewStore = view.viewStore
+    let viewStore = RocketDetailView.ViewState(state: .init(rocket: .mock))
     
     XCTAssertNoDifference(viewStore.name, Rocket.mock.name)
     XCTAssertNoDifference(viewStore.firstFlight, "First flight: \(Rocket.mock.firstFlight)")
     
-    let store2 = Store(
-      initialState: RocketDetailCore.State(rocket: .mock2),
-      reducer: RocketDetailCore()
-    )
-    
-    let view2 = RocketDetailView(store: store2)
-    let viewStore2 = view2.viewStore
+    let viewStore2 = RocketDetailView.ViewState(state: .init(rocket: .mock2))
     
     XCTAssertNoDifference(viewStore2.name, Rocket.mock2.name)
     XCTAssertNoDifference(viewStore2.firstFlight, "First flight: \(Rocket.mock2.firstFlight)")

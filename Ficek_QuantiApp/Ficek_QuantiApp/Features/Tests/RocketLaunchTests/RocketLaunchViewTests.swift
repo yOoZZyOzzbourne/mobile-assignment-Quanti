@@ -6,16 +6,10 @@ import RocketLaunch
 import RocketClient
 
 @MainActor
-final class RocketDetailViewTests: XCTestCase {
+final class RocketLaunchViewTests: XCTestCase {
   
   func test_viewState_init_rocketLaunch() async {
-    let store = Store(
-      initialState: RocketLaunchCore.State(),
-      reducer: RocketLaunchCore()
-    )
-
-    let view = RocketLaunchView(store: store)
-    let viewStore = view.viewStore
+    let viewStore = RocketLaunchView.ViewState(state: .init())
     
     XCTAssertNoDifference(viewStore.isFlying, false)
     XCTAssertNoDifference(viewStore.image, .rocketIdle)
