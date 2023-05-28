@@ -11,12 +11,16 @@ public struct RocketLaunchView: View {
     public let launchText: String
     public let animation: Animation
     public let isFlying: Bool
+    public let positionY: Double
+    public let positionX: Double
     
-   public init(state: RocketLaunchCore.State) {
+    public init(state: RocketLaunchCore.State) {
       self.image = state.isFlying ? .rocketFlying : .rocketIdle
       self.launchText = state.isFlying ? "Launch successfull!" : "Lift the phone to launch the rocket"
       self.animation = Animation.spring()
       self.isFlying = state.isFlying
+      self.positionY = state.positionY < -400 ? -400 : state.positionY
+      self.positionX = state.positionX < -150 ? -150 : state.positionX
     }
   }
   
@@ -32,9 +36,10 @@ public struct RocketLaunchView: View {
           .padding()
           .frame(
             width: geo.size.width,
-            height: 1000,
-            alignment: viewStore.isFlying ? .top : .center
+            height: 1000
+//            alignment: .center
           )
+          .offset(x: viewStore.positionX ,y: viewStore.positionY)
           .animation(viewStore.animation, value: viewStore.isFlying)
         
         Text(viewStore.launchText)

@@ -37,7 +37,7 @@ extension RocketClient: DependencyKey {
           throw NetworkError.invalidResponse
         }
         //This can be commented, only for testing Swift-Clocks
-        try await clock.sleep(for: .seconds(5))
+//        try await clock.sleep(for: .seconds(5))
         
         return result
       }

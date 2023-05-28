@@ -50,8 +50,7 @@ public struct RocketListCore: ReducerProtocol {
           await .fetchAsync(
             TaskResult {
               //This can be commented, only for testing Swift-Clocks
-              try await clock.sleep(for: .seconds(5))
-
+//              try await clock.sleep(for: .seconds(5))
               return try await fetchAllRocketsAsync()
             }
           )
