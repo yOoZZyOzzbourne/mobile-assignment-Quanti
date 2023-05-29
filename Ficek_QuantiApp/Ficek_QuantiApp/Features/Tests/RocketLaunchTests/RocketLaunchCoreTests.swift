@@ -17,16 +17,27 @@ final class RocketLaunchCoreTests: XCTestCase {
       reducer: RocketLaunchCore()
     )
     store.dependencies.coreMotionClient.yRotationRate = { que in
-      AsyncThrowingStream<Double, Error> { continuation in
-        continuation.yield(3.1)
+      AsyncThrowingStream<(Double, Double), Error> { continuation in
+        continuation.yield((2,2))
         continuation.finish()
       }
     }
     
-    await store.send(.flying(0))
+    await store.send(.flying(0,0))
+    await store.send(.flying(2,0))
     await store.send(.onAppear)
-    await store.receive(.flying(3.1)) {
+    await store.receive(.flying(2,2)) {
       $0.isFlying = true
+    }
+    
+    await store.send(.flying(0,5)) {
+      $0.isFlying = true
+      $0.positionY = -(5 * store.state.positionMultiplier)
+    }
+    
+    await store.send(.flying(5,0)) {
+      $0.isFlying = true
+      $0.positionX = (5 * store.state.positionMultiplier)
     }
   }
 }

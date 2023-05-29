@@ -12,6 +12,9 @@ public struct RocketLaunchCore: ReducerProtocol {
     public var flyingXindex: Double = 0
     public var positionY: Double = 0
     public var positionX: Double = 0
+    public let positionMultiplier: Double = 5
+    public let startPosition: Double = 0
+    public let enoughToFly: Double = 1.5
     
     public init() { }
   }
@@ -34,18 +37,14 @@ public struct RocketLaunchCore: ReducerProtocol {
       
     case let .flying(resultX, resultY):
       if state.isFlying == true {
-        if state.positionY > 0 {
+        if state.positionY > state.startPosition {
           state.isFlying = false
         }
        
-        state.positionY -= resultY * 5
-        if state.positionX > 150 {
-          state.positionX = 150
-        } else {
-          state.positionX += resultX * 5
-        }
+        state.positionY -= resultY * state.positionMultiplier
+        state.positionX += resultX * state.positionMultiplier
       }
-      if resultY > 1.5 {
+      if resultY > state.enoughToFly {
         state.isFlying = true
       }
       

@@ -14,5 +14,7 @@ final class RocketLaunchViewTests: XCTestCase {
     XCTAssertNoDifference(viewStore.isFlying, false)
     XCTAssertNoDifference(viewStore.image, .rocketIdle)
     XCTAssertNoDifference(viewStore.launchText, "Lift the phone to launch the rocket")
+    XCTAssertNoDifference(viewStore.positionX, 0)
+    XCTAssertNoDifference(viewStore.positionY, 0)
   }
 }
