@@ -12,6 +12,7 @@ public struct RocketLaunchCore: ReducerProtocol {
     public var flyingXindex: Double = 0
     public var positionY: Double = 0
     public var positionX: Double = 0
+    public var positionZ: Double = 0
     public let positionMultiplier: Double = 5
     public let startPosition: Double = 0
     public let enoughToFly: Double = 1.5
@@ -21,7 +22,7 @@ public struct RocketLaunchCore: ReducerProtocol {
   
   public enum Action: Equatable {
     case onAppear
-    case flying(Double, Double)
+    case flying(Double, Double, Double)
   }
   
   @Dependency(\.coreMotionClient) var coreMotionClient
@@ -30,19 +31,19 @@ public struct RocketLaunchCore: ReducerProtocol {
     switch action {
     case .onAppear:
       return .run { send in
-        for try await event in try await self.coreMotionClient.yRotationRate(OperationQueue()) {
-          await send(.flying(event.0, event.1))
+        for try await event in try await self.coreMotionClient.rotationRate(OperationQueue()) {
+          await send(.flying(event.0, event.1, event.2))
         }
       }
       
-    case let .flying(resultX, resultY):
+    case let .flying(resultX, resultY, resultZ):
       if state.isFlying == true {
         if state.positionY > state.startPosition {
           state.isFlying = false
         }
-       
+//      state.positionX += resultX * state.positionMultiplier
         state.positionY -= resultY * state.positionMultiplier
-        state.positionX += resultX * state.positionMultiplier
+        state.positionZ -= resultZ
       }
       if resultY > state.enoughToFly {
         state.isFlying = true

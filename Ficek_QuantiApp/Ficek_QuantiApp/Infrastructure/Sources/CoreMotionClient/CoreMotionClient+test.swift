@@ -5,6 +5,6 @@ import XCTestDynamicOverlay
 
 extension CoreMotionClient: TestDependencyKey {
   public static let testValue = CoreMotionClient(
-    yRotationRate: unimplemented("\(Self.self).xRotationRate")
+    rotationRate: unimplemented("\(Self.self).xRotationRate")
   )
 }

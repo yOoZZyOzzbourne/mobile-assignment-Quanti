@@ -15,6 +15,7 @@ public extension Image {
     static let rocketIdle = Image("Rocket Idle")
     static let rocket = Image("Rocket")
     static let rocketError = Image("rocketError")
+    static let starsStationary = Image("starsStationary")
 }
 
 public extension Image {

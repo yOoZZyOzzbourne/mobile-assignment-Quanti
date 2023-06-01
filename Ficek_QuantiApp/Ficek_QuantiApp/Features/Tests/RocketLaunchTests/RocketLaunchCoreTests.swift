@@ -16,7 +16,7 @@ final class RocketLaunchCoreTests: XCTestCase {
       initialState: RocketLaunchCore.State(),
       reducer: RocketLaunchCore()
     )
-    store.dependencies.coreMotionClient.yRotationRate = { que in
+    store.dependencies.coreMotionClient.RotationRate = { que in
       AsyncThrowingStream<(Double, Double), Error> { continuation in
         continuation.yield((2,2))
         continuation.finish()
