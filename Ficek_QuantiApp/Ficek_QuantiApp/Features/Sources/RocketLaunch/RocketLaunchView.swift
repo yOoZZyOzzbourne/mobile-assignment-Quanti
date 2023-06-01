@@ -56,7 +56,7 @@ public struct RocketLaunchView: View {
               width: geo.size.width,
               height: 1000
             )
-            .offset(x: viewStore.positionX ,y: viewStore.positionY)
+            .offset(x: viewStore.positionX, y: viewStore.positionY)
             .rotationEffect(Angle(degrees: viewStore.positionZ))
             .animation(viewStore.animation, value: viewStore.isFlying)
           
