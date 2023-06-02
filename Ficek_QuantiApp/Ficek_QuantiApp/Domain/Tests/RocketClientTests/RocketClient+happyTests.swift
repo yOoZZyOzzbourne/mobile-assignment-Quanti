@@ -104,6 +104,7 @@ final class RocketClient_happyTests: XCTestCase {
     
     let sut = withDependencies { dependency in
       dependency.networkClient = networkClient
+      dependency.continuousClock = ImmediateClock()
     } operation: {
       RocketClient.liveValue
     }
