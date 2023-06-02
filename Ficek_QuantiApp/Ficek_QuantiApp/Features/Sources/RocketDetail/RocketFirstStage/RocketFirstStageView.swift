@@ -3,11 +3,30 @@ import ComposableArchitecture
 import RocketLaunch
 import UIToolkit
 
-struct RocketFirstStageView: View {
+public struct RocketFirstStageView: View {
   let store: StoreOf<RocketFirstStageCore>
+  @ObservedObject public var viewStore: ViewStore<ViewState, RocketFirstStageCore.Action>
   
-  var body: some View {
-    WithViewStore(self.store) { viewStore in
+  public struct ViewState: Equatable {
+    public let reusableFirstSt: LocalizedStringKey
+    public let enginesFirstSt: LocalizedStringKey
+    public let fuelAmmountFirstSt: String
+    public let burnTimeFirstSt: LocalizedStringKey
+    
+    public init(state: RocketFirstStageCore.State) {
+      self.reusableFirstSt = state.rocket.firstStage.reusable ?? false ? .reusable : .notReusable
+      self.enginesFirstSt = .engines(state.rocket.firstStage.engines ?? 0)
+      self.fuelAmmountFirstSt = "\(state.rocket.firstStage.fuelAmountTons ?? 0) tons of fuel"
+      self.burnTimeFirstSt = .secondsBurnTime(state.rocket.firstStage.burnTimeSEC ?? 0)
+    }
+  }
+  
+  public init(store: StoreOf<RocketFirstStageCore>) {
+    self.store = store
+    self.viewStore = ViewStore(store, observe: { ViewState(state: $0) })
+  }
+  
+  public var body: some View {
       VStack(alignment: .leading, spacing: 16){
         Text("First Stage")
           .font(.headline)
@@ -35,7 +54,6 @@ struct RocketFirstStageView: View {
       .frame(maxWidth: .infinity, alignment: .leading)
       .background(Color(.gray).opacity(0.2))
       .clipShape(RoundedRectangle(cornerRadius: 8))
-    }
   }
 }
 

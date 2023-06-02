@@ -30,7 +30,9 @@ final class RocketListCoreTests: XCTestCase {
       $0.alert = nil
     }
     
-    await store.send(.fetchRockets(.failure(.networkError)))
+    await store.send(.fetchRockets(.failure(.networkError))) {
+      $0.alert = .errorAlert(error: RocketError.networkError)
+    }
     
     await store.send(.fetchRockets(.success([Rocket].mockTest))) {
       $0.rocketItems = IdentifiedArrayOf(

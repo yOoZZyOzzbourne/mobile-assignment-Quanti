@@ -44,6 +44,53 @@ extension Rocket {
   )
 }
 
+extension Rocket {
+  public static let mock2: Self = Rocket(
+    id: "5e9d0d95eda69973a809d1ec",
+    firstFlight: "2010-06-04",
+    height: Height(
+      meters: 70.0,
+      feet: 229.6
+    ),
+    diameter: Diameter(
+      meters: 3.7,
+      feet: 12.0
+    ),
+    mass: Mass(
+      kg: 549054,
+      lb: 1207920
+    ),
+    firstStage: FirstStage(
+      reusable: true,
+      engines: 9,
+      fuelAmountTons: 385.0,
+      burnTimeSEC: 162
+    ),
+    secondStage: SecondStage(
+      reusable: false,
+      engines: 1,
+      fuelAmountTons: 90.0,
+      burnTimeSEC: 397
+    ),
+    engines: Engines(
+      number: 9,
+      type: "merlin",
+      version: "1D+"
+    ),
+    flickrImages: [
+      "https://farm1.staticflickr.com/929/28787338307_3453a11a77_b.jpg",
+      "https://farm4.staticflickr.com/3955/32915197674_eee74d81bb_b.jpg",
+      "https://farm1.staticflickr.com/293/32312415025_6841e30bf1_b.jpg",
+      "https://farm1.staticflickr.com/623/23660653516_5b6cb301d1_b.jpg",
+      "https://farm6.staticflickr.com/5518/31579784413_d853331601_b.jpg",
+      "https://farm1.staticflickr.com/745/32394687645_a9c54a34ef_b.jpg"
+    ],
+    description: "Falcon 9 is a two-stage rocket designed and manufactured by SpaceX for the reliable and safe transport of satellites and the Dragon spacecraft into orbit.",
+    name: "Falcon 9",
+    type: "rocket"
+  )
+}
+
 extension RocketDTO {
   public static let mock: Self = RocketDTO(
     id: "5e9d0d95eda69955f709d1eb",

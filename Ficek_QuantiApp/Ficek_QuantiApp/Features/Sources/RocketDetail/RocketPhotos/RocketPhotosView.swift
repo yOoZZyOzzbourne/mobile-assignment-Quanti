@@ -2,33 +2,44 @@ import SwiftUI
 import ComposableArchitecture
 import RocketLaunch
 
-struct RocketPhotosView: View {
+public struct RocketPhotosView: View {
   let store: StoreOf<RocketPhotosCore>
+  @ObservedObject public var viewStore: ViewStore<ViewState, RocketPhotosCore.Action>
   
-  var body: some View {
-    WithViewStore(self.store) { viewStore in
-      VStack(alignment: .leading) {
-        Text("Photos")
-          .font(.headline)
-          .padding(.leading, 16)
-        
-        ForEach (viewStore.rocket.flickrImages, id: \.self) { image in
-          
-          AsyncImage(
-            url: URL(string: image),
-            content: {
-              $0
-                .resizable()
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .scaledToFit()
-                .padding(15)
-            },
-            placeholder: {
-              ProgressView()
-            }
-          )
-        }
+  public struct ViewState: Equatable {
+    public let rocketImages: [String]
+    
+    public init(state: RocketPhotosCore.State) {
+      self.rocketImages = state.rocket.flickrImages
+    }
+  }
+  
+  public init(store: StoreOf<RocketPhotosCore>) {
+    self.store = store
+    self.viewStore = ViewStore(store, observe: { ViewState(state: $0) })
+  }
+  
+  public var body: some View {
+    VStack(alignment: .leading) {
+      Text("Photos")
+        .font(.headline)
+        .padding(.leading, 16)
+      
+      ForEach (viewStore.rocketImages, id: \.self) { image in
+        AsyncImage(
+          url: URL(string: image),
+          content: {
+            $0
+              .resizable()
+              .clipShape(RoundedRectangle(cornerRadius: 8))
+              .frame(maxWidth: .infinity, maxHeight: .infinity)
+              .scaledToFit()
+              .padding(15)
+          },
+          placeholder: {
+            ProgressView()
+          }
+        )
       }
     }
   }
