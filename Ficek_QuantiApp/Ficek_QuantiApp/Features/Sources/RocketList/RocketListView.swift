@@ -29,7 +29,7 @@ public struct RocketListView: View {
                   )
                 }
           }
-          .navigationTitle("Rockets")
+          .navigationTitle(LocalizedStringKey.rockets)
           .onAppear {
             viewStore.send(.onAppear)
           }

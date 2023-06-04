@@ -20,10 +20,6 @@ let package = Package(
       targets: ["RocketList"]
     ),
     .library(
-      name: "RocketErrorView",
-      targets: ["RocketErrorView"]
-    ),
-    .library(
       name: "TCAExtensions",
       targets: ["TCAExtensions"]
     ),
@@ -91,15 +87,6 @@ let package = Package(
         "RocketLaunch",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
         .product(name: "RocketClient", package: "Domain"),
-      ]
-    ),
-    .target(
-      name: "RocketErrorView",
-      dependencies: [
-        "TCAExtensions",
-        .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "RocketClient", package: "Domain"),
-        .product(name: "UIToolkit", package: "Infrastructure"),
       ]
     ),
     .target(

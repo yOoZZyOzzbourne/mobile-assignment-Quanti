@@ -11,6 +11,7 @@
 		F07059422A01B0100076B3D1 /* Resources.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F07059412A01B0100076B3D1 /* Resources.xcassets */; };
 		F074D22429EB18AF00D1ADAB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F074D22329EB18AF00D1ADAB /* README.md */; };
 		F0A41DEE29E2384400EEF7DC /* RocketDetail in Frameworks */ = {isa = PBXBuildFile; productRef = F0A41DED29E2384400EEF7DC /* RocketDetail */; };
+		F0CB8C092A27A5D600FD0D40 /* FLAnimatedImage in Frameworks */ = {isa = PBXBuildFile; productRef = F0CB8C082A27A5D600FD0D40 /* FLAnimatedImage */; };
 		F0E0A96729A83B22004760E7 /* Ficek_QuantiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E0A96629A83B22004760E7 /* Ficek_QuantiApp.swift */; };
 		F0E0A99629A96465004760E7 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = F0E0A99529A96465004760E7 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,7 @@
 				F0A41DEE29E2384400EEF7DC /* RocketDetail in Frameworks */,
 				F04E96F429E23BD1008BDB1A /* RocketList in Frameworks */,
 				F0E0A99629A96465004760E7 /* ComposableArchitecture in Frameworks */,
+				F0CB8C092A27A5D600FD0D40 /* FLAnimatedImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +98,7 @@
 				F0E0A99529A96465004760E7 /* ComposableArchitecture */,
 				F0A41DED29E2384400EEF7DC /* RocketDetail */,
 				F04E96F329E23BD1008BDB1A /* RocketList */,
+				F0CB8C082A27A5D600FD0D40 /* FLAnimatedImage */,
 			);
 			productName = Ficek_QuantiApp;
 			productReference = F0E0A96329A83B22004760E7 /* Ficek_QuantiApp.app */;
@@ -128,6 +131,8 @@
 			packageReferences = (
 				F0E0A99429A96465004760E7 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				F0EB21B729DECBFA00AD42F9 /* XCRemoteSwiftPackageReference "swift-core" */,
+				F0CB8C072A27A5D500FD0D40 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */,
+				F055FDDC2A2808940010130D /* XCRemoteSwiftPackageReference "SwiftyGif" */,
 			);
 			productRefGroup = F0E0A96429A83B22004760E7 /* Products */;
 			projectDirPath = "";
@@ -356,6 +361,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F055FDDC2A2808940010130D /* XCRemoteSwiftPackageReference "SwiftyGif" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kirualex/SwiftyGif.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		F0CB8C072A27A5D500FD0D40 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Flipboard/FLAnimatedImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		F0E0A99429A96465004760E7 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
@@ -382,6 +403,11 @@
 		F0A41DED29E2384400EEF7DC /* RocketDetail */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RocketDetail;
+		};
+		F0CB8C082A27A5D600FD0D40 /* FLAnimatedImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F0CB8C072A27A5D500FD0D40 /* XCRemoteSwiftPackageReference "FLAnimatedImage" */;
+			productName = FLAnimatedImage;
 		};
 		F0E0A99529A96465004760E7 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -46,7 +46,7 @@ final class RocketListCoreTests: XCTestCase {
     store.dependencies.rocketClient.fetchAllRocketsAsync = {
       [Rocket].mock
     }
-    var clock = TestClock()
+    let clock = TestClock()
     store.dependencies.continuousClock = clock
     await store.send(.onAppear)
     await clock.advance(by: .seconds(5))
