@@ -26,7 +26,6 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.9.0"),
-    .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", branch: "master"),
     .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
     .package(path: "../Domain/"),
     .package(path: "../Infrastructure/"),
@@ -36,12 +35,8 @@ let package = Package(
       name: "RocketLaunch",
       dependencies: [
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-        .product(name: "FLAnimatedImage", package: "FLAnimatedImage"),
         .product(name: "CoreMotionClient", package: "Infrastructure"),
         .product(name: "UIToolkit", package: "Infrastructure"),
-      ],
-      resources: [
-        .process("stars.gif")
       ]
     ),
     .testTarget(

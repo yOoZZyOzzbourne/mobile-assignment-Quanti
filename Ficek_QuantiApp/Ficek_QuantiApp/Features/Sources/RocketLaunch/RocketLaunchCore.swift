@@ -36,11 +36,12 @@ public struct RocketLaunchCore: ReducerProtocol {
         }
       }
       
-    case let .flying(resultX, resultY, resultZ):
+    case let .flying(_, resultY, resultZ):
       if state.isFlying == true {
         if state.positionY > state.startPosition {
           state.isFlying = false
         }
+        // The positionX is used when user wants to tilt the phone to the left or to the right on the X axis, switched to Z for better user experience.
 //      state.positionX += resultX * state.positionMultiplier
         state.positionY -= resultY * state.positionMultiplier
         state.positionZ -= resultZ

@@ -24,7 +24,9 @@ public struct RocketLaunchView: View {
       self.launchText = isFlying ? "Launch successfull!" : "Lift the phone to launch the rocket"
       self.animation = Animation.spring()
       self.positionY = state.positionY < maxTopPosition ? maxTopPosition : state.positionY
-      self.positionX = state.positionX < maxLeftPosition ? maxLeftPosition : (state.positionX > maxRightPosition ? maxRightPosition : state.positionX)
+      self.positionX = state.positionX < maxLeftPosition
+        ? maxLeftPosition
+        : (state.positionX > maxRightPosition ? maxRightPosition : state.positionX)
       self.positionZ = state.positionZ
     }
   }

@@ -27,6 +27,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/Qase/swift-core", branch: "develop"),
+    .package(url: "https://github.com/Flipboard/FLAnimatedImage.git", branch: "master"),
     .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "0.1.4"),
   ],
   targets: [
@@ -49,7 +50,12 @@ let package = Package(
     ),
     .target(
       name: "UIToolkit",
-      dependencies: []
+      dependencies: [
+        .product(name: "FLAnimatedImage", package: "FLAnimatedImage")
+      ],
+      resources: [
+        .process("Resources/stars.gif")
+      ]
     ),
   ]
 )
