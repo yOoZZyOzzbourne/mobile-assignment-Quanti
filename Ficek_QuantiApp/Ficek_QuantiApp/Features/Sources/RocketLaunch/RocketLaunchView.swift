@@ -23,10 +23,11 @@ public struct RocketLaunchView: View {
       self.image = isFlying ? .rocketFlying : .rocketIdle
       self.launchText = isFlying ? "Launch successfull!" : "Lift the phone to launch the rocket"
       self.animation = Animation.spring()
-      self.positionY = state.positionY < maxTopPosition ? maxTopPosition : state.positionY
-      self.positionX = state.positionX < maxLeftPosition
+      //MARK: Due to mismatch in Coordinates from CoreMotion and SwiftUI, position Y is defined by state.positionX and vise versa
+      self.positionY = state.positionX < maxTopPosition ? maxTopPosition : state.positionX
+      self.positionX = state.positionY < maxLeftPosition
         ? maxLeftPosition
-        : (state.positionX > maxRightPosition ? maxRightPosition : state.positionX)
+        : (state.positionY > maxRightPosition ? maxRightPosition : state.positionY)
       self.positionZ = state.positionZ
     }
   }
@@ -58,7 +59,7 @@ public struct RocketLaunchView: View {
               width: geo.size.width,
               height: 1000
             )
-            .offset(x: viewStore.positionX, y: viewStore.positionY)
+            .offset(y: viewStore.positionY)
             .rotationEffect(Angle(degrees: viewStore.positionZ))
             .animation(viewStore.animation, value: viewStore.isFlying)
           

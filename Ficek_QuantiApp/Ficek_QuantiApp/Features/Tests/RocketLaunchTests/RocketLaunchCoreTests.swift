@@ -32,7 +32,7 @@ final class RocketLaunchCoreTests: XCTestCase {
     
     await store.send(.flying(Coordinates(x: 0, y: 5, z: 0))) {
       $0.isFlying = true
-      $0.positionY = -(5 * store.state.positionMultiplier)
+      $0.positionX = -(5 * store.state.positionMultiplier)
     }
     
     await store.send(.flying(Coordinates(x: 0, y: 0, z: 5))) {

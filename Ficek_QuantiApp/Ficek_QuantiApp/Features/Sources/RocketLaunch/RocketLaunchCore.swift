@@ -10,8 +10,8 @@ public struct RocketLaunchCore: ReducerProtocol {
   public struct State: Equatable {
     public var isFlying: Bool = false
     public var flyingXindex: Double = 0
-    public var positionY: Double = 0
     public var positionX: Double = 0
+    public var positionY: Double = 0
     public var positionZ: Double = 0
     public let positionMultiplier: Double = 5
     public let startPosition: Double = 0
@@ -38,15 +38,15 @@ public struct RocketLaunchCore: ReducerProtocol {
       
     case let .flying(result):
       if state.isFlying == true {
-        if state.positionY > state.startPosition {
+        if state.positionX > state.startPosition {
           state.isFlying = false
         }
-        // The positionX is used when user wants to tilt the phone to the left or to the right on the X axis, switched to Z for better user experience.
-//      state.positionX += result.x * state.positionMultiplier
-        state.positionY -= result.y * state.positionMultiplier
+        // The positionY is used when user wants to tilt the phone to the left or to the right on the X axis, switched to Z for better user experience.
+//      state.positionY += result.y * state.positionMultiplier
+        state.positionX -= result.x * state.positionMultiplier
         state.positionZ -= result.z
       }
-      if result.y > state.enoughToFly {
+      if result.x > state.enoughToFly {
         state.isFlying = true
       }
       
