@@ -22,7 +22,7 @@ public struct RocketLaunchCore: ReducerProtocol {
   
   public enum Action: Equatable {
     case onAppear
-    case flying(Double, Double, Double)
+    case flying(Coordinates)
   }
   
   @Dependency(\.coreMotionClient) var coreMotionClient
@@ -32,21 +32,21 @@ public struct RocketLaunchCore: ReducerProtocol {
     case .onAppear:
       return .run { send in
         for try await event in try await self.coreMotionClient.rotationRate(OperationQueue()) {
-          await send(.flying(event.0, event.1, event.2))
+          await send(.flying(event))
         }
       }
       
-    case let .flying(_, resultY, resultZ):
+    case let .flying(result):
       if state.isFlying == true {
         if state.positionY > state.startPosition {
           state.isFlying = false
         }
         // The positionX is used when user wants to tilt the phone to the left or to the right on the X axis, switched to Z for better user experience.
-//      state.positionX += resultX * state.positionMultiplier
-        state.positionY -= resultY * state.positionMultiplier
-        state.positionZ -= resultZ
+//      state.positionX += result.x * state.positionMultiplier
+        state.positionY -= result.y * state.positionMultiplier
+        state.positionZ -= result.z
       }
-      if resultY > state.enoughToFly {
+      if result.y > state.enoughToFly {
         state.isFlying = true
       }
       

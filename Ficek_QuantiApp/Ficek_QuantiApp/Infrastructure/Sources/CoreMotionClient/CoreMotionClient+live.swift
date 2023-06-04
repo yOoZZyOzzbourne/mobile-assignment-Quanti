@@ -10,11 +10,17 @@ extension CoreMotionClient: DependencyKey {
     
     return Self(
       rotationRate: { queue in
-        AsyncThrowingStream<(Double, Double, Double), Error> { continuation in
+        AsyncThrowingStream<Coordinates, Error> { continuation in
           motionManager.gyroUpdateInterval = 1/60
           motionManager.startGyroUpdates(to: queue) { gyroData, error in
             if let gyroData {
-              continuation.yield((gyroData.rotationRate.y, gyroData.rotationRate.x, gyroData.rotationRate.z))
+              continuation.yield(
+                Coordinates(
+                  x: gyroData.rotationRate.x,
+                  y: gyroData.rotationRate.y,
+                  z: gyroData.rotationRate.z
+                )
+              )
             } else if let error {
               continuation.finish(throwing: error)
             }
